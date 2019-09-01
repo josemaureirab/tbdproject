@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 @Component
 public class UserMapper {
     public User mapToModel(UserDto userDto){
@@ -16,6 +17,7 @@ public class UserMapper {
         user.setLastName(userDto.getLastName());
         user.setRut(userDto.getRut());
         user.setAge(userDto.getAge());
+        user.setRole(userDto.getRole());
         return user;
     }
 
@@ -26,6 +28,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setRut(user.getRut());
         userDto.setAge(user.getAge());
+        userDto.setRole(user.getRole());
         return userDto;
     }
 
@@ -38,7 +41,5 @@ public class UserMapper {
 
         }
         return userDtoList;
-
     }
-
 }

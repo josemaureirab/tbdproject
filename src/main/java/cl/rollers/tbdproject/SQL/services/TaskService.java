@@ -40,11 +40,11 @@ public class TaskService {
 
     }
 
-    public void updateTaskData(TaskDto guestDto, int id){
+    public void updateTaskData(TaskDto taskDto, int id){
         Task taskFinded = taskDao.findTaskById(id);
-        taskFinded.setName(guestDto.getName());
-        taskFinded.setDescription(guestDto.getDescription());
-        taskFinded.setStatus(guestDto.getStatus());
+        taskFinded.setName(taskDto.getName());
+        taskFinded.setDescription(taskDto.getDescription());
+        taskFinded.setStatus(taskDto.getStatus());
         taskDao.save(taskFinded);
     }
 

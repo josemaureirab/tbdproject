@@ -44,6 +44,7 @@ public class UserService {
         userFinded.setLastName(userDto.getLastName());
         userFinded.setRut(userDto.getLastName());
         userFinded.setAge(userDto.getAge());
+        userFinded.setRole(userDto.getRole());
     }
 
 

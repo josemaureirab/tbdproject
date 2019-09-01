@@ -31,4 +31,8 @@ public class User {
     @NonNull
     @Column(name = "age")
     private Integer age;
+
+    @ManyToOne
+    @JoinColumn
+    private Role role;
 }

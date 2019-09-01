@@ -26,7 +26,7 @@ public class VoluntaryService {
 
     public List<VoluntaryDto> getAllVoluntaries(){
         List<Voluntary> voluntaryList = voluntaryDao.findAll();
-        return voluntaryMapper.mapToDoArrayList(voluntaryList);
+        return voluntaryMapper.mapToDtoArrayList(voluntaryList);
     }
 
     public VoluntaryDto findVoluntaryById(Integer id){

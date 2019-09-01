@@ -1,6 +1,5 @@
 package cl.rollers.tbdproject.SQL.models;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -10,9 +9,8 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name= "task")
-public class Task {
-
+@Table(name= "emergencies")
+public class Emergency {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_SEQ")
     @SequenceGenerator(name = "TASK_SEQ", sequenceName = "SEQ_TASK", allocationSize = 1)
@@ -25,9 +23,4 @@ public class Task {
     @NonNull
     @Column(name = "description")
     private String description;
-
-    @NonNull
-    @Column(name = "status")
-    private Boolean status;
-    
 }

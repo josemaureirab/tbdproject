@@ -29,7 +29,7 @@ public class VoluntaryMapper {
         return voluntaryDto;
     }
 
-    public List<VoluntaryDto> mapToDoArrayList(List<Voluntary> voluntaryList){
+    public List<VoluntaryDto> mapToDtoArrayList(List<Voluntary> voluntaryList){
         List<VoluntaryDto> voluntaryDtoList = new ArrayList<>();
         for (Voluntary voluntary: voluntaryList){
             VoluntaryDto voluntaryDto = new VoluntaryDto();

@@ -58,10 +58,10 @@ public class TaskController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody TaskDto guestDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody TaskDto taskDto){
 
         try{
-            taskService.updateTaskData(guestDto, id);
+            taskService.updateTaskData(taskDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 

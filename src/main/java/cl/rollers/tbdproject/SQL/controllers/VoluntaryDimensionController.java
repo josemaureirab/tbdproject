@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.SQL.controllers;
 
-import cl.rollers.tbdproject.SQL.dto.VoluntaryEmergencyDto;
-import cl.rollers.tbdproject.SQL.services.VoluntaryEmergencyService;
+import cl.rollers.tbdproject.SQL.dto.VoluntaryDimensionDto;
+import cl.rollers.tbdproject.SQL.services.VoluntaryDimensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,16 +10,16 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/voluntaryEmergencies")
-public class VoluntaryEmergencyController {
+@RequestMapping("/voluntaryDimensions")
+public class VoluntaryDimensionController {
     @Autowired
-    private VoluntaryEmergencyService voluntaryEmergencyService;
+    private VoluntaryDimensionService voluntaryDimensionService;
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<VoluntaryEmergencyDto>> getAllVoluntaryEmergencies(){
+    public ResponseEntity<List<VoluntaryDimensionDto>> getAllVoluntaryDimension(){
         try{
-            return ResponseEntity.ok(voluntaryEmergencyService.getAllVoluntaryEmergencies());
+            return ResponseEntity.ok(voluntaryDimensionService.getAllVoluntaryDimensions());
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -27,9 +27,9 @@ public class VoluntaryEmergencyController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<VoluntaryEmergencyDto> findVoluntaryEmergencyById (@PathVariable("id") Integer id){
+    public ResponseEntity<VoluntaryDimensionDto> findVoluntaryDimensionById (@PathVariable("id") Integer id){
         try{
-            return ResponseEntity.ok(voluntaryEmergencyService.findVoluntaryEmergencyById(id));
+            return ResponseEntity.ok(voluntaryDimensionService.findVoluntaryDimensionById(id));
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -38,9 +38,9 @@ public class VoluntaryEmergencyController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity createVoluntaryEmergency (@RequestBody VoluntaryEmergencyDto voluntaryEmergencyDto){
+    public ResponseEntity createVoluntaryDimension (@RequestBody VoluntaryDimensionDto roleDto){
         try{
-            return ResponseEntity.ok(voluntaryEmergencyService.createVoluntaryEmergency(voluntaryEmergencyDto));
+            return ResponseEntity.ok(voluntaryDimensionService.createVoluntaryDimension(roleDto));
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -48,9 +48,9 @@ public class VoluntaryEmergencyController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity updateVoluntaryEmergency (@PathVariable("id") Integer id, @RequestBody VoluntaryEmergencyDto voluntaryEmergencyDto){
+    public ResponseEntity updateVoluntaryDimension (@PathVariable("id") Integer id, @RequestBody VoluntaryDimensionDto roleDto){
         try{
-            voluntaryEmergencyService.updateVoluntaryEmergencyData(voluntaryEmergencyDto, id);
+            voluntaryDimensionService.updateVoluntaryDimensionData(roleDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
@@ -59,9 +59,9 @@ public class VoluntaryEmergencyController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public ResponseEntity deleteVoluntaryEmergency (@PathVariable Integer id){
+    public ResponseEntity deleteVoluntaryDimension (@PathVariable Integer id){
         try{
-            voluntaryEmergencyService.deleteVoluntaryEmergency(id);
+            voluntaryDimensionService.deleteVoluntaryDimension(id);
             return ResponseEntity.ok(HttpStatus.OK);
         }catch (Exception e){
             return ResponseEntity.badRequest().build();

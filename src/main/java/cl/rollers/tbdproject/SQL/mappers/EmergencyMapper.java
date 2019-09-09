@@ -14,6 +14,8 @@ public class EmergencyMapper {
         emergency.setId(emergencyDto.getId());
         emergency.setName(emergencyDto.getName());
         emergency.setDescription(emergencyDto.getDescription());
+        emergency.setTaskList(emergencyDto.getTaskList());
+        emergency.setVoluntaryEmergencyList(emergencyDto.getVoluntaryEmergencyList());
         return emergency;
     }
 
@@ -21,6 +23,8 @@ public class EmergencyMapper {
         EmergencyDto emergencyDto = new EmergencyDto();
         emergencyDto.setId(emergency.getId());
         emergencyDto.setName(emergency.getName());
+        emergencyDto.setTaskList(emergency.getTaskList());
+        emergencyDto.setVoluntaryEmergencyList(emergency.getVoluntaryEmergencyList());
         return emergencyDto;
     }
 
@@ -34,5 +38,4 @@ public class EmergencyMapper {
         }
         return emergencyDtoList;
     }
-
 }

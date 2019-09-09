@@ -1,17 +1,16 @@
 package cl.rollers.tbdproject.SQL.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "voluntary")
-
 public class Voluntary {
 
     @Id
@@ -35,14 +34,7 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
-
-
-
-
-
-
-
-
-
-
+    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<VoluntaryEmergency> voluntaryEmergencyList;
 }

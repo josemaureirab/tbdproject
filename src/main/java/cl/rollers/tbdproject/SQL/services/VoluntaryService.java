@@ -44,6 +44,7 @@ public class VoluntaryService {
         voluntaryFinded.setLastName(voluntaryDto.getLastName());
         voluntaryFinded.setRut(voluntaryDto.getLastName());
         voluntaryFinded.setAge(voluntaryDto.getAge());
+        voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
     }
 
 

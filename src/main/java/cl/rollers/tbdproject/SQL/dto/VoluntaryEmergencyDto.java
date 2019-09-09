@@ -1,14 +1,12 @@
 package cl.rollers.tbdproject.SQL.dto;
 
-
 import cl.rollers.tbdproject.SQL.models.Emergency;
+import cl.rollers.tbdproject.SQL.models.Voluntary;
 import lombok.Data;
 
 @Data
-public class TaskDto {
+public class VoluntaryEmergencyDto {
     private Integer id;
-    private String name;
-    private String description;
-    private Boolean status;
+    private Voluntary voluntary;
     private Emergency emergency;
 }

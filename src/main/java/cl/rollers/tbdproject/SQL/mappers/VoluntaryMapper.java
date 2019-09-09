@@ -16,6 +16,7 @@ public class VoluntaryMapper {
         voluntary.setLastName(voluntaryDto.getLastName());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
+        voluntary.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
         return voluntary;
     }
 
@@ -26,6 +27,7 @@ public class VoluntaryMapper {
         voluntaryDto.setLastName(voluntary.getLastName());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
+        voluntaryDto.setVoluntaryEmergencyList(voluntary.getVoluntaryEmergencyList());
         return voluntaryDto;
     }
 

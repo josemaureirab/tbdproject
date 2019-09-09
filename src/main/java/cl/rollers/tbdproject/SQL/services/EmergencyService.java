@@ -42,6 +42,8 @@ public class EmergencyService {
         Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
         emergencyFinded.setName(emergencyDto.getName());
         emergencyFinded.setDescription(emergencyDto.getDescription());
+        emergencyFinded.setTaskList(emergencyDto.getTaskList());
+        emergencyFinded.setVoluntaryEmergencyList(emergencyDto.getVoluntaryEmergencyList());
         emergencyDao.save(emergencyFinded);
     }
 

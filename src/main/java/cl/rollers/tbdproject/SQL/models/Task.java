@@ -29,5 +29,8 @@ public class Task {
     @NonNull
     @Column(name = "status")
     private Boolean status;
-    
+
+    @ManyToOne
+    @JoinColumn
+    private Emergency emergency;
 }

@@ -49,8 +49,8 @@ public class TaskService {
     }
 
     public void deleteTask(int id){
-        Task guestFinded = taskDao.findTaskById(id);
-        taskDao.delete(guestFinded);
+        Task taskFinded = taskDao.findTaskById(id);
+        taskDao.delete(taskFinded);
     }
 
 }

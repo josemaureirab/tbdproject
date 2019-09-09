@@ -37,4 +37,8 @@ public class Voluntary {
     @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<VoluntaryEmergency> voluntaryEmergencyList;
+
+    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<VoluntaryDimension> voluntaryDimensionList;
 }

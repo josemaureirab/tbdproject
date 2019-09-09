@@ -1,17 +1,13 @@
 package cl.rollers.tbdproject.SQL.dto;
 
 import cl.rollers.tbdproject.SQL.models.VoluntaryDimension;
-import cl.rollers.tbdproject.SQL.models.VoluntaryEmergency;
 import lombok.Data;
 import java.util.List;
 
 @Data
-public class VoluntaryDto {
+public class DimensionDto {
     private Integer id;
     private String name;
-    private String lastName;
-    private String rut;
-    private Integer age;
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
+    private Integer score;
     private List<VoluntaryDimension> voluntaryDimensionList;
 }

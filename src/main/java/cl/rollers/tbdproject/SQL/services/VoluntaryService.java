@@ -45,6 +45,7 @@ public class VoluntaryService {
         voluntaryFinded.setRut(voluntaryDto.getLastName());
         voluntaryFinded.setAge(voluntaryDto.getAge());
         voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
+        voluntaryFinded.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
     }
 
 
@@ -52,5 +53,4 @@ public class VoluntaryService {
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
         voluntaryDao.delete(voluntaryFinded);
     }
-
  }

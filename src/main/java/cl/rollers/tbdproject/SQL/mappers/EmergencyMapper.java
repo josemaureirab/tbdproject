@@ -23,6 +23,7 @@ public class EmergencyMapper {
         EmergencyDto emergencyDto = new EmergencyDto();
         emergencyDto.setId(emergency.getId());
         emergencyDto.setName(emergency.getName());
+        emergencyDto.setDescription(emergency.getDescription());
         emergencyDto.setTaskList(emergency.getTaskList());
         emergencyDto.setVoluntaryEmergencyList(emergency.getVoluntaryEmergencyList());
         return emergencyDto;

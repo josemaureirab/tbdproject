@@ -45,12 +45,13 @@ public class TaskService {
         taskFinded.setName(taskDto.getName());
         taskFinded.setDescription(taskDto.getDescription());
         taskFinded.setStatus(taskDto.getStatus());
+        taskFinded.setEmergency(taskDto.getEmergency());
         taskDao.save(taskFinded);
     }
 
     public void deleteTask(int id){
-        Task guestFinded = taskDao.findTaskById(id);
-        taskDao.delete(guestFinded);
+        Task taskFinded = taskDao.findTaskById(id);
+        taskDao.delete(taskFinded);
     }
 
 }

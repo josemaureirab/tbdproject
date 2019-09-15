@@ -26,7 +26,7 @@ public class VoluntaryService {
 
     public List<VoluntaryDto> getAllVoluntaries(){
         List<Voluntary> voluntaryList = voluntaryDao.findAll();
-        return voluntaryMapper.mapToDoArrayList(voluntaryList);
+        return voluntaryMapper.mapToDtoArrayList(voluntaryList);
     }
 
     public VoluntaryDto findVoluntaryById(Integer id){
@@ -44,6 +44,8 @@ public class VoluntaryService {
         voluntaryFinded.setLastName(voluntaryDto.getLastName());
         voluntaryFinded.setRut(voluntaryDto.getLastName());
         voluntaryFinded.setAge(voluntaryDto.getAge());
+        voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
+        voluntaryFinded.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
     }
 
 
@@ -51,5 +53,4 @@ public class VoluntaryService {
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
         voluntaryDao.delete(voluntaryFinded);
     }
-
  }

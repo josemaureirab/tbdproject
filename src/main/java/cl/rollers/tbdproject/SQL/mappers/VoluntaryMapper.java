@@ -16,6 +16,8 @@ public class VoluntaryMapper {
         voluntary.setLastName(voluntaryDto.getLastName());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
+        voluntary.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
+        voluntary.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
         return voluntary;
     }
 
@@ -26,10 +28,12 @@ public class VoluntaryMapper {
         voluntaryDto.setLastName(voluntary.getLastName());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
+        voluntaryDto.setVoluntaryEmergencyList(voluntary.getVoluntaryEmergencyList());
+        voluntaryDto.setVoluntaryDimensionList(voluntary.getVoluntaryDimensionList());
         return voluntaryDto;
     }
 
-    public List<VoluntaryDto> mapToDoArrayList(List<Voluntary> voluntaryList){
+    public List<VoluntaryDto> mapToDtoArrayList(List<Voluntary> voluntaryList){
         List<VoluntaryDto> voluntaryDtoList = new ArrayList<>();
         for (Voluntary voluntary: voluntaryList){
             VoluntaryDto voluntaryDto = new VoluntaryDto();

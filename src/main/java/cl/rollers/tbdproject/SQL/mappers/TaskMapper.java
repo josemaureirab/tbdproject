@@ -18,7 +18,7 @@ public class TaskMapper {
         task.setDescription(taskDto.getDescription());
         task.setName(taskDto.getName());
         task.setStatus(taskDto.getStatus());
-
+        task.setEmergency(taskDto.getEmergency());
         return task;
     }
 
@@ -33,13 +33,12 @@ public class TaskMapper {
     }
 
     public TaskDto mapToDto (Task task){
-
         TaskDto taskDto = new TaskDto();
         taskDto.setId(task.getId());
         taskDto.setDescription(task.getDescription());
         taskDto.setName(task.getName());
         taskDto.setStatus(task.getStatus());
-
+        taskDto.setEmergency(task.getEmergency());
         return taskDto;
     }
 }

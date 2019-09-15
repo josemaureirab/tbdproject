@@ -1,9 +1,9 @@
 package cl.rollers.tbdproject.SQL.controllers;
 
-import org.springframework.http.HttpStatus;
-import cl.rollers.tbdproject.SQL.dto.TaskDto;
-import cl.rollers.tbdproject.SQL.services.TaskService;
+import cl.rollers.tbdproject.SQL.dto.EmergencyDto;
+import cl.rollers.tbdproject.SQL.services.EmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,16 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/tasks")
-public class TaskController {
-
+@RequestMapping("/emergencies")
+public class EmergencyController {
     @Autowired
-    private TaskService taskService;
+    private EmergencyService emergencyService;
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<TaskDto>> getAllTasks(){
-
+    public ResponseEntity<List<EmergencyDto>> getAllEmergencies(){
         try{
-            return ResponseEntity.ok(taskService.getAllTasks());
+            return ResponseEntity.ok(emergencyService.getAllEmergencies());
         }
         catch (Exception e){
             return ResponseEntity.badRequest().build();
@@ -31,12 +29,10 @@ public class TaskController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<TaskDto> findTaskById (@PathVariable("id") Integer id){
-
+    public ResponseEntity<EmergencyDto> findEmergencyById (@PathVariable("id") Integer id){
         try{
-            return ResponseEntity.ok(taskService.findTaskById(id));
+            return ResponseEntity.ok(emergencyService.findEmergencyById(id));
         }
-
         catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -45,12 +41,10 @@ public class TaskController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create (@RequestBody TaskDto taskDto){
-
+    public ResponseEntity create (@RequestBody EmergencyDto emergencyDto){
         try{
-            return ResponseEntity.ok(taskService.createTask(taskDto));
+            return ResponseEntity.ok(emergencyService.createEmergency(emergencyDto));
         }
-
         catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -58,10 +52,10 @@ public class TaskController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody TaskDto taskDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody EmergencyDto emergencyDto){
 
         try{
-            taskService.updateTaskData(taskDto, id);
+            emergencyService.updateEmergency(emergencyDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 
@@ -74,12 +68,10 @@ public class TaskController {
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public ResponseEntity delete (@PathVariable Integer id){
-
         try{
-            taskService.deleteTask(id);
+            emergencyService.deleteEmergency(id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
-
         catch (Exception e){
             return ResponseEntity.badRequest().build();
         }

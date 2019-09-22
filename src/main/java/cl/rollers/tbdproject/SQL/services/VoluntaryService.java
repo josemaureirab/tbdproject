@@ -46,6 +46,7 @@ public class VoluntaryService {
         voluntaryFinded.setAge(voluntaryDto.getAge());
         voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
         voluntaryFinded.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
+        voluntaryDao.save(voluntaryFinded);
     }
 
 

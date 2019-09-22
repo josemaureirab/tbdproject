@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 @Component
 public class VoluntaryMapper {
     public Voluntary mapToModel(VoluntaryDto voluntaryDto){
@@ -14,6 +15,8 @@ public class VoluntaryMapper {
         voluntary.setId(voluntaryDto.getId());
         voluntary.setName(voluntaryDto.getName());
         voluntary.setLastName(voluntaryDto.getLastName());
+        voluntary.setMail(voluntaryDto.getMail());
+        voluntary.setGender(voluntaryDto.getGender());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
         voluntary.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
@@ -26,6 +29,8 @@ public class VoluntaryMapper {
         voluntaryDto.setId(voluntary.getId());
         voluntaryDto.setName(voluntary.getName());
         voluntaryDto.setLastName(voluntary.getLastName());
+        voluntaryDto.setMail(voluntary.getMail());
+        voluntaryDto.setGender(voluntary.getGender());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
         voluntaryDto.setVoluntaryEmergencyList(voluntary.getVoluntaryEmergencyList());

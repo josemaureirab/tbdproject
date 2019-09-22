@@ -27,6 +27,14 @@ public class Voluntary {
     private String lastName;
 
     @NonNull
+    @Column(name = "mail")
+    private String mail;
+
+    @NonNull
+    @Column(name = "gender")
+    private String gender;
+
+    @NonNull
     @Column(name = "rut")
     private String rut;
 

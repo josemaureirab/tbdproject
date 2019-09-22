@@ -42,7 +42,7 @@ public class UserService {
         User userFinded = userDao.findUserById(id);
         userFinded.setName(userDto.getName());
         userFinded.setLastName(userDto.getLastName());
-        userFinded.setRut(userDto.getLastName());
+        userFinded.setRut(userDto.getRut());
         userFinded.setAge(userDto.getAge());
         userFinded.setRole(userDto.getRole());
         userDao.save(userFinded);

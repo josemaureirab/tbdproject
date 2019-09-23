@@ -1,16 +1,26 @@
 package cl.rollers.tbdproject.SQL.services;
 
+import cl.rollers.tbdproject.SQL.dao.EmergencyDao;
+import cl.rollers.tbdproject.SQL.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.dao.VoluntaryEmergencyDao;
 import cl.rollers.tbdproject.SQL.dto.VoluntaryEmergencyDto;
 import cl.rollers.tbdproject.SQL.mappers.VoluntaryEmergencyMapper;
+import cl.rollers.tbdproject.SQL.models.Emergency;
+import cl.rollers.tbdproject.SQL.models.Voluntary;
 import cl.rollers.tbdproject.SQL.models.VoluntaryEmergency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class VoluntaryEmergencyService {
+
+    @Autowired
+    private VoluntaryDao voluntaryDao;
+
+    @Autowired
+    private EmergencyDao emergencyDao;
+
     @Autowired
     private VoluntaryEmergencyDao voluntaryEmergencyDao;
 
@@ -44,5 +54,14 @@ public class VoluntaryEmergencyService {
 
     public void deleteVoluntaryEmergency(int id){
         voluntaryEmergencyDao.delete(voluntaryEmergencyDao.findVoluntaryEmergencyById(id));
+    }
+
+    public VoluntaryEmergencyDto createVoluntaryWithEmergency(Integer voluntaryId, Integer emergencyId) {
+        Voluntary voluntary = voluntaryDao.findById(voluntaryId).get();
+        Emergency emergency = emergencyDao.findById(emergencyId).get();
+        VoluntaryEmergency voluntaryEmergency= new VoluntaryEmergency();
+        voluntaryEmergency.setVoluntary(voluntary);
+        voluntaryEmergency.setEmergency(emergency);
+        return voluntaryEmergencyMapper.mapToDto(voluntaryEmergencyDao.save(voluntaryEmergency));
     }
 }

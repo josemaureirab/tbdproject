@@ -1,8 +1,12 @@
 package cl.rollers.tbdproject.SQL.services;
 
+import cl.rollers.tbdproject.SQL.dao.DimensionDao;
+import cl.rollers.tbdproject.SQL.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.dao.VoluntaryDimensionDao;
 import cl.rollers.tbdproject.SQL.dto.VoluntaryDimensionDto;
 import cl.rollers.tbdproject.SQL.mappers.VoluntaryDimensionMapper;
+import cl.rollers.tbdproject.SQL.models.Dimension;
+import cl.rollers.tbdproject.SQL.models.Voluntary;
 import cl.rollers.tbdproject.SQL.models.VoluntaryDimension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +14,15 @@ import java.util.List;
 
 @Service
 public class VoluntaryDimensionService {
+
     @Autowired
     private VoluntaryDimensionDao voluntaryDimensionDao;
+
+    @Autowired
+    private VoluntaryDao voluntaryDao;
+
+    @Autowired
+    private DimensionDao dimensionDao;
 
     @Autowired
     private VoluntaryDimensionMapper voluntaryDimensionMapper;
@@ -43,5 +54,14 @@ public class VoluntaryDimensionService {
 
     public void deleteVoluntaryDimension(int id){
         voluntaryDimensionDao.delete(voluntaryDimensionDao.findVoluntaryDimensionById(id));
+    }
+
+    public VoluntaryDimensionDto createVoluntaryWithDimension(Integer voluntaryId, Integer dimensionId) {
+        Voluntary voluntary = voluntaryDao.findById(voluntaryId).get();
+        Dimension dimension = dimensionDao.findById(dimensionId).get();
+        VoluntaryDimension voluntaryDimension= new VoluntaryDimension();
+        voluntaryDimension.setVoluntary(voluntary);
+        voluntaryDimension.setDimension(dimension);
+        return voluntaryDimensionMapper.mapToDto(voluntaryDimensionDao.save(voluntaryDimension));
     }
 }

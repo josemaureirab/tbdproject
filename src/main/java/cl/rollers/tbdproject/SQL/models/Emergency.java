@@ -14,8 +14,8 @@ import java.util.List;
 @Table(name= "emergencies")
 public class Emergency {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_SEQ")
-    @SequenceGenerator(name = "TASK_SEQ", sequenceName = "SEQ_TASK", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMERGENCY_SEQ")
+    @SequenceGenerator(name = "EMERGENCY_SEQ", sequenceName = "SEQ_EMERGENCY", allocationSize = 1)
     private Integer id;
 
     @NonNull

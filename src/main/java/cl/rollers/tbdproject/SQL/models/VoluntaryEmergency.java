@@ -7,11 +7,11 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "voluntary_task")
+@Table(name = "voluntary_emergency")
 public class VoluntaryEmergency {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VOLUNTARYTASK_SEQ")
-    @SequenceGenerator(name = "VOLUNTARYTASK_SEQ", sequenceName = "SEQ_VOLUNTARYTASK", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VOLUNTARYEMERGENCY_SEQ")
+    @SequenceGenerator(name = "VOLUNTARYEMERGENCY_SEQ", sequenceName = "SEQ_VOLUNTARYEMERGENCY", allocationSize = 1)
     private Integer id;
 
     @ManyToOne

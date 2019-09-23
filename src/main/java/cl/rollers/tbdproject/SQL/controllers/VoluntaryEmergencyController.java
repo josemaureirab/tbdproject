@@ -4,6 +4,7 @@ import cl.rollers.tbdproject.SQL.dto.VoluntaryEmergencyDto;
 import cl.rollers.tbdproject.SQL.services.VoluntaryEmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/voluntaryEmergencies")
 public class VoluntaryEmergencyController {
+
     @Autowired
     private VoluntaryEmergencyService voluntaryEmergencyService;
 
@@ -63,6 +65,16 @@ public class VoluntaryEmergencyController {
         try{
             voluntaryEmergencyService.deleteVoluntaryEmergency(id);
             return ResponseEntity.ok(HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value = "/voluntaryWithEmergency", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity voluntaryWithEmergency (@RequestParam("voluntaryId") Integer voluntaryId,
+                                                  @RequestParam("emergencyId") Integer emergencyId){
+        try{
+            return ResponseEntity.ok(voluntaryEmergencyService.createVoluntaryWithEmergency(voluntaryId, emergencyId));
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }

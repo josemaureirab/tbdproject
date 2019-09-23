@@ -118,7 +118,6 @@ public class DBSeeder implements CommandLineRunner {
         seedEmergencies();
         seedRoles();
         seedTasks();
-        seedVoluntaries();
         seedVoluntaryDimensions();
         seedVoluntaryEmergencies();
     }

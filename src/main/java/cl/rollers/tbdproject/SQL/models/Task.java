@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name= "task")
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_SEQ")
     @SequenceGenerator(name = "TASK_SEQ", sequenceName = "SEQ_TASK", allocationSize = 1)

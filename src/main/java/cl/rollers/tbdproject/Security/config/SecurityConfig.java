@@ -47,13 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                 .antMatchers("/auth/signin").permitAll()
-                //.antMatchers(HttpMethod.GET, "/categories/**").permitAll()
-                .antMatchers("/cart/web/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/products/web/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/products/web/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/categories/web/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/subCategories/web/**").permitAll()
-                //.antMatchers(HttpMethod.GET, "/providers/**").permitAll()
                 .anyRequest().authenticated()
             .and()
             .apply(new JwtSecurityConfigurer(jwtTokenProvider));

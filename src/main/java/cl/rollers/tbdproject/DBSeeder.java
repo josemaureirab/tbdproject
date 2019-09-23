@@ -26,9 +26,6 @@ public class DBSeeder implements CommandLineRunner {
     private TaskDao taskDao;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private VoluntaryDao voluntaryDao;
 
     @Autowired
@@ -65,7 +62,6 @@ public class DBSeeder implements CommandLineRunner {
         for (int i = 0; i < 10; i++) {
             Role role = new Role();
             role.setName("role "+i);
-            role.setUserList(new ArrayList<>());
             roleDao.save(role);
         }
     }
@@ -79,19 +75,6 @@ public class DBSeeder implements CommandLineRunner {
             task.setStatus(true);
             task.setEmergency(null);
             taskDao.save(task);
-        }
-    }
-
-    public void seedUsers(){
-        userDao.deleteAll();
-        for (int i = 0; i < 10; i++) {
-            User user = new User();
-            user.setName("user "+i);
-            user.setLastName("descripción "+i);
-            user.setAge(i);
-            user.setRut("rut");
-            user.setRole(null);
-            userDao.save(user);
         }
     }
 
@@ -135,7 +118,6 @@ public class DBSeeder implements CommandLineRunner {
         seedEmergencies();
         seedRoles();
         seedTasks();
-        seedUsers();
         seedVoluntaries();
         seedVoluntaryDimensions();
         seedVoluntaryEmergencies();

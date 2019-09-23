@@ -1,6 +1,6 @@
 package cl.rollers.tbdproject.SQL.services;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
+/*import cl.rollers.tbdproject.SQL.dao.UserDao;
 import cl.rollers.tbdproject.SQL.mappers.UserMapper;
 import cl.rollers.tbdproject.SQL.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,10 @@ import cl.rollers.tbdproject.SQL.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@SuppressWarnings("Duplicates")
+@Service*/
 public class UserService {
-    @Autowired
+    /*@Autowired
     private UserMapper userMapper;
 
     @Autowired
@@ -40,6 +41,8 @@ public class UserService {
     }
     public void updateUserData(UserDto userDto, Integer id){
         User userFinded = userDao.findUserById(id);
+        userFinded.setUsername(userDto.getUserName());
+        userFinded.setPassword(userDto.getPassword());
         userFinded.setName(userDto.getName());
         userFinded.setLastName(userDto.getLastName());
         userFinded.setRut(userDto.getRut());
@@ -52,6 +55,6 @@ public class UserService {
     public void deleteUser(Integer id){
         User userFinded = userDao.findById(id).get();
         userDao.delete(userFinded);
-    }
+    }*/
 
 }

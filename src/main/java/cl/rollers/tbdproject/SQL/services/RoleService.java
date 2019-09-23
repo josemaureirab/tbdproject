@@ -38,7 +38,6 @@ public class RoleService {
     public void updateRoleData(RoleDto roleDto, int id){
         Role roleFinded = roleDao.findRoleById(id);
         roleFinded.setName(roleDto.getName());
-        roleFinded.setUserList(roleDto.getUserList());
         roleDao.save(roleFinded);
     }
 

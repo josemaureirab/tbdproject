@@ -20,8 +20,4 @@ public class Role {
     @NonNull
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<User> userList;
 }

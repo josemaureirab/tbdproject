@@ -31,4 +31,8 @@ out/
 ### VS Code ###
 .vscode/
 
-
+### MacOS VIH ###
+.DS_Store
+/.DS_Store
+*/.DS_Store
+**/.DS_Store

@@ -4,6 +4,7 @@ import cl.rollers.tbdproject.SQL.dto.VoluntaryDimensionDto;
 import cl.rollers.tbdproject.SQL.services.VoluntaryDimensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -38,9 +39,9 @@ public class VoluntaryDimensionController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity createVoluntaryDimension (@RequestBody VoluntaryDimensionDto roleDto){
+    public ResponseEntity createVoluntaryDimension (@RequestBody VoluntaryDimensionDto voluntaryDimensionDto){
         try{
-            return ResponseEntity.ok(voluntaryDimensionService.createVoluntaryDimension(roleDto));
+            return ResponseEntity.ok(voluntaryDimensionService.createVoluntaryDimension(voluntaryDimensionDto));
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -48,9 +49,9 @@ public class VoluntaryDimensionController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity updateVoluntaryDimension (@PathVariable("id") Integer id, @RequestBody VoluntaryDimensionDto roleDto){
+    public ResponseEntity updateVoluntaryDimension (@PathVariable("id") Integer id, @RequestBody VoluntaryDimensionDto voluntaryDimensionDto){
         try{
-            voluntaryDimensionService.updateVoluntaryDimensionData(roleDto, id);
+            voluntaryDimensionService.updateVoluntaryDimensionData(voluntaryDimensionDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
@@ -63,6 +64,16 @@ public class VoluntaryDimensionController {
         try{
             voluntaryDimensionService.deleteVoluntaryDimension(id);
             return ResponseEntity.ok(HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value = "/voluntaryWithDimension", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity voluntaryWithDimension (@RequestParam("voluntaryId") Integer voluntaryId,
+                                                 @RequestParam("dimensionId") Integer dimensionId){
+        try{
+            return ResponseEntity.ok(voluntaryDimensionService.createVoluntaryWithDimension(voluntaryId, dimensionId));
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }

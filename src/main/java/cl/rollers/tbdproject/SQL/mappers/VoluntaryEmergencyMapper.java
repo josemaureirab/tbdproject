@@ -3,7 +3,6 @@ package cl.rollers.tbdproject.SQL.mappers;
 import cl.rollers.tbdproject.SQL.dto.VoluntaryEmergencyDto;
 import cl.rollers.tbdproject.SQL.models.VoluntaryEmergency;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 

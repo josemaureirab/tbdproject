@@ -42,6 +42,12 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
+    @Column(name = "latitude")
+    private Float latitude;
+
+    @Column(name = "longitude")
+    private Float longitude;
+
     @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<VoluntaryEmergency> voluntaryEmergencyList;

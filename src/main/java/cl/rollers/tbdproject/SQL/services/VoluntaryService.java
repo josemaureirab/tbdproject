@@ -46,6 +46,8 @@ public class VoluntaryService {
         voluntaryFinded.setMail(voluntaryDto.getMail());
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
+        voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
+        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
         voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
         voluntaryFinded.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
         voluntaryDao.save(voluntaryFinded);

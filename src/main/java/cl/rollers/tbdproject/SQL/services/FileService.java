@@ -44,8 +44,8 @@ public class FileService {
             voluntaryExcel.setGender(row.getCell(4).getStringCellValue());
             voluntaryExcel.setDimensionList(row.getCell(5).getStringCellValue());
             voluntaryExcel.setRequirementList(row.getCell(6).getStringCellValue());
-            //voluntaryExcel.setLatitude(getIntegerValue(row.getCell(7)));
-            //voluntaryExcel.setLongitude(getIntegerValue(row.getCell(8)));
+            voluntaryExcel.setLatitude(getFloatValue(row.getCell(7)));
+            voluntaryExcel.setLongitude(getFloatValue(row.getCell(8)));
             voluntaryExcels.add(voluntaryExcel);
             System.out.println("Number: " + counter + " " + voluntaryExcel.toString());
             counter++;
@@ -66,6 +66,8 @@ public class FileService {
         voluntary.setLastName(voluntaryExcel.getLastName());
         voluntary.setMail(voluntaryExcel.getMail());
         voluntary.setGender(voluntaryExcel.getGender());
+        voluntary.setLatitude(voluntaryExcel.getLatitude());
+        voluntary.setLongitude(voluntaryExcel.getLongitude());
         return voluntary;
     }
 
@@ -79,4 +81,16 @@ public class FileService {
                 return -1;
         }
     }
+
+    public static Float getFloatValue(Cell cell){
+        switch (cell.getCellType()) {
+            case STRING:
+                return Float.parseFloat(cell.getRichStringCellValue().getString());
+            case NUMERIC:
+                return (float)(cell.getNumericCellValue());
+            default:
+                return Float.parseFloat("0");
+        }
+    }
+
 }

@@ -13,6 +13,6 @@ public class VoluntaryExcel {
     private String gender;
     private String dimensionList;
     private String requirementList;
-    private Integer latitude;
-    private Integer longitude;
+    private Float latitude;
+    private Float longitude;
 }

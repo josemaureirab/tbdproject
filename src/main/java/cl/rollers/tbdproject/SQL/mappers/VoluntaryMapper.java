@@ -19,6 +19,8 @@ public class VoluntaryMapper {
         voluntary.setGender(voluntaryDto.getGender());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
+        voluntary.setLatitude(voluntaryDto.getLatitude());
+        voluntary.setLongitude(voluntaryDto.getLongitude());
         voluntary.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
         voluntary.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
         return voluntary;
@@ -33,6 +35,8 @@ public class VoluntaryMapper {
         voluntaryDto.setGender(voluntary.getGender());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
+        voluntaryDto.setLatitude(voluntary.getLatitude());
+        voluntaryDto.setLongitude(voluntary.getLongitude());
         voluntaryDto.setVoluntaryEmergencyList(voluntary.getVoluntaryEmergencyList());
         voluntaryDto.setVoluntaryDimensionList(voluntary.getVoluntaryDimensionList());
         return voluntaryDto;

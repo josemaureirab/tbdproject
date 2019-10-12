@@ -25,6 +25,7 @@ dependencies {
     compile 'org.apache.commons:commons-dbcp2:2.7.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
+    compile 'org.hibernate:hibernate-core:5.4.6.Final'
     compile('javax.xml.bind:jaxb-api')
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

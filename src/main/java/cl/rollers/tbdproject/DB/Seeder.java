@@ -2,28 +2,21 @@ package cl.rollers.tbdproject.DB;
 
 import cl.rollers.tbdproject.SQL.dao.*;
 import cl.rollers.tbdproject.SQL.models.*;
-import org.hibernate.boot.model.relational.Database;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.ArrayList;
 
 @Component
 @Order(1)
 public class Seeder implements CommandLineRunner {
 
     @Autowired
-    private TaskDao taskDao;
+    private EntityManagerUtils emUtils;
 
     @Autowired
-    private DataSource dataSource;
+    private TaskDao taskDao;
 
     public void seedTasks() {
         taskDao.deleteAll();
@@ -36,11 +29,15 @@ public class Seeder implements CommandLineRunner {
         }
     }
 
+    private void setRepository(String url){
+        taskDao = emUtils.getJpaFactory(url).getRepository(TaskDao.class);
+    }
+
     @Override
     public void run(String... args) throws Exception {
-
+        setRepository("first");
         seedTasks();
-
+        setRepository("second");
         seedTasks();
     }
 }

@@ -1,65 +1,88 @@
 package cl.rollers.tbdproject.DB;
 
-import cl.rollers.tbdproject.SQL.models.Task;
-import cl.rollers.tbdproject.SQL.models.User;
-import cl.rollers.tbdproject.SQL.models.Voluntary;
-import com.zaxxer.hikari.HikariDataSource;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.Properties;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
 
 
 @Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "cl.rollers.tbdproject.SQL.dao",
+@EnableJpaRepositories(
+    basePackages = "cl.rollers.tbdproject.SQL.dao",
     entityManagerFactoryRef = "secondEntityManagerFactory",
-    transactionManagerRef= "secondTransactionManager")
-public class secondDataSourceConfiguration{
+    transactionManagerRef = "secondTransactionManager")
+public class secondDataSourceConfiguration {
+
+  @Autowired
+  private Environment env;
 
   @Bean
-  @ConfigurationProperties("app.datasource.second")
+  @ConfigurationProperties(prefix="datasource.second")
   public DataSourceProperties secondDataSourceProperties() {
     return new DataSourceProperties();
   }
 
   @Bean
-  @ConfigurationProperties("app.datasource.second.configuration")
   public DataSource secondDataSource() {
-    return secondDataSourceProperties().initializeDataSourceBuilder()
-        .type(BasicDataSource.class).build();
-  }
-
-  /* EntityManagerFactories */
-  @Bean(name = "secondEntityManagerFactory")
-  public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
-      EntityManagerFactoryBuilder builder) {
-    return builder
-        .dataSource(secondDataSource())
-        .packages(User.class, Voluntary.class, Task.class)
+    DataSourceProperties secondDataSourceProperties = secondDataSourceProperties();
+    return DataSourceBuilder.create()
+        .driverClassName(secondDataSourceProperties.getDriverClassName())
+        .url(secondDataSourceProperties.getUrl())
+        .username(secondDataSourceProperties.getUsername())
+        .password(secondDataSourceProperties.getPassword())
         .build();
   }
 
-  /* TransactionManager  */
-  @Bean
-  public PlatformTransactionManager secondTransactionManager(
-      final @Qualifier("secondEntityManagerFactory") LocalContainerEntityManagerFactoryBean secondEntityManagerFactory) {
-    return new JpaTransactionManager(secondEntityManagerFactory.getObject());
+  @Bean(name = "secondEntityManagerFactory")
+  public PlatformTransactionManager secondTransactionManager()
+  {
+    EntityManagerFactory factory = secondEntityManagerFactory().getObject();
+    return new JpaTransactionManager(factory);
   }
 
-  @Bean(name = "secondDSJdbcTemplate")
-  public JdbcTemplate secondJdbcTemplate(@Qualifier("secondDataSource") DataSource secondDs) {
-    return new JdbcTemplate(secondDs);
+  @Bean(name = "secondEntityManager")
+  public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory()
+  {
+    LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+    factory.setDataSource(secondDataSource());
+    factory.setPackagesToScan(new String[]{"cl.rollers.tbdproject.SQL.models"});
+    factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+    Properties jpaProperties = new Properties();
+    jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+    jpaProperties.put("hibernate.show-sql", env.getProperty("spring.jpa.show-sql"));
+    factory.setJpaProperties(jpaProperties);
+
+    return factory;
+
   }
+
+  @Bean
+  public DataSourceInitializer secondDataSourceInitializer()
+  {
+    DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+    dataSourceInitializer.setDataSource(secondDataSource());
+    /*ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();*/
+    /*databasePopulator.addScript(new ClassPathResource("second-data.sql"));*/
+    /*dataSourceInitializer.setDatabasePopulator(databasePopulator);*/
+    dataSourceInitializer.setEnabled(env.getProperty("datasource.second.initialize", Boolean.class, false));
+    return dataSourceInitializer;
+  }
+
 }

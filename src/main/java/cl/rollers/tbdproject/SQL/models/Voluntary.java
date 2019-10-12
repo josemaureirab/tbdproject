@@ -42,11 +42,4 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
-
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryDimension> voluntaryDimensionList;
 }

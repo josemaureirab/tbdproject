@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.Security.web;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.firstDataSource.dao.FDSUserDao;
+import cl.rollers.tbdproject.SQL.firstDataSource.models.FDSUser;
 import cl.rollers.tbdproject.Security.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class AuthenticationController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    UserDao users;
+    FDSUserDao users;
 
     @PostMapping("/signin")
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
@@ -38,7 +38,7 @@ public class AuthenticationController {
             String username = data.getUsername();
             String password = data.getPassword();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            User user = users.findUserByUsername(username);
+            FDSUser user = users.findFDSUserByUsername(username);
             long id = user.getId();
             String token = jwtTokenProvider.createToken(username,
                     this.users.findByUsername(username).orElseThrow(()
@@ -52,5 +52,6 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+
     }
 }

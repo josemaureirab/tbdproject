@@ -1,8 +1,8 @@
 package cl.rollers.tbdproject.SQL.controllers;
 
 import org.springframework.http.HttpStatus;
-import cl.rollers.tbdproject.SQL.dto.TaskDto;
-import cl.rollers.tbdproject.SQL.services.TaskService;
+import cl.rollers.tbdproject.SQL.firstDataSource.dto.FDSTaskDto;
+import cl.rollers.tbdproject.SQL.firstDataSource.services.FDSTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +15,14 @@ import java.util.List;
 public class TaskController {
 
     @Autowired
-    private TaskService taskService;
+    private FDSTaskService taskService;
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<TaskDto>> getAllTasks(){
+    public ResponseEntity<List<FDSTaskDto>> getAllTasks(){
 
         try{
-            return ResponseEntity.ok(taskService.getAllTasks());
+            return ResponseEntity.ok(taskService.getAllFDSTasks());
         }
         catch (Exception e){
             return ResponseEntity.badRequest().build();
@@ -31,10 +31,10 @@ public class TaskController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<TaskDto> findTaskById (@PathVariable("id") Integer id){
+    public ResponseEntity<FDSTaskDto> findTaskById (@PathVariable("id") Integer id){
 
         try{
-            return ResponseEntity.ok(taskService.findTaskById(id));
+            return ResponseEntity.ok(taskService.findFDSTaskById(id));
         }
 
         catch(Exception e){
@@ -45,10 +45,10 @@ public class TaskController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create (@RequestBody TaskDto taskDto){
+    public ResponseEntity create (@RequestBody FDSTaskDto taskDto){
 
         try{
-            return ResponseEntity.ok(taskService.createTask(taskDto));
+            return ResponseEntity.ok(taskService.createFDSTask(taskDto));
         }
 
         catch (Exception e){
@@ -58,10 +58,10 @@ public class TaskController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody TaskDto taskDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody FDSTaskDto taskDto){
 
         try{
-            taskService.updateTaskData(taskDto, id);
+            taskService.updateFDSTaskData(taskDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 
@@ -76,7 +76,7 @@ public class TaskController {
     public ResponseEntity delete (@PathVariable Integer id){
 
         try{
-            taskService.deleteTask(id);
+            taskService.deleteFDSTask(id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 

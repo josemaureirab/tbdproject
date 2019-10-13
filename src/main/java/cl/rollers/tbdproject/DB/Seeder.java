@@ -1,8 +1,9 @@
 package cl.rollers.tbdproject.DB;
 
-import cl.rollers.tbdproject.SQL.dao.*;
-import cl.rollers.tbdproject.SQL.models.*;
-
+import cl.rollers.tbdproject.SQL.firstDataSource.dao.FDSTaskDao;
+import cl.rollers.tbdproject.SQL.firstDataSource.models.FDSTask;
+import cl.rollers.tbdproject.SQL.secondDataSource.dao.SDSTaskDao;
+import cl.rollers.tbdproject.SQL.secondDataSource.models.SDSTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -13,31 +14,32 @@ import org.springframework.stereotype.Component;
 public class Seeder implements CommandLineRunner {
 
     @Autowired
-    private EntityManagerUtils emUtils;
+    private FDSTaskDao FDStaskDao;
 
     @Autowired
-    private TaskDao taskDao;
+    private SDSTaskDao SDStaskDao;
 
     public void seedTasks() {
-        taskDao.deleteAll();
+        FDStaskDao.deleteAll();
         for (int i = 0; i < 10; i++) {
-            Task task = new Task();
+            FDSTask task = new FDSTask();
             task.setName("task "+i);
             task.setDescription("descripción "+i);
             task.setStatus(true);
-            taskDao.save(task);
+            FDStaskDao.save(task);
+        }
+
+        SDStaskDao.deleteAll();
+        for (int i = 10; i < 20; i++) {
+            SDSTask task = new SDSTask();
+            task.setName("task "+i);
+            task.setDescription("descripción "+i);
+            task.setStatus(true);
+            SDStaskDao.save(task);
         }
     }
-
-    private void setRepository(String url){
-        taskDao = emUtils.getJpaFactory(url).getRepository(TaskDao.class);
-    }
-
     @Override
     public void run(String... args) throws Exception {
-        setRepository("first");
-        seedTasks();
-        setRepository("second");
         seedTasks();
     }
 }

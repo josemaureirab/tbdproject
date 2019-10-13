@@ -1,9 +1,9 @@
 package cl.rollers.tbdproject.SQL.controllers;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
-import cl.rollers.tbdproject.SQL.dto.UserDto;
-import cl.rollers.tbdproject.SQL.mappers.UserMapper;
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.firstDataSource.dao.FDSUserDao;
+import cl.rollers.tbdproject.SQL.firstDataSource.dto.FDSUserDto;
+import cl.rollers.tbdproject.SQL.firstDataSource.mappers.FDSUserMapper;
+import cl.rollers.tbdproject.SQL.firstDataSource.models.FDSUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ import java.util.List;
 
 public class UserController {
     @Autowired
-    private UserDao userDao;
+    private FDSUserDao userDao;
 
     @Autowired
-    private UserMapper userMapper;
+    private FDSUserMapper userMapper;
 
     @GetMapping("/")
-    public ResponseEntity<List<UserDto>> getAllUsers(){
+    public ResponseEntity<List<FDSUserDto>> getAllUsers(){
         try{
             return ResponseEntity.ok(userMapper.mapToDtoList(userDao.findAll()));
         }
@@ -36,10 +36,10 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity updateUserData(@RequestBody User user, @PathVariable long id){
+    public ResponseEntity updateUserData(@RequestBody FDSUser user, @PathVariable long id){
 
         try{
-            User userFinded = userDao.findById(id);
+            FDSUser userFinded = userDao.findById(id);
             userFinded.setName(user.getName());
             userFinded.setLastName(user.getLastName());
             userFinded.setUsername(user.getUsername());
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> createGuest(@RequestBody User user){
+    public ResponseEntity<FDSUserDto> createGuest(@RequestBody FDSUser user){
 
         try{
             return ResponseEntity.ok(userMapper.mapToDto(userDao.save(user)));

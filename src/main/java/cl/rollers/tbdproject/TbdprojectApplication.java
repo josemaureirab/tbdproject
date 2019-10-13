@@ -1,6 +1,6 @@
 package cl.rollers.tbdproject;
 
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.firstDataSource.models.FDSUser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -32,11 +32,11 @@ public class TbdprojectApplication {
 class DataJpaConfig {
 
     @Bean
-    public AuditorAware<User> auditor() {
+    public AuditorAware<FDSUser> auditor() {
         return () -> Optional.ofNullable(SecurityContextHolder.getContext())
             .map(SecurityContext::getAuthentication)
             .filter(Authentication::isAuthenticated)
             .map(Authentication::getPrincipal)
-            .map(User.class::cast);
+            .map(FDSUser.class::cast);
     }
 }

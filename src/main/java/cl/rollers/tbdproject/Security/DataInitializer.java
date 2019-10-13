@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.Security;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.firstDataSource.dao.FDSUserDao;
+import cl.rollers.tbdproject.SQL.firstDataSource.models.FDSUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,17 +17,17 @@ import java.util.List;
 @Order(1)
 public class DataInitializer implements CommandLineRunner {
     @Autowired
-    UserDao users;
+    FDSUserDao FDSusers;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
-        List<User> userList = users.findAll();
+        List<FDSUser> FDSuserList = FDSusers.findAll();
 
-        if(userList.size() == 0){
-            this.users.save(User.builder()
+        if(FDSuserList.size() == 0){
+            this.FDSusers.save(FDSUser.builder()
                 .username("user")
                 .name("user")
                 .lastName("user")
@@ -37,7 +37,7 @@ public class DataInitializer implements CommandLineRunner {
                 .roles(Arrays.asList( "ROLE_USER"))
                 .build()
             );
-            this.users.save(User.builder()
+            this.FDSusers.save(FDSUser.builder()
                 .username("admin")
                 .password(this.passwordEncoder.encode("password"))
                 .name("admin")

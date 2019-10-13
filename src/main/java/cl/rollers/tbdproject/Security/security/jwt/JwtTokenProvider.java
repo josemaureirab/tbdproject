@@ -22,7 +22,7 @@ public class JwtTokenProvider {
     JwtProperties jwtProperties;
 
     @Autowired
-    @Qualifier("customUserDetailsService")
+    @Qualifier("FDSCustomUserDetailsService")
     private UserDetailsService userDetailsService;
     
     private String secretKey;

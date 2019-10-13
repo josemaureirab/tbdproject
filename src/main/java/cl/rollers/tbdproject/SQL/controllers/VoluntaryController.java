@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.SQL.controllers;
 
-import cl.rollers.tbdproject.SQL.dto.VoluntaryDto;
-import cl.rollers.tbdproject.SQL.services.VoluntaryService;
+import cl.rollers.tbdproject.SQL.firstDataSource.dto.FDSVoluntaryDto;
+import cl.rollers.tbdproject.SQL.firstDataSource.services.FDSVoluntaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.List;
 
 public class VoluntaryController {
     @Autowired
-    private VoluntaryService voluntaryService;
+    private FDSVoluntaryService voluntaryService;
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<VoluntaryDto>> getAllVoluntaries(){
+    public ResponseEntity<List<FDSVoluntaryDto>> getAllVoluntaries(){
         try{
-            return ResponseEntity.ok(voluntaryService.getAllVoluntaries());
+            return ResponseEntity.ok(voluntaryService.getAllFDSVoluntaries());
 
         }
         catch (Exception e){
@@ -35,7 +35,7 @@ public class VoluntaryController {
     @ResponseBody
     public ResponseEntity<Object> findVoluntaryById (@PathVariable("id") Integer id){
         try{
-            return ResponseEntity.ok(voluntaryService.findVoluntaryById(id));
+            return ResponseEntity.ok(voluntaryService.findFDSVoluntaryById(id));
         }
         catch(Exception e){
             return ResponseEntity.badRequest().build();
@@ -45,10 +45,10 @@ public class VoluntaryController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create (@RequestBody VoluntaryDto voluntaryDto){
+    public ResponseEntity create (@RequestBody FDSVoluntaryDto voluntaryDto){
 
         try{
-            return ResponseEntity.ok(voluntaryService.createVoluntary(voluntaryDto));
+            return ResponseEntity.ok(voluntaryService.createFDSVoluntary(voluntaryDto));
         }
 
         catch (Exception e){
@@ -58,10 +58,10 @@ public class VoluntaryController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody VoluntaryDto voluntaryDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody FDSVoluntaryDto voluntaryDto){
 
         try{
-            voluntaryService.updateVoluntaryData(voluntaryDto, id);
+            voluntaryService.updateFDSVoluntaryData(voluntaryDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 
@@ -75,7 +75,7 @@ public class VoluntaryController {
     public ResponseEntity delete (@PathVariable Integer id){
 
         try{
-            voluntaryService.deleteVoluntary(id);
+            voluntaryService.deleteFDSVoluntary(id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 

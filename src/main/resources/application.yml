@@ -1,0 +1,26 @@
+datasource:
+  first:
+    url: jdbc:postgresql://localhost:5432/tbd1
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+    initialize: true
+
+  second:
+    url: jdbc:postgresql://localhost:5432/tbd2
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+    initialize: true
+
+spring:
+    main:
+      allow-bean-definition-overriding: true
+    jpa:
+      properties:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+      hibernate:
+        ddl-auto: create
+      show-sql: true

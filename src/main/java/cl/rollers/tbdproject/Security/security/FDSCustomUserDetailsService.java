@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomUserDetailsService implements UserDetailsService {
+public class FDSCustomUserDetailsService implements UserDetailsService {
 
     private FDSUserDao users;
 
-    public CustomUserDetailsService(FDSUserDao users) {
+    public FDSCustomUserDetailsService(FDSUserDao users) {
         this.users = users;
     }
 

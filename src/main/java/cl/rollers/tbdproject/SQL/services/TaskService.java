@@ -45,7 +45,6 @@ public class TaskService {
         taskFinded.setName(taskDto.getName());
         taskFinded.setDescription(taskDto.getDescription());
         taskFinded.setStatus(taskDto.getStatus());
-        taskFinded.setEmergency(taskDto.getEmergency());
         taskDao.save(taskFinded);
     }
 

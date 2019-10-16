@@ -18,7 +18,6 @@ public class TaskMapper {
         task.setDescription(taskDto.getDescription());
         task.setName(taskDto.getName());
         task.setStatus(taskDto.getStatus());
-        task.setEmergency(taskDto.getEmergency());
         return task;
     }
 
@@ -38,7 +37,6 @@ public class TaskMapper {
         taskDto.setDescription(task.getDescription());
         taskDto.setName(task.getName());
         taskDto.setStatus(task.getStatus());
-        taskDto.setEmergency(task.getEmergency());
         return taskDto;
     }
 }

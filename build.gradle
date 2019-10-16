@@ -22,6 +22,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     compile('javax.xml.bind:jaxb-api')

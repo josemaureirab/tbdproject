@@ -29,4 +29,8 @@ public class Task {
     @Column(name = "status")
     private Boolean status;
 
+    @NonNull
+    @Column(name = "emergency_id")
+    private Integer emergency_id;
+
 }

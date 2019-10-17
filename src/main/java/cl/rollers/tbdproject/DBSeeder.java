@@ -73,7 +73,7 @@ public class DBSeeder implements CommandLineRunner {
             task.setName("task "+i);
             task.setDescription("descripción "+i);
             task.setStatus(true);
-            task.setEmergency(null);
+            task.setEmergency_id(null);
             taskDao.save(task);
         }
     }

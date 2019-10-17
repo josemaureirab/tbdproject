@@ -72,7 +72,7 @@ public class EmergencyService {
         try{
             Task taskToAdd = findTaskInEmergency(taskList, task);
             if(taskToAdd == null) {
-                task.setEmergency(emergency);
+                task.setEmergency_id(emergency.getId());
                 emergency.getTaskList().add(task);
                 emergencyDao.save(emergency);
                 return emergencyMapper.mapToDto(emergency);

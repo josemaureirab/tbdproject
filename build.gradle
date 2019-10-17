@@ -34,4 +34,5 @@ dependencies {
     compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }

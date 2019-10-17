@@ -2,6 +2,7 @@ package cl.rollers.tbdproject.SQL.controllers;
 
 import cl.rollers.tbdproject.SQL.models.VoluntaryExcel;
 import cl.rollers.tbdproject.SQL.services.FileService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,8 +28,11 @@ public class FileController {
         //String relativeWebPath = "WEB-INF/classes/static";
         //String absoluteFilePath = context.getRealPath(relativeWebPath);
         String absoluteFilePath = "src/main/resources/static/";
-        File convertFile = new File(absoluteFilePath + file.getOriginalFilename());
-        try(FileOutputStream fout = new FileOutputStream(convertFile)) {
+        String csvFileAddress = absoluteFilePath + file.getOriginalFilename();
+        String fileNameWithOutExt = FilenameUtils.removeExtension(csvFileAddress);
+        absoluteFilePath = fileNameWithOutExt + ".xlsx";
+        File convertFile = new File(absoluteFilePath);
+        try(FileOutputStream fout = fileService.csvToXlsx(file);) {
             fout.write(file.getBytes());
             fout.close();
             convertFile.createNewFile();

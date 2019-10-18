@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+/*@Component
 @Slf4j
-@Order(1)
+@Order(1)*/
 public class DataInitializer implements CommandLineRunner {
     @Autowired
     UserDao users;

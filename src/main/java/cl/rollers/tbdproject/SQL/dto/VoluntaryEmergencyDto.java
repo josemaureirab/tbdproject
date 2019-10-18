@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class VoluntaryEmergencyDto {
     private Integer id;
-    private Voluntary voluntary;
-    private Emergency emergency;
+    private Integer voluntary_id;
+    private Integer emergency_id;
 }

@@ -2,6 +2,8 @@ package cl.rollers.tbdproject.SQL.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,11 +16,11 @@ public class VoluntaryTask {
     @SequenceGenerator(name = "VOLUNTARYTASK_SEQ", sequenceName = "SEQ_VOLUNTARYTASK", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn
-    private Voluntary voluntary;
+    @NonNull
+    @Column(name = "voluntary_id")
+    private Integer voluntary_id;
 
-    @ManyToOne
-    @JoinColumn
-    private Task task;
+    @NonNull
+    @Column(name = "task_id")
+    private Integer task_id;
 }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-@Component
-@Order(1)
+//@Component
+//@Order(1)
 public class DBSeeder implements CommandLineRunner {
 
     @Autowired
@@ -40,7 +40,6 @@ public class DBSeeder implements CommandLineRunner {
             Dimension dimension = new Dimension();
             dimension.setName("dimension "+i);
             dimension.setScore(i);
-            dimension.setVoluntaryDimensionList(new ArrayList<>());
             dimensionDao.save(dimension);
         }
     }
@@ -51,8 +50,6 @@ public class DBSeeder implements CommandLineRunner {
             Emergency emergency = new Emergency();
             emergency.setName("emergency "+i);
             emergency.setDescription("descripción "+i);
-            emergency.setTaskList(new ArrayList<>());
-            emergency.setVoluntaryEmergencyList(new ArrayList<>());
             emergencyDao.save(emergency);
         }
     }
@@ -73,7 +70,7 @@ public class DBSeeder implements CommandLineRunner {
             task.setName("task "+i);
             task.setDescription("descripción "+i);
             task.setStatus(true);
-            task.setEmergency(null);
+            task.setEmergency_id(null);
             taskDao.save(task);
         }
     }
@@ -86,8 +83,6 @@ public class DBSeeder implements CommandLineRunner {
             voluntary.setLastName("descripción "+i);
             voluntary.setAge(i);
             voluntary.setRut("rut");
-            voluntary.setVoluntaryEmergencyList(new ArrayList<>());
-            voluntary.setVoluntaryDimensionList(new ArrayList<>());
             voluntaryDao.save(voluntary);
         }
     }
@@ -96,8 +91,8 @@ public class DBSeeder implements CommandLineRunner {
         voluntaryDimensionDao.deleteAll();
         for (int i = 0; i < 10; i++) {
             VoluntaryDimension voluntaryDimension = new VoluntaryDimension();
-            voluntaryDimension.setVoluntary(null);
-            voluntaryDimension.setDimension(null);
+            voluntaryDimension.setVoluntary_id(null);
+            voluntaryDimension.setDimension_id(null);
             voluntaryDimensionDao.save(voluntaryDimension);
         }
     }

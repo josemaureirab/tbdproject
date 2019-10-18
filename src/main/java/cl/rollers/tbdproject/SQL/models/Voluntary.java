@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import javax.persistence.*;
+import java.awt.*;
 import java.util.List;
 
 @Entity
@@ -48,11 +49,7 @@ public class Voluntary {
     @Column(name = "longitude")
     private Float longitude;
 
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
-
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryDimension> voluntaryDimensionList;
+    @NonNull
+    @Column(columnDefinition = "Geometry", name = "location")
+    private Point location;
 }

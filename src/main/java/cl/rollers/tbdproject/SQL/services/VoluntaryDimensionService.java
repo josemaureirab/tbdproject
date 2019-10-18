@@ -47,8 +47,8 @@ public class VoluntaryDimensionService {
 
     public void updateVoluntaryDimensionData(VoluntaryDimensionDto voluntaryDimensionDto, int id){
         VoluntaryDimension voluntaryDimensionFinded = voluntaryDimensionDao.findVoluntaryDimensionById(id);
-        voluntaryDimensionFinded.setVoluntary(voluntaryDimensionDto.getVoluntary());
-        voluntaryDimensionFinded.setDimension(voluntaryDimensionDto.getDimension());
+        voluntaryDimensionFinded.setVoluntary_id(voluntaryDimensionDto.getVoluntary_id());
+        voluntaryDimensionFinded.setDimension_id(voluntaryDimensionDto.getDimension_id());
         voluntaryDimensionDao.save(voluntaryDimensionFinded);
     }
 
@@ -60,8 +60,8 @@ public class VoluntaryDimensionService {
         Voluntary voluntary = voluntaryDao.findById(voluntaryId).get();
         Dimension dimension = dimensionDao.findById(dimensionId).get();
         VoluntaryDimension voluntaryDimension= new VoluntaryDimension();
-        voluntaryDimension.setVoluntary(voluntary);
-        voluntaryDimension.setDimension(dimension);
+        voluntaryDimension.setVoluntary_id(voluntary.getId());
+        voluntaryDimension.setDimension_id(dimension.getId());
         return voluntaryDimensionMapper.mapToDto(voluntaryDimensionDao.save(voluntaryDimension));
     }
 }

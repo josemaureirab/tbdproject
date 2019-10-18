@@ -9,5 +9,4 @@ public class DimensionDto {
     private Integer id;
     private String name;
     private Integer score;
-    private List<VoluntaryDimension> voluntaryDimensionList;
 }

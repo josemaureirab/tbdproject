@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class VoluntaryDimensionDto {
     private Integer id;
-    private Voluntary voluntary;
-    private Dimension dimension;
+    private Integer voluntary_id;
+    private Integer dimension_id;
 }

@@ -39,7 +39,6 @@ public class DimensionService {
         Dimension dimensionFinded = dimensionDao.findDimensionById(id);
         dimensionFinded.setName(dimensionDto.getName());
         dimensionFinded.setScore(dimensionDto.getScore());
-        dimensionFinded.setVoluntaryDimensionList(dimensionDto.getVoluntaryDimensionList());
         dimensionDao.save(dimensionFinded);
     }
 

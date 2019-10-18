@@ -47,8 +47,8 @@ public class VoluntaryEmergencyService {
 
     public void updateVoluntaryEmergencyData(VoluntaryEmergencyDto roleDto, int id){
         VoluntaryEmergency voluntaryEmergencyFinded = voluntaryEmergencyDao.findVoluntaryEmergencyById(id);
-        voluntaryEmergencyFinded.setVoluntary(roleDto.getVoluntary());
-        voluntaryEmergencyFinded.setEmergency(roleDto.getEmergency());
+        voluntaryEmergencyFinded.setVoluntary(roleDto.getVoluntary_id());
+        voluntaryEmergencyFinded.setEmergency(roleDto.getEmergency_id());
         voluntaryEmergencyDao.save(voluntaryEmergencyFinded);
     }
 
@@ -60,8 +60,8 @@ public class VoluntaryEmergencyService {
         Voluntary voluntary = voluntaryDao.findById(voluntaryId).get();
         Emergency emergency = emergencyDao.findById(emergencyId).get();
         VoluntaryEmergency voluntaryEmergency= new VoluntaryEmergency();
-        voluntaryEmergency.setVoluntary(voluntary);
-        voluntaryEmergency.setEmergency(emergency);
+        voluntaryEmergency.setVoluntary(voluntary.getId());
+        voluntaryEmergency.setEmergency(emergency.getId());
         return voluntaryEmergencyMapper.mapToDto(voluntaryEmergencyDao.save(voluntaryEmergency));
     }
 }

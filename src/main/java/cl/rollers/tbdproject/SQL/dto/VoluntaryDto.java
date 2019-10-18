@@ -17,6 +17,4 @@ public class VoluntaryDto {
     private Integer age;
     private Float latitude;
     private Float longitude;
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
-    private List<VoluntaryDimension> voluntaryDimensionList;
 }

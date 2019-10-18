@@ -49,14 +49,6 @@ public class Voluntary {
     @Column(name = "longitude")
     private Float longitude;
 
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
-
-    @OneToMany(mappedBy = "voluntary", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryDimension> voluntaryDimensionList;
-
     @NonNull
     @Column(columnDefinition = "Geometry", name = "location")
     private Point location;

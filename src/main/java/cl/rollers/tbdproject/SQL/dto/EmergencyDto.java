@@ -10,6 +10,4 @@ public class EmergencyDto {
     private Integer id;
     private String name;
     private String description;
-    private List<Task> taskList;
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
 }

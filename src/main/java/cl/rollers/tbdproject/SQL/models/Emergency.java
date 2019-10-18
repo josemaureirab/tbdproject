@@ -25,12 +25,4 @@ public class Emergency {
     @NonNull
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "emergency", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Task> taskList;
-
-    @OneToMany(mappedBy = "emergency", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryEmergency> voluntaryEmergencyList;
 }

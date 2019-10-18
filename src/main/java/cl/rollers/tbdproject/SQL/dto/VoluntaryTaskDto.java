@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class VoluntaryTaskDto {
     private Integer id;
-    private Voluntary voluntary;
-    private Task task;
+    private Integer voluntary_id;
+    private Integer task_id;
 }

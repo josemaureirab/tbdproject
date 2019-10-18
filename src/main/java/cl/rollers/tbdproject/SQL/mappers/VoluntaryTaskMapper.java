@@ -14,16 +14,16 @@ public class VoluntaryTaskMapper {
     public VoluntaryTask mapToModel(VoluntaryTaskDto voluntaryTaskDto){
         VoluntaryTask voluntaryTask = new VoluntaryTask();
         voluntaryTask.setId(voluntaryTaskDto.getId());
-        voluntaryTask.setVoluntary(voluntaryTaskDto.getVoluntary());
-        voluntaryTask.setTask(voluntaryTaskDto.getTask());
+        voluntaryTask.setVoluntary_id(voluntaryTaskDto.getVoluntary_id());
+        voluntaryTask.setTask_id(voluntaryTaskDto.getTask_id());
         return voluntaryTask;
     }
 
     public VoluntaryTaskDto mapToDto(VoluntaryTask voluntaryTask){
         VoluntaryTaskDto voluntaryTaskDto = new VoluntaryTaskDto();
         voluntaryTaskDto.setId(voluntaryTask.getId());
-        voluntaryTaskDto.setVoluntary(voluntaryTask.getVoluntary());
-        voluntaryTaskDto.setTask(voluntaryTask.getTask());
+        voluntaryTaskDto.setVoluntary_id(voluntaryTask.getVoluntary_id());
+        voluntaryTaskDto.setTask_id(voluntaryTask.getTask_id());
         return voluntaryTaskDto;
     }
 

@@ -12,8 +12,8 @@ public class VoluntaryDimensionMapper {
     public VoluntaryDimension mapToModel(VoluntaryDimensionDto voluntaryDimensionDto){
         VoluntaryDimension voluntaryDimension = new VoluntaryDimension();
         voluntaryDimension.setId(voluntaryDimensionDto.getId());
-        voluntaryDimension.setVoluntary(voluntaryDimensionDto.getVoluntary());
-        voluntaryDimension.setDimension(voluntaryDimensionDto.getDimension());
+        voluntaryDimension.setVoluntary_id(voluntaryDimensionDto.getVoluntary_id());
+        voluntaryDimension.setDimension_id(voluntaryDimensionDto.getDimension_id());
         return voluntaryDimension;
     }
 
@@ -29,8 +29,8 @@ public class VoluntaryDimensionMapper {
     public VoluntaryDimensionDto mapToDto (VoluntaryDimension voluntaryDimension){
         VoluntaryDimensionDto voluntaryDimensionDto = new VoluntaryDimensionDto();
         voluntaryDimensionDto.setId(voluntaryDimension.getId());
-        voluntaryDimensionDto.setVoluntary(voluntaryDimension.getVoluntary());
-        voluntaryDimensionDto.setDimension(voluntaryDimension.getDimension());
+        voluntaryDimensionDto.setVoluntary_id(voluntaryDimension.getVoluntary_id());
+        voluntaryDimensionDto.setDimension_id(voluntaryDimension.getDimension_id());
         return voluntaryDimensionDto;
     }
 }

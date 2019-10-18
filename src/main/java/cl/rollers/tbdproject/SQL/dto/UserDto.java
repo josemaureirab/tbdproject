@@ -1,6 +1,5 @@
 package cl.rollers.tbdproject.SQL.dto;
 
-import cl.rollers.tbdproject.SQL.models.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -14,5 +13,4 @@ public class UserDto {
     private String lastName;
     private String rut;
     private Integer age;
-    private Role role;
 }

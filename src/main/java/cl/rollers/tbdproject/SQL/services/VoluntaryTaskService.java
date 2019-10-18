@@ -46,8 +46,8 @@ public class VoluntaryTaskService {
 
     public void updateVoluntaryTaskData(VoluntaryTaskDto roleDto, int id){
         VoluntaryTask voluntaryTaskFinded = voluntaryTaskDao.findVoluntaryTaskById(id);
-        voluntaryTaskFinded.setVoluntary(roleDto.getVoluntary());
-        voluntaryTaskFinded.setTask(roleDto.getTask());
+        voluntaryTaskFinded.setVoluntary_id(roleDto.getVoluntary_id());
+        voluntaryTaskFinded.setTask_id(roleDto.getTask_id());
         voluntaryTaskDao.save(voluntaryTaskFinded);
     }
 
@@ -59,8 +59,8 @@ public class VoluntaryTaskService {
         Voluntary voluntary = voluntaryDao.findById(voluntaryId).get();
         Task task = taskDao.findById(taskId).get();
         VoluntaryTask voluntaryTask= new VoluntaryTask();
-        voluntaryTask.setVoluntary(voluntary);
-        voluntaryTask.setTask(task);
+        voluntaryTask.setVoluntary_id(voluntary.getId());
+        voluntaryTask.setTask_id(task.getId());
         return voluntaryTaskMapper.mapToDto(voluntaryTaskDao.save(voluntaryTask));
     }
 }

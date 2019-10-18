@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.sql2o.Sql2o;
 
 
 import java.util.List;
@@ -16,8 +17,13 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
-
 public class UserController {
+
+    private Sql2o sql2o[];
+    public UserController(Sql2o[] sql2o) {
+        this.sql2o = sql2o;
+    }
+
     @Autowired
     private UserDao userDao;
 

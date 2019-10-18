@@ -10,5 +10,5 @@ public class TaskDto {
     private String name;
     private String description;
     private Boolean status;
-    private Emergency emergency;
+    private Integer emergency_id;
 }

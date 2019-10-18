@@ -38,7 +38,8 @@ public class VoluntaryService {
         }
 
     }
-        public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
+
+    public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
         voluntaryFinded.setName(voluntaryDto.getName());
         voluntaryFinded.setLastName(voluntaryDto.getLastName());
@@ -48,11 +49,8 @@ public class VoluntaryService {
         voluntaryFinded.setAge(voluntaryDto.getAge());
         voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
         voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
-        voluntaryFinded.setVoluntaryEmergencyList(voluntaryDto.getVoluntaryEmergencyList());
-        voluntaryFinded.setVoluntaryDimensionList(voluntaryDto.getVoluntaryDimensionList());
         voluntaryDao.save(voluntaryFinded);
     }
-
 
     public void deleteVoluntary(Integer id){
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();

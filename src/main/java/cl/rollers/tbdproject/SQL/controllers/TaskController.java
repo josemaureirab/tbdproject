@@ -6,6 +6,7 @@ import cl.rollers.tbdproject.SQL.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.sql2o.Sql2o;
 
 import java.util.List;
 
@@ -13,6 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
+
+    private Sql2o sql2o[];
+    public TaskController(Sql2o[] sql2o) {
+        this.sql2o = sql2o;
+    }
 
     @Autowired
     private TaskService taskService;

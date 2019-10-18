@@ -5,7 +5,9 @@ import cl.rollers.tbdproject.SQL.dao.TaskDao;
 import cl.rollers.tbdproject.SQL.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.dao.VoluntaryEmergencyDao;
 import cl.rollers.tbdproject.SQL.dto.EmergencyDto;
+import cl.rollers.tbdproject.SQL.dto.TaskDto;
 import cl.rollers.tbdproject.SQL.mappers.EmergencyMapper;
+import cl.rollers.tbdproject.SQL.mappers.TaskMapper;
 import cl.rollers.tbdproject.SQL.models.Emergency;
 import cl.rollers.tbdproject.SQL.models.Task;
 import cl.rollers.tbdproject.SQL.models.Voluntary;
@@ -29,7 +31,13 @@ public class EmergencyService {
     private VoluntaryDao voluntaryDao;
 
     @Autowired
+    private VoluntaryEmergencyDao voluntaryEmergencyDao;
+
+    @Autowired
     private EmergencyMapper emergencyMapper;
+
+    @Autowired
+    private TaskMapper taskMapper;
 
 
     public List<EmergencyDto> getAllEmergencies(){
@@ -54,8 +62,6 @@ public class EmergencyService {
         Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
         emergencyFinded.setName(emergencyDto.getName());
         emergencyFinded.setDescription(emergencyDto.getDescription());
-        emergencyFinded.setTaskList(emergencyDto.getTaskList());
-        emergencyFinded.setVoluntaryEmergencyList(emergencyDto.getVoluntaryEmergencyList());
         emergencyDao.save(emergencyFinded);
     }
 
@@ -64,25 +70,11 @@ public class EmergencyService {
         emergencyDao.delete(emergencyFinded);
     }
 
-    public EmergencyDto appendTask(Integer emergencyId, Integer taskId){
+    public TaskDto appendTask(Integer emergencyId, Integer taskId){
         Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
         Task task = taskDao.findTaskById(taskId);
-
-        List<Task> taskList = emergency.getTaskList();
-        try{
-            Task taskToAdd = findTaskInEmergency(taskList, task);
-            if(taskToAdd == null) {
-                task.setEmergency(emergency);
-                emergency.getTaskList().add(task);
-                emergencyDao.save(emergency);
-                return emergencyMapper.mapToDto(emergency);
-            }
-            else {
-                return emergencyMapper.mapToDto(emergency);
-            }
-        }catch (Exception e){
-            return null;
-        }
+        task.setEmergency_id(emergency.getId());
+        return taskMapper.mapToDto(taskDao.save(task));
     }
 
     private Task findTaskInEmergency(List<Task> taskList, Task task){
@@ -97,15 +89,12 @@ public class EmergencyService {
     public EmergencyDto appendVoluntary(Integer emergencyId, Integer voluntaryId){
         Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
         Voluntary voluntary = voluntaryDao.findVoluntaryById(voluntaryId);
-
-        List<VoluntaryEmergency> voluntaryEmergencyList = emergency.getVoluntaryEmergencyList();
         try{
-            Voluntary voluntaryToAdd = findVoluntaryInEmergency(voluntaryEmergencyList, voluntary);
-            if(voluntaryToAdd == null) {
-                VoluntaryEmergency voluntaryEmergency = new VoluntaryEmergency();
-                voluntaryEmergency.setEmergency(emergency);
-                voluntaryEmergency.setVoluntary(voluntary);
-                voluntaryEmergencyList.add(voluntaryEmergency);
+            VoluntaryEmergency voluntaryEmergency = voluntaryEmergencyDao.findVoluntaryEmergencyByEmergencyAndVoluntary(emergency.getId(), voluntary.getId());
+            if(voluntaryEmergency == null) {
+                voluntaryEmergency = new VoluntaryEmergency();
+                voluntaryEmergency.setEmergency(emergency.getId());
+                voluntaryEmergency.setVoluntary(voluntary.getId());
                 emergencyDao.save(emergency);
                 return emergencyMapper.mapToDto(emergency);
             }
@@ -119,7 +108,7 @@ public class EmergencyService {
 
     private Voluntary findVoluntaryInEmergency(List<VoluntaryEmergency> voluntaryEmergencyList, Voluntary voluntary){
         for (VoluntaryEmergency voluntaryInEmergency: voluntaryEmergencyList) {
-            if(voluntaryInEmergency.getVoluntary().equals(voluntary)){
+            if(voluntaryInEmergency.getVoluntary().equals(voluntary.getId())){
                 return voluntary;
             }
         }

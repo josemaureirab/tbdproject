@@ -11,16 +11,16 @@ public class VoluntaryEmergencyMapper {
     public VoluntaryEmergency mapToModel(VoluntaryEmergencyDto voluntaryEmergencyDto){
         VoluntaryEmergency voluntaryEmergency = new VoluntaryEmergency();
         voluntaryEmergency.setId(voluntaryEmergencyDto.getId());
-        voluntaryEmergency.setVoluntary(voluntaryEmergencyDto.getVoluntary());
-        voluntaryEmergency.setEmergency(voluntaryEmergencyDto.getEmergency());
+        voluntaryEmergency.setVoluntary(voluntaryEmergencyDto.getVoluntary_id());
+        voluntaryEmergency.setEmergency(voluntaryEmergencyDto.getEmergency_id());
         return voluntaryEmergency;
     }
 
     public VoluntaryEmergencyDto mapToDto(VoluntaryEmergency voluntaryEmergency){
         VoluntaryEmergencyDto voluntaryEmergencyDto = new VoluntaryEmergencyDto();
         voluntaryEmergencyDto.setId(voluntaryEmergency.getId());
-        voluntaryEmergencyDto.setVoluntary(voluntaryEmergency.getVoluntary());
-        voluntaryEmergencyDto.setEmergency(voluntaryEmergency.getEmergency());
+        voluntaryEmergencyDto.setVoluntary_id(voluntaryEmergency.getVoluntary());
+        voluntaryEmergencyDto.setEmergency_id(voluntaryEmergency.getEmergency());
         return voluntaryEmergencyDto;
     }
 

@@ -24,8 +24,4 @@ public class Dimension {
     @NonNull
     @Column(name = "score")
     private Integer score;
-
-    @OneToMany(mappedBy = "dimension", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<VoluntaryDimension> voluntaryDimensionList;
 }

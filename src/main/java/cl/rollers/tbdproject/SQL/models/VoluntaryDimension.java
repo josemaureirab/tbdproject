@@ -2,6 +2,7 @@ package cl.rollers.tbdproject.SQL.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -15,11 +16,11 @@ public class VoluntaryDimension {
     @SequenceGenerator(name = "VOLUNTARYDIM_SEQ", sequenceName = "SEQ_VOLUNTARYDIM", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn
-    private Voluntary voluntary;
+    @NonNull
+    @Column(name = "voluntary_id")
+    private Integer voluntary_id;
 
-    @ManyToOne
-    @JoinColumn
-    private Dimension dimension;
+    @NonNull
+    @Column(name = "dimension_id")
+    private Integer dimension_id;
 }

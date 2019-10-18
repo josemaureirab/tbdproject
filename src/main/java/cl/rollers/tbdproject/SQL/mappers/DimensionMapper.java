@@ -14,7 +14,6 @@ public class DimensionMapper {
         dimension.setId(dimensionDto.getId());
         dimension.setName(dimensionDto.getName());
         dimension.setScore(dimensionDto.getScore());
-        dimension.setVoluntaryDimensionList(dimensionDto.getVoluntaryDimensionList());
         return dimension;
     }
 
@@ -32,7 +31,6 @@ public class DimensionMapper {
         dimensionDto.setId(dimension.getId());
         dimensionDto.setName(dimension.getName());
         dimensionDto.setScore(dimension.getScore());
-        dimensionDto.setVoluntaryDimensionList(dimension.getVoluntaryDimensionList());
         return dimensionDto;
     }
 }

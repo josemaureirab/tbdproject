@@ -34,9 +34,8 @@ public class TbdprojectApplication {
         /*TaskController taskController = new TaskController(sql2o);
         UserController userController = new UserController(sql2o);
         VoluntaryController voluntaryController = new VoluntaryController(sql2o);*/
-
         Seeder seeder = new Seeder(sql2o);
-        seeder.seedTasks();
+        //seeder.seedTasks();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

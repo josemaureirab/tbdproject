@@ -8,61 +8,50 @@ DROP TABLE voluntary_emergency CASCADE;
 DROP TABLE voluntary_task CASCADE;
 DROP TABLE user_roles CASCADE;
 
-/*CREATE EXTENSION postgis;*/
+CREATE EXTENSION postgis;
 
 create table dimension(
     id int,
-    name text,
+    name VARCHAR(255),
     score Int,
-    voluntaryDimensionList TEXT,
+    voluntaryDimensionList TEXT [],
 	primary key(id)
 );
 
 create table emergencies(
-    id int,
-    name text,
-    description text,
-    taskList TEXT,
+    id INT,
+    name VARCHAR(255),
+    description TEXT,
+    taskList TEXT [],
 	primary key(id)
 );
 
 create table task (
-	id int,
-    name text,
-    description text,
-    status boolean,
-    emergency_id int,
+	id INT,
+    name VARCHAR(255),
+    description TEXT,
+    status BOOLEAN,
+    emergency_id INT,
 	primary key(id),
 	foreign key (emergency_id)
 	references emergencies(id)
 );
-create table users (
-    id int,
-    username text,
-    PASSWORD text,
-    name text,
-    lastName text,
-    rut text,
-    age int,
-    roles text,
-	primary key(id)
-);
 
 create table voluntary (
-	id int,
-	name text,
-    lastName text,
-    mail text,
-    gender text,
-    rut text,
-    age int,
+	id INT,
+	firstName VARCHAR(255),
+    lastName VARCHAR(255),
+    mail VARCHAR(255),
+    gender VARCHAR(255),
+    rut VARCHAR(255),
+    age INT,
 	primary key(id)
 );
 
 create table voluntary_dimension (
-	id int,
-	voluntary_id int,
-	dimension_id int,
+	id INT,
+	voluntary_id INT,
+	dimension_id INT,
 	primary key(id),
 	foreign key (voluntary_id)
 	references voluntary(id),
@@ -71,9 +60,9 @@ create table voluntary_dimension (
 );
 
 create table voluntary_emergency (
-	id int,
-	voluntary_id int,
-	emergency_id int,
+	id INT,
+	voluntary_id INT,
+	emergency_id INT,
 	primary key(id),
 	foreign key (voluntary_id)
 	references voluntary(id),
@@ -82,9 +71,9 @@ create table voluntary_emergency (
 );
 
 create table voluntary_task (
-	id int,
-	voluntary_id int,
-	task_id int,
+	id INT,
+	voluntary_id INT,
+	task_id INT,
 	primary key(id),
 	foreign key (voluntary_id)
 	references voluntary(id),
@@ -92,10 +81,23 @@ create table voluntary_task (
 	references task(id)
 );
 
+create table users (
+    id INT,
+    active BOOLEAN,
+    birthDate DATE,
+    firstName VARCHAR(255),
+    lastName VARCHAR(255),
+    password TEXT,
+    rut VARCHAR(255),
+    age INT,
+    userName VARCHAR(255),
+	primary key(id)
+);
+
 create table user_roles (
-	id int,
-	user_id int,
-	roles TEXT,
+	id INT,
+	user_id INT,
+	role VARCHAR(255),
 	primary key(id),
 	foreign key (user_id)
 	references users(id)
@@ -107,5 +109,5 @@ values (1,'Emergency 1','description 1');
 ALTER TABLE voluntary ADD COLUMN location
 geometry(point);
 
-INSERT INTO voluntary (id, name, lastname, mail, gender, rut, age, location)
+INSERT INTO voluntary (id, firstName, lastName, mail, gender, rut, age, location)
 VALUES (1, 'Guillermo', 'Campos', 'guillermo.campos@usach.cl', 'masculino', '19.441.052-2', 22, ST_GeomFromText('POINT(-72.928177 -41.474096)', 4326));

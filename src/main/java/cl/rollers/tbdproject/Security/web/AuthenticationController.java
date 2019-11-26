@@ -42,7 +42,7 @@ public class AuthenticationController {
             long id = user.getId();
             String token = jwtTokenProvider.createToken(username,
                     this.users.findByUsername(username).orElseThrow(()
-                            -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
+                            -> new UsernameNotFoundException("Username " + username + "not found")).getRolesList());
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);

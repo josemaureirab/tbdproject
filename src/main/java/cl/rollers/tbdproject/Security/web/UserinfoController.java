@@ -23,7 +23,7 @@ public class UserinfoController {
         try {
             Map<Object, Object> model = new HashMap<>();
             model.put("username", userDetails.getUsername());
-            model.put("roles", userDetails.getAuthorities()
+            model.put("rolesList", userDetails.getAuthorities()
                     .stream()
                     .map(a -> ((GrantedAuthority) a).getAuthority())
                     .collect(toList())

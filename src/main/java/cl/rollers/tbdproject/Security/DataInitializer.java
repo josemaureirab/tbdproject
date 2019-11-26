@@ -34,7 +34,7 @@ public class DataInitializer implements CommandLineRunner {
                 .age(77)
                 .rut("77.777.777-7")
                 .password(this.passwordEncoder.encode("password"))
-                .roles(Arrays.asList( "ROLE_USER"))
+                .rolesList(Arrays.asList( "normalUser"))
                 .build()
             );
             this.users.save(User.builder()
@@ -44,7 +44,7 @@ public class DataInitializer implements CommandLineRunner {
                 .lastName("admin")
                 .age(77)
                 .rut("77.777.777-7")
-                .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
+                .rolesList(Arrays.asList("normalUser", "adminUser"))
                 .build()
             );
         }

@@ -1,29 +1,15 @@
 package cl.rollers.tbdproject.DB;
 
-import cl.rollers.tbdproject.SQL.dao.*;
-import cl.rollers.tbdproject.SQL.models.*;
-import org.hibernate.boot.model.relational.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.sql2o.Connection;
-import org.sql2o.Sql2o;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.ArrayList;
+@Component
+public class DatabaseManager implements CommandLineRunner {
 
-public class DatabaseController {
-
-  private Sql2o sql2o[];
-
-  public DatabaseController(Sql2o[] sql2o) {
-      this.sql2o = sql2o;
-  }
+  @Autowired
+  private DatabaseConnection databaseConnection;
   
   public void databaseAction (String databaseAction) {
     if (databaseAction.equals("create")) {
@@ -58,13 +44,13 @@ public class DatabaseController {
   
   public void dropTable (int dbNumber, String tableName) {
     String dropTable = "drop table if exists " + tableName + " cascade";
-    try(Connection conn = sql2o[dbNumber].open()){
-      conn.createQuery(dropTable).executeUpdate();
+    try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
+      connection.createQuery(dropTable).executeUpdate();
     }
   }
   
   public void dropAllTables () {
-    for (int dbNumber = 0; dbNumber < sql2o.length; dbNumber++) {
+    for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
       dropTable(dbNumber, "dimension");
       dropTable(dbNumber, "emergency");
       dropTable(dbNumber, "task");
@@ -79,17 +65,17 @@ public class DatabaseController {
   
   public void createTable (int dbNumber, String tableName, String values) {
     String createTable = "create table " + tableName + "( " + values + " )";
-    try(Connection conn = sql2o[dbNumber].open()){
-      conn.createQuery(createTable).executeUpdate();
+    try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
+      connection.createQuery(createTable).executeUpdate();
       if (tableName.equals("voluntary")) {
         String addLocation = "ALTER TABLE voluntary ADD COLUMN location geometry(point)";
-        conn.createQuery(addLocation).executeUpdate();
+        connection.createQuery(addLocation).executeUpdate();
       }
     }
   }
   
   public  void createAllTables () {
-    for (int dbNumber = 0; dbNumber < sql2o.length; dbNumber++) {
+    for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
       createTable(dbNumber, "dimension", "id SERIAL, name VARCHAR(255), score INT, voluntaryDimensionList TEXT [], primary key(id)" );
       createTable(dbNumber, "emergency", "id SERIAL, name VARCHAR(255), description TEXT, taskList TEXT [], primary key(id)" );
       createTable(dbNumber, "task", "id SERIAL, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id), foreign key (emergency_id) references emergency(id)" );
@@ -104,27 +90,27 @@ public class DatabaseController {
   
   public void addPostgis (int dbNumber) {
     String addPostgis = "create extension postgis";
-    try(Connection conn = sql2o[dbNumber].open()){
+    try(Connection conn = databaseConnection.sql2o[dbNumber].open()){
       conn.createQuery(addPostgis).executeUpdate();
     }
   }
   
   public void addPostgisAllDbs () {
-    for (int dbNumber = 0; dbNumber < sql2o.length; dbNumber++) {
+    for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
       addPostgis(dbNumber);
     }
   }
   
   public void seed (int dataQuantity) {
     for (int dataNumber = 0; dataNumber < dataQuantity; dataNumber++) {
-      int dbNumber = dataNumber % sql2o.length;
-      try(Connection connection = sql2o[dbNumber].open()){
+      int dbNumber = dataNumber % databaseConnection.sql2o.length;
+      try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
         seedEmergencies(connection, dataNumber);
         seedTasks(connection, dataNumber);
       }
     }
     /* Seed static users, enter them in first database */
-    try(Connection connection = sql2o[0].open()){
+    try(Connection connection = databaseConnection.sql2o[0].open()){
       seedUsers(connection);
     }
   }
@@ -195,4 +181,9 @@ public class DatabaseController {
         .executeUpdate();
   }
   
+  @Override
+  public void run(String... args) throws Exception {
+    databaseAction("create");
+    seed(20);
+  }
 }

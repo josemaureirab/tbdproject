@@ -24,7 +24,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<User> userList = users.findAll();
+        /*List<User> userList = users.findAll();
 
         if(userList.size() == 0){
             this.users.save(User.builder()
@@ -47,6 +47,6 @@ public class DataInitializer implements CommandLineRunner {
                 .rolesList(Arrays.asList("normalUser", "adminUser"))
                 .build()
             );
-        }
+        }*/
     }
 }

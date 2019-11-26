@@ -1,6 +1,5 @@
 package cl.rollers.tbdproject;
 
-import cl.rollers.tbdproject.DB.DatabaseController;
 import cl.rollers.tbdproject.SQL.models.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +12,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.sql2o.Sql2o;
 
 import java.util.Optional;
 
@@ -22,16 +20,6 @@ public class TbdprojectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TbdprojectApplication.class, args);
-        
-        /* Databases */
-        Sql2o sql2o[] = new Sql2o[2];
-        sql2o[0] = new Sql2o("jdbc:postgresql://localhost:5432/tbd1","postgres","secret");
-        sql2o[1] = new Sql2o("jdbc:postgresql://localhost:5432/tbd2","postgres","secret");
-        
-        /* Database Management */
-        DatabaseController databaseController = new DatabaseController(sql2o);
-        databaseController.databaseAction("create");
-        databaseController.seed(20);
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.Security.web;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.JPA.dao.UserDao;
+import cl.rollers.tbdproject.SQL.JPA.models.User;
 import cl.rollers.tbdproject.Security.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class AuthenticationController {
             long id = user.getId();
             String token = jwtTokenProvider.createToken(username,
                     this.users.findByUsername(username).orElseThrow(()
-                            -> new UsernameNotFoundException("Username " + username + "not found")).getRolesList());
+                            -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);

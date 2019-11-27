@@ -1,6 +1,6 @@
 package cl.rollers.tbdproject.Security.security;
 
-import cl.rollers.tbdproject.SQL.dao.UserDao;
+import cl.rollers.tbdproject.SQL.JPA.dao.UserDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

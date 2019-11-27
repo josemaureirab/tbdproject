@@ -1,6 +1,6 @@
 package cl.rollers.tbdproject;
 
-import cl.rollers.tbdproject.SQL.models.User;
+import cl.rollers.tbdproject.SQL.JPA.models.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

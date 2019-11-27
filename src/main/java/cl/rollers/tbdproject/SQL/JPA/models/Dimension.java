@@ -1,0 +1,27 @@
+/*
+package cl.rollers.tbdproject.SQL.JPA.models;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@Table(name = "dimension")
+public class Dimension {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
+    @SequenceGenerator(name = "ROLE_SEQ", sequenceName = "SEQ_ROLE", allocationSize = 1)
+    private Integer id;
+
+    @NonNull
+    @Column(name = "name")
+    private String name;
+
+    @NonNull
+    @Column(name = "score")
+    private Integer score;
+}*/

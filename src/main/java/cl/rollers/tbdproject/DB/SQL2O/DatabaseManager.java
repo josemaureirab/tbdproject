@@ -78,29 +78,31 @@ public class DatabaseManager implements CommandLineRunner {
   
   public  void createAllTables () {
     for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
-      createTable(dbNumber, "dimension", "id SERIAL, name VARCHAR(255), score INT, primary key(id)" );
-      createTable(dbNumber, "emergency", "id SERIAL, name VARCHAR(255), description TEXT, primary key(id)" );
-      createTable(dbNumber, "task", "id SERIAL, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id), foreign key (emergency_id) references emergency(id)" );
-      createTable(dbNumber, "voluntary", "id SERIAL, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
-      createTable(dbNumber, "voluntary_dimension", "id SERIAL, voluntary_id INT, dimension_id INT, primary key(id), foreign key (voluntary_id) references voluntary(id), foreign key (dimension_id) references dimension(id)" );
-      createTable(dbNumber, "voluntary_emergency", "id SERIAL, voluntary_id INT, emergency_id INT, primary key(id), foreign key (voluntary_id) references voluntary(id), foreign key (emergency_id) references emergency(id)" );
-      createTable(dbNumber, "voluntary_task", "id SERIAL, voluntary_id INT, task_id INT, primary key(id), foreign key (voluntary_id) references voluntary(id), foreign key (task_id) references task(id)" );
+      createTable(dbNumber, "dimension", "id INT, name VARCHAR(255), score INT, primary key(id)" );
+      createTable(dbNumber, "emergency", "id INT, name VARCHAR(255), description TEXT, primary key(id)" );
+      createTable(dbNumber, "task", "id INT, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id)" );
+      createTable(dbNumber, "voluntary", "id INT, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
+      createTable(dbNumber, "voluntary_dimension", "id INT, voluntary_id INT, dimension_id INT, primary key(id)" );
+      createTable(dbNumber, "voluntary_emergency", "id INT, voluntary_id INT, emergency_id INT, primary key(id)" );
+      createTable(dbNumber, "voluntary_task", "id INT, voluntary_id INT, task_id INT, primary key(id)" );
       /*createTable(dbNumber, "users", "id SERIAL, active BOOLEAN, birthDate DATE, firstName VARCHAR(255), lastName VARCHAR(255), password TEXT, rut VARCHAR(255), age INT, userName VARCHAR(255), primary key(id)" );
-      createTable(dbNumber, "user_roles", "id SERIAL, user_id INT, role VARCHAR(255), primary key(id), foreign key (user_id) references users(id)" );*/
+      createTable(dbNumber, "user_roles", "id SERIAL, user_id INT, role VARCHAR(255), primary key(id)" );*/
     }
   }
   
   public void seedEmergencies (Connection connection, int dataNumber) {
     connection.createQuery(
-      "insert into emergency(name, description) values (:name, :description)")
-      .addParameter("name", "Emergency " + dataNumber)
-      .addParameter("description", "Descripción " + dataNumber)
-      .executeUpdate();
+        "insert into emergency(id, name, description) values (:id, :name, :description)")
+        .addParameter("id", + dataNumber)
+        .addParameter("name", "Emergency " + dataNumber)
+        .addParameter("description", "Descripción " + dataNumber)
+        .executeUpdate();
   }
 
   public void seedTasks (Connection connection, int dataNumber) {
     connection.createQuery(
-        "insert into task(name, description, status, emergency_id) values (:name, :description, :status, :emergency_id)")
+        "insert into task(id, name, description, status, emergency_id) values (:id, :name, :description, :status, :emergency_id)")
+        .addParameter("id", + dataNumber)
         .addParameter("name", "task " + dataNumber)
         .addParameter("description", "descripción " + dataNumber)
         .addParameter("status", true)
@@ -177,6 +179,7 @@ public class DatabaseManager implements CommandLineRunner {
         seedTasks(connection, dataNumber);
       }
     }
+    /* Currently in disuse, using JPA builder */
     /* Seed static users */
     /*try(Connection connection = databaseConnection.sql2o[0].open()){
       seedUsers(connection);

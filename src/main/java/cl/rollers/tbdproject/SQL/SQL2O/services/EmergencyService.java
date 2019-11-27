@@ -126,7 +126,6 @@ public class EmergencyService {
     }
     
     /* SQL2O */
-    
     private List<Emergency> findAll () {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
@@ -139,6 +138,37 @@ public class EmergencyService {
                     public void run() {
                         try(Connection conn = databaseConnection.sql2o[db].open()){
                             results[db] = conn.createQuery("select * from emergency")
+                                .executeAndFetch(Emergency.class);
+                        }
+                    }
+                });
+            }
+            executor.shutdown();
+            executor.awaitTermination(24*3600, TimeUnit.SECONDS);
+            List<Emergency> merged = new ArrayList<Emergency>();
+            for( int i = 0; i < databaseConnection.sql2o.length; i++){
+                merged.addAll(results[i]);
+            }
+            Collections.sort(merged);
+            return merged;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    private List<Emergency> findEmergencyById(long id) {
+        try {
+            ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+            List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
+            for( int i = 0; i < databaseConnection.sql2o.length; i++){
+                final int db = i;
+                results[i] = new ArrayList<Emergency>();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try(Connection conn = databaseConnection.sql2o[db].open()){
+                            results[db] = conn.createQuery("select * from emergency where ")
                                 .executeAndFetch(Emergency.class);
                         }
                     }

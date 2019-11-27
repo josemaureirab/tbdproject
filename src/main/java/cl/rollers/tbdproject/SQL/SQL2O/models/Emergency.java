@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name= "emergency")
-public class Emergency {
+public class Emergency implements Comparable<Emergency>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMERGENCY_SEQ")
     @SequenceGenerator(name = "EMERGENCY_SEQ", sequenceName = "SEQ_EMERGENCY", allocationSize = 1)
@@ -23,4 +23,9 @@ public class Emergency {
     @NonNull
     @Column(name = "description")
     private String description;
+    
+    @Override
+    public int compareTo(Emergency emergency) {
+        return this.getId().compareTo(emergency.getId());
+    }
 }

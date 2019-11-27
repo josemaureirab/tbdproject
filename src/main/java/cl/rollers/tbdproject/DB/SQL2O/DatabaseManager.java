@@ -78,8 +78,8 @@ public class DatabaseManager implements CommandLineRunner {
   
   public  void createAllTables () {
     for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
-      createTable(dbNumber, "dimension", "id SERIAL, name VARCHAR(255), score INT, voluntaryDimensionList TEXT [], primary key(id)" );
-      createTable(dbNumber, "emergency", "id SERIAL, name VARCHAR(255), description TEXT, taskList TEXT [], primary key(id)" );
+      createTable(dbNumber, "dimension", "id SERIAL, name VARCHAR(255), score INT, primary key(id)" );
+      createTable(dbNumber, "emergency", "id SERIAL, name VARCHAR(255), description TEXT, primary key(id)" );
       createTable(dbNumber, "task", "id SERIAL, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id), foreign key (emergency_id) references emergency(id)" );
       createTable(dbNumber, "voluntary", "id SERIAL, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
       createTable(dbNumber, "voluntary_dimension", "id SERIAL, voluntary_id INT, dimension_id INT, primary key(id), foreign key (voluntary_id) references voluntary(id), foreign key (dimension_id) references dimension(id)" );
@@ -93,7 +93,7 @@ public class DatabaseManager implements CommandLineRunner {
   public void seedEmergencies (Connection connection, int dataNumber) {
     connection.createQuery(
       "insert into emergency(name, description) values (:name, :description)")
-      .addParameter("name", "Task " + dataNumber)
+      .addParameter("name", "Emergency " + dataNumber)
       .addParameter("description", "Descripción " + dataNumber)
       .executeUpdate();
   }

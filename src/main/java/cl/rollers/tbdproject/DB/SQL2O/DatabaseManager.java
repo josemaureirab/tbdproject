@@ -169,7 +169,7 @@ public class DatabaseManager implements CommandLineRunner {
   }
   
   public void seed (int dataQuantity) {
-    for (int dataNumber = 0; dataNumber < dataQuantity; dataNumber++) {
+    for (int dataNumber = 1; dataNumber < dataQuantity; dataNumber++) {
       int dbNumber = dataNumber % databaseConnection.sql2o.length;
       try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
         seedEmergencies(connection, dataNumber);
@@ -187,7 +187,7 @@ public class DatabaseManager implements CommandLineRunner {
   public void run(String... args) throws Exception {
     /* Use databaseAction in create just if you have added postgis before */
     /* If you haven't added postgis use createAndAddPostgis */
-    databaseAction("asdasd");
-    seed(30);
+    databaseAction("create");
+    seed(60);
   }
 }

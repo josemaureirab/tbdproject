@@ -60,12 +60,7 @@ public class EmergencyService {
     }
 
     public EmergencyDto findEmergencyById(int id){
-        if(emergencyDao.findById(id).isPresent()){
-            return emergencyMapper.mapToDto(emergencyDao.findEmergencyById(id));
-        }
-        else{
-            return null;
-        }
+        return findEmergencyByIdSql2o(id);
     }
 
     public void updateEmergency(EmergencyDto emergencyDto, int id){
@@ -157,7 +152,7 @@ public class EmergencyService {
         return null;
     }
     
-    private List<Emergency> findEmergencyById(long id) {
+    private EmergencyDto findEmergencyByIdSql2o (Integer id) {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
             List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
@@ -168,8 +163,10 @@ public class EmergencyService {
                     @Override
                     public void run() {
                         try(Connection conn = databaseConnection.sql2o[db].open()){
-                            results[db] = conn.createQuery("select * from emergency where ")
-                                .executeAndFetch(Emergency.class);
+                            final String query = "select * from emergency where id = :emergencyId";
+                            results[db] = conn.createQuery(query)
+                                    .addParameter("emergencyId", id)
+                                    .executeAndFetch(Emergency.class);
                         }
                     }
                 });
@@ -181,7 +178,11 @@ public class EmergencyService {
                 merged.addAll(results[i]);
             }
             Collections.sort(merged);
-            return merged;
+            if (merged.size() != 0)
+                return emergencyMapper.mapToDto(merged.get(0));
+            else {
+                return null;
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

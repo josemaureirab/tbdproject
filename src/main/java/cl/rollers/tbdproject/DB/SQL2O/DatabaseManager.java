@@ -14,33 +14,30 @@ public class DatabaseManager implements CommandLineRunner {
   private DatabaseConnection databaseConnection;
   
   public void databaseAction (String databaseAction) {
+    System.out.println("Chosen option: " + databaseAction);
     if (databaseAction.equals("create")) {
-      dropAllTables();
-      createAllTables();
-    }
-    else if (databaseAction.equals("createAndAddPostgis")) {
-      addPostgisAllDbs();
-      dropAllTables();
-      createAllTables();
-    }
-    else if (databaseAction.equals("updateAndAddPostgis")) {
-      System.out.println("Update isn't implemented yet, what's more, maybe you should implement it");
-      System.out.println("For while, I'll run it in create anyway, cya");
-      addPostgisAllDbs();
       dropAllTables();
       createAllTables();
     }
     else if (databaseAction.equals("update")) {
       System.out.println("Update isn't implemented yet, what's more, maybe you should implement it");
-      System.out.println("For while, I'll run it in create anyway, cya");
-      dropAllTables();
-      createAllTables();
+      System.out.println("Meanwhile, I'll run it in create anyway, cya");
+      databaseAction("create");
+    }
+    else if (databaseAction.equals("createAndAddPostgis")) {
+      addPostgisAllDbs();
+      databaseAction("create");
+    }
+    else if (databaseAction.equals("updateAndAddPostgis")) {
+      System.out.println("Update isn't implemented yet, what's more, maybe you should implement it");
+      System.out.println("Meanwhile, I'll run it in create anyway, cya");
+      addPostgisAllDbs();
+      databaseAction("create");
     }
     else {
       System.out.println("Option not implemented, next time try another option");
-      System.out.println("Running default option: create");
-      dropAllTables();
-      createAllTables();
+      System.out.println("Running default option...");
+      databaseAction("create");
     }
   }
   
@@ -188,7 +185,9 @@ public class DatabaseManager implements CommandLineRunner {
   
   @Override
   public void run(String... args) throws Exception {
-    databaseAction("create");
+    /* Use databaseAction in create just if you have added postgis before */
+    /* If you haven't added postgis use createAndAddPostgis */
+    databaseAction("asdasd");
     seed(30);
   }
 }

@@ -30,7 +30,7 @@ public class EmergencyService {
 
     @Autowired
     DatabaseConnection databaseConnection;
-    
+
     @Autowired
     private EmergencyDao emergencyDao;
 
@@ -59,12 +59,10 @@ public class EmergencyService {
         return emergencyMapper.mapToDto(emergencyDao.save(emergencyMapper.mapToModel(emergencyDto)));
     }
 
-    public EmergencyDto findEmergencyById(int id){
-        return findEmergencyByIdSql2o(id);
-    }
+    public EmergencyDto findEmergencyById(int id){ return findEmergencyByIdSql2o(id); }
 
     public void updateEmergency(EmergencyDto emergencyDto, int id){
-        Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
+        Emergency emergencyFinded = emergencyMapper.mapToModel(findEmergencyByIdSql2o(id));
         emergencyFinded.setName(emergencyDto.getName());
         emergencyFinded.setDescription(emergencyDto.getDescription());
         emergencyDao.save(emergencyFinded);
@@ -119,7 +117,7 @@ public class EmergencyService {
         }
         return null;
     }
-    
+
     /* SQL2O */
     private List<Emergency> findAll () {
         try {
@@ -151,7 +149,7 @@ public class EmergencyService {
         }
         return null;
     }
-    
+
     private EmergencyDto findEmergencyByIdSql2o (Integer id) {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);

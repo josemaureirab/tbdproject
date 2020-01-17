@@ -169,12 +169,17 @@ public class DatabaseManager implements CommandLineRunner {
   }
   
   public void seed (int dataQuantity) {
+    int dataId = 1;
+    dataQuantity += 1;
     for (int dataNumber = 1; dataNumber < dataQuantity; dataNumber++) {
+      dataNumber -= 1;
       int dbNumber = dataNumber % databaseConnection.sql2o.length;
       try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
-        seedEmergencies(connection, dataNumber);
-        seedTasks(connection, dataNumber);
+        seedEmergencies(connection, dataId);
+        seedTasks(connection, dataId);
       }
+      dataId += 1;
+      dataNumber += 1;
     }
     /* Currently in disuse, using JPA builder */
     /* Seed static users */

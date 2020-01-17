@@ -32,7 +32,12 @@ public class EmergencyController {
     @ResponseBody
     public ResponseEntity<EmergencyDto> findEmergencyById (@PathVariable("id") Integer id){
         try{
-            return ResponseEntity.ok(emergencyService.findEmergencyById(id));
+            EmergencyDto findedEmergency = emergencyService.findEmergencyById(id);
+            if (findedEmergency != null) {
+                return ResponseEntity.ok(findedEmergency);
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
         }
         catch(Exception e){
             return ResponseEntity.badRequest().build();

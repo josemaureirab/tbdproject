@@ -1,9 +1,9 @@
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/tbd
+    url: jdbc:postgresql://localhost:5432/tbd1
     username: postgres
-    password: secret
+    password: pitufo
   jpa:
     properties:
       hibernate:

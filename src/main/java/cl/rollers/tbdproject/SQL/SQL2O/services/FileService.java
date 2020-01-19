@@ -68,8 +68,8 @@ public class FileService {
         voluntary.setLastName(voluntaryExcel.getLastName());
         voluntary.setMail(voluntaryExcel.getMail());
         voluntary.setGender(voluntaryExcel.getGender());
-        voluntary.setLatitude(voluntaryExcel.getLatitude());
-        voluntary.setLongitude(voluntaryExcel.getLongitude());
+        /*voluntary.setLatitude(voluntaryExcel.getLatitude());
+        voluntary.setLongitude(voluntaryExcel.getLongitude());*/
         return voluntary;
     }
 

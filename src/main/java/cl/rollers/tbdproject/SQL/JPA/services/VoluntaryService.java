@@ -54,4 +54,5 @@ public class VoluntaryService {
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
         voluntaryDao.delete(voluntaryFinded);
     }
- }*/
+ }
+*/

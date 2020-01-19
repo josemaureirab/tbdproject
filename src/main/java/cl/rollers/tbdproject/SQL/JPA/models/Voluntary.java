@@ -4,7 +4,7 @@ package cl.rollers.tbdproject.SQL.JPA.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
+//import com.vividsolutions.jts.geom.Point;
 import javax.persistence.*;
 import java.awt.*;
 
@@ -52,4 +52,5 @@ public class Voluntary {
     @NonNull
     @Column(columnDefinition = "Geometry", name = "location")
     private Point location;
-}*/
+}
+*/

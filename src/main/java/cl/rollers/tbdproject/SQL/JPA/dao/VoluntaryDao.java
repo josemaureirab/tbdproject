@@ -11,4 +11,5 @@ public interface VoluntaryDao extends JpaRepository<Voluntary, Integer> {
   ArrayList<Voluntary> findAll();
   Voluntary findVoluntaryById(Integer id);
 }
+
 */

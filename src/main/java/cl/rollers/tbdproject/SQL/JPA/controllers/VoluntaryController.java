@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/voluntaries")
 public class VoluntaryController {
-
     private Sql2o sql2o[];
     public VoluntaryController(Sql2o[] sql2o) {
         this.sql2o = sql2o;
@@ -91,4 +90,5 @@ public class VoluntaryController {
     }
 
 }
+
 */

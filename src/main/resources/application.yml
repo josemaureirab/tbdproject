@@ -12,3 +12,4 @@ spring:
             non_contextual_creation: true
     hibernate:
       ddl-auto: create
+      dialect: "org.hibernate.spatial.dialect.postgis.PostgisDialect"

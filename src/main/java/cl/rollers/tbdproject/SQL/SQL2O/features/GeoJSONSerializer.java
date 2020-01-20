@@ -4,18 +4,18 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-
 public class GeoJSONSerializer extends StdSerializer<FeatureCollection> {
 
     public GeoJSONSerializer() {
         this(null);
     }
 
-    protected GeoJSONSerializer(Class<FeatureCollection> t) {
+    public GeoJSONSerializer(Class<FeatureCollection> t) {
         super(t);
     }
 

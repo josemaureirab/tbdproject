@@ -1,5 +1,7 @@
 package cl.rollers.tbdproject.SQL.SQL2O.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.vividsolutions.jts.geom.Geometry;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,9 @@ import com.vividsolutions.jts.geom.Point;
 @Data
 @NoArgsConstructor
 @Table(name = "voluntary")
-public class Voluntary {
+public class Voluntary implements Comparable<Voluntary> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VOLUNTARY_SEQ")
@@ -51,7 +53,10 @@ public class Voluntary {
     @Column(name = "longitude")
     private Float longitude;
 */
-    @NonNull
+
     @Column(name = "location")
-    private Geometry location;
+    private Point location;
+
+    @Override
+    public int compareTo(Voluntary voluntary){ return this.getId().compareTo(voluntary.getId());}
 }

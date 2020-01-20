@@ -4,8 +4,10 @@ import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
 import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.VoluntaryDto;
+import cl.rollers.tbdproject.SQL.SQL2O.features.GeoJSONSerializer;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.services.VoluntaryService;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +37,17 @@ public class VoluntaryController {
 
     @GetMapping("/")
     @ResponseBody
+    @JsonSerialize(using = GeoJSONSerializer.class)
     public FeatureCollection getAllVoluntaries(){
-        List<Voluntary> voluntaries;
-        voluntaries = voluntaryDao.findAll();
+
+        List<VoluntaryDto> voluntaries;
+        voluntaries = voluntaryService.getAllVoluntaries();
+        System.out.println(voluntaries.get(1));
         if(voluntaries.isEmpty()){
             return new FeatureCollection();
         }
             FeatureCollection featureCollection = new FeatureCollection();
-            for (Voluntary voluntary : voluntaries) {
+            for (VoluntaryDto voluntary : voluntaries) {
                 HashMap<String, Object> propierties = new HashMap<>();
                 propierties.put("age", voluntary.getAge());
                 propierties.put("name", voluntary.getName());

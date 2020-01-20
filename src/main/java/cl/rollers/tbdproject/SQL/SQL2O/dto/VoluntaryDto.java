@@ -17,5 +17,5 @@ public class VoluntaryDto {
     private Integer age;
     /*private Float latitude;
     private Float longitude;*/
-    private Geometry location;
+    private Point location;
 }

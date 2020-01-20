@@ -96,6 +96,19 @@ public class DatabaseManager implements CommandLineRunner {
         .executeUpdate();
   }
 
+  public void seedVoluntaries (Connection connection, int dataNumber) {
+    connection.createQuery(
+            "insert into voluntary(id, firstName, lastName, mail, gender, rut, age) values (:id, :firstName, :lastName, :mail, :gender, :rut, :age)")
+            .addParameter("id", + dataNumber)
+            .addParameter("firstName", "firstName " + dataNumber)
+            .addParameter("lastName", "lastName " + dataNumber)
+            .addParameter("mail", "mail" + dataNumber)
+            .addParameter("gender", "gender" + dataNumber)
+            .addParameter("rut", "rut" + dataNumber)
+            .addParameter("age", 0)
+            .executeUpdate();
+  }
+
   public void seedTasks (Connection connection, int dataNumber) {
     connection.createQuery(
         "insert into task(id, name, description, status, emergency_id) values (:id, :name, :description, :status, :emergency_id)")
@@ -174,6 +187,7 @@ public class DatabaseManager implements CommandLineRunner {
       try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
         seedEmergencies(connection, dataNumber);
         seedTasks(connection, dataNumber);
+        seedVoluntaries(connection, dataNumber);
       }
     }
     /* Currently in disuse, using JPA builder */

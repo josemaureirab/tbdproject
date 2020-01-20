@@ -53,7 +53,7 @@ public class VoluntaryService {
     public VoluntaryDto findVoluntaryById(int id){ return findVoluntaryByIdSql2o(id); }
 
     public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
-        Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
+        Voluntary voluntaryFinded = voluntaryMapper.mapToModel(findVoluntaryByIdSql2o(id);
         voluntaryFinded.setName(voluntaryDto.getName());
         voluntaryFinded.setLastName(voluntaryDto.getLastName());
         voluntaryFinded.setRut(voluntaryDto.getLastName());
@@ -66,7 +66,7 @@ public class VoluntaryService {
     }
 
     public void deleteVoluntary(Integer id){
-        Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
+        Voluntary voluntaryFinded = voluntaryDao.findVoluntaryById(id);
         voluntaryDao.delete(voluntaryFinded);
     }
 

@@ -1,3 +1,4 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -46,17 +47,19 @@ public class Voluntary implements Comparable<Voluntary> {
     @NonNull
     @Column(name = "age")
     private Integer age;
-    /*
+    */
+/*
     @Column(name = "latitude")
     private Float latitude;
 
     @Column(name = "longitude")
     private Float longitude;
-*/
+*//*
+
 
     @Column(name = "location")
     private Point location;
 
     @Override
     public int compareTo(Voluntary voluntary){ return this.getId().compareTo(voluntary.getId());}
-}
+}*/

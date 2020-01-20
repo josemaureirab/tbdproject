@@ -1,4 +1,3 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.controllers;
 
 import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
@@ -90,5 +89,3 @@ public class VoluntaryController {
     }
 
 }
-
-*/

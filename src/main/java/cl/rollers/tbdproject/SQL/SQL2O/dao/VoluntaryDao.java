@@ -1,3 +1,4 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.dao;
 
 
@@ -10,3 +11,4 @@ import java.util.ArrayList;
 public interface VoluntaryDao extends JpaRepository<Voluntary, Integer> {
   Voluntary findVoluntaryById(Integer id);
 }
+*/

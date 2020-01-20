@@ -1,4 +1,3 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.services;
 
 import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
@@ -39,14 +38,12 @@ public class VoluntaryService {
 
     public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
-        voluntaryFinded.setName(voluntaryDto.getName());
+        voluntaryFinded.setFirstName(voluntaryDto.getFirstName());
         voluntaryFinded.setLastName(voluntaryDto.getLastName());
         voluntaryFinded.setRut(voluntaryDto.getLastName());
         voluntaryFinded.setMail(voluntaryDto.getMail());
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
-        voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
-        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
         voluntaryDao.save(voluntaryFinded);
     }
 
@@ -55,4 +52,3 @@ public class VoluntaryService {
         voluntaryDao.delete(voluntaryFinded);
     }
  }
-*/

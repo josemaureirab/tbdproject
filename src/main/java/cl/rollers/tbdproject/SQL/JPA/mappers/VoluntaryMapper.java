@@ -1,4 +1,3 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.mappers;
 
 import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
@@ -14,28 +13,24 @@ public class VoluntaryMapper {
     public Voluntary mapToModel(VoluntaryDto voluntaryDto){
         Voluntary voluntary = new Voluntary();
         voluntary.setId(voluntaryDto.getId());
-        voluntary.setName(voluntaryDto.getName());
+        voluntary.setFirstName(voluntaryDto.getFirstName());
         voluntary.setLastName(voluntaryDto.getLastName());
         voluntary.setMail(voluntaryDto.getMail());
         voluntary.setGender(voluntaryDto.getGender());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
-        voluntary.setLatitude(voluntaryDto.getLatitude());
-        voluntary.setLongitude(voluntaryDto.getLongitude());
         return voluntary;
     }
 
     public VoluntaryDto mapToDto(Voluntary voluntary){
         VoluntaryDto voluntaryDto = new VoluntaryDto();
         voluntaryDto.setId(voluntary.getId());
-        voluntaryDto.setName(voluntary.getName());
+        voluntaryDto.setFirstName(voluntary.getFirstName());
         voluntaryDto.setLastName(voluntary.getLastName());
         voluntaryDto.setMail(voluntary.getMail());
         voluntaryDto.setGender(voluntary.getGender());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
-        voluntaryDto.setLatitude(voluntary.getLatitude());
-        voluntaryDto.setLongitude(voluntary.getLongitude());
         return voluntaryDto;
     }
 
@@ -52,4 +47,3 @@ public class VoluntaryMapper {
     }
 
 }
-*/

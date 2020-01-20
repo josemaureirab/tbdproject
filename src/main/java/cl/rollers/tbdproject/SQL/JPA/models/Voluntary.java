@@ -1,12 +1,11 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.models;
 
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-//import com.vividsolutions.jts.geom.Point;
+
 import javax.persistence.*;
-import java.awt.*;
 
 @Entity
 @Data
@@ -21,7 +20,7 @@ public class Voluntary {
 
     @NonNull
     @Column(name = "name")
-    private String name;
+    private String firstName;
 
     @NonNull
     @Column(name = "last_Name")
@@ -43,14 +42,6 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "latitude")
-    private Float latitude;
-
-    @Column(name = "longitude")
-    private Float longitude;
-
     @NonNull
-    @Column(columnDefinition = "Geometry", name = "location")
     private Point location;
 }
-*/

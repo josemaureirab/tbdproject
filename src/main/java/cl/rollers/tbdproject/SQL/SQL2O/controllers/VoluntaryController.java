@@ -1,3 +1,4 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.controllers;
 
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
@@ -114,3 +115,4 @@ public class VoluntaryController {
     }
 
 }
+*/

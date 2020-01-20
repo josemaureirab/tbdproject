@@ -1,3 +1,4 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
@@ -52,8 +53,10 @@ public class VoluntaryService {
         voluntaryFinded.setMail(voluntaryDto.getMail());
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
-        /*voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
-        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());*/
+        */
+/*voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
+        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());*//*
+
         voluntaryDao.save(voluntaryFinded);
     }
 
@@ -62,7 +65,9 @@ public class VoluntaryService {
         voluntaryDao.delete(voluntaryFinded);
     }
 
-    /* SQL2O */
+    */
+/* SQL2O *//*
+
     private List<Voluntary> findAll () {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
@@ -131,4 +136,4 @@ public class VoluntaryService {
         return null;
     }
 
- }
+ }*/

@@ -55,7 +55,7 @@ public class EmergencyService {
 	}
 
 	public EmergencyDto createEmergency(EmergencyDto emergencyDto){
-		return emergencyMapper.mapToDto(emergencyDao.save(emergencyMapper.mapToModel(emergencyDto)));
+		return createEmergencySql2o(emergencyMapper.mapToModel(emergencyDto));
 	}
 
 	public EmergencyDto findEmergencyById(int id){ return findEmergencyByIdSql2o(id); }
@@ -190,6 +190,23 @@ public class EmergencyService {
 		return null;
 	}
 
+	public EmergencyDto createEmergencySql2o (Emergency emergency) {
+		List<Emergency> emergencies = findAll();
+		int newId = emergencies.get(emergencies.size()-1).getId() + 1;
+		int db = newId % databaseConnection.sql2o.length;
+		try(Connection conn = databaseConnection.sql2o[db].open()){
+			conn.createQuery(
+					"INSERT INTO emergency(id, name, description) VALUES (:id, :name, :description)")
+					.addParameter("id", newId)
+					.addParameter("name", emergency.getName())
+					.addParameter("description", emergency.getDescription())
+					.executeAndFetch(Emergency.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return findEmergencyByIdSql2o(newId);
+	}
+
 	public void updateEmergencySql2o (EmergencyDto emergencyDto, int id) {
 		ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
 		for( int i = 0; i < databaseConnection.sql2o.length; i++){
@@ -213,7 +230,7 @@ public class EmergencyService {
 		executor.shutdown();
 	}
 
-	public void deleteEmergencySql2o (int id) {
+	private void deleteEmergencySql2o (int id) {
 		ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
 		for( int i = 0; i < databaseConnection.sql2o.length; i++){
 			final int db = i;

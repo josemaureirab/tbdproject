@@ -67,7 +67,7 @@ public class TaskController {
     public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody TaskDto taskDto){
 
         try{
-            taskService.updateTaskData(taskDto, id);
+            taskService.updateTask(taskDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 

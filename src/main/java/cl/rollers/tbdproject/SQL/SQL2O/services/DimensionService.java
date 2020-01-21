@@ -3,8 +3,10 @@ package cl.rollers.tbdproject.SQL.SQL2O.services;
 import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.DimensionDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.DimensionDto;
+import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.DimensionMapper;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Dimension;
+import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.sql2o.Connection;
@@ -48,16 +50,24 @@ public class DimensionService {
 
     public DimensionDto findDimensionById(int id){ return findDimensionByIdSql2o(id); }
 
-    public void updateDimensionData(DimensionDto dimensionDto, int id){
-        Dimension dimensionFinded = dimensionMapper.mapToModel(findDimensionByIdSql2o(id));
-        dimensionFinded.setName(dimensionDto.getName());
-        dimensionFinded.setScore(dimensionDto.getScore());
-        dimensionDao.save(dimensionFinded);
+    public void updateDimension(DimensionDto dimensionDto, int id) {
+        try {
+            updateDimensionSql2o(dimensionDto, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteDimension(int id){
-        dimensionDao.delete(dimensionDao.findDimensionById(id));
+        try {
+            deleteDimensionSql2o(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
+
 
     /* SQL2O */
     private List<Dimension> findAll () {
@@ -126,6 +136,49 @@ public class DimensionService {
             e.printStackTrace();
         }
         return null;
+    }
+    public void updateDimensionSql2o (DimensionDto dimensionDto, int id) {
+        ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+        for( int i = 0; i < databaseConnection.sql2o.length; i++){
+            final int db = i;
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try(Connection conn = databaseConnection.sql2o[db].open()){
+                        final String query = "UPDATE dimension SET name=:dimensionName, score=:dimensionScore  WHERE id = :dimensionId";
+                        conn.createQuery(query)
+                                .addParameter("dimensionId", id)
+                                .addParameter("dimensionName", dimensionDto.getName())
+                                .addParameter("dimensionScore", dimensionDto.getScore())
+                                .executeAndFetch(Dimension.class);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+    }
+
+    public void deleteDimensionSql2o (int id) {
+        ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+        for( int i = 0; i < databaseConnection.sql2o.length; i++){
+            final int db = i;
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try(Connection conn = databaseConnection.sql2o[db].open()){
+                        final String query = "DELETE FROM dimension WHERE id = :dimensionId";
+                        conn.createQuery(query)
+                                .addParameter("dimensionId", id)
+                                .executeAndFetch(Dimension.class);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+            });
+        }
+        executor.shutdown();
     }
 
 }

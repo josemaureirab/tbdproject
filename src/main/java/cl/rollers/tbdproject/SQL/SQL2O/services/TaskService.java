@@ -3,8 +3,10 @@ package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.TaskDao;
+import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.TaskDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.TaskMapper;
+import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,36 +37,27 @@ public class TaskService {
         return taskMapper.mapToDtoArrayList(tasks);
     }
 
-     public TaskDto createTask(TaskDto taskDto){
+    public TaskDto createTask(TaskDto taskDto){
         return taskMapper.mapToDto(taskDao.save(taskMapper.mapToModel(taskDto)));
      }
 
-    /*
-     public TaskDto findTaskById(int id){
-        if(taskDao.findById(id).isPresent()){
-            return taskMapper.mapToDto(taskDao.findTaskById(id));
-        }
-        else{
-            return null;
-        }
+     public TaskDto findTaskById(int id){ return findTaskByIdSql2o(id); }
 
+    public void updateTask(TaskDto taskDto, int id) {
+        try {
+            updateTaskSql2o(taskDto, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-     */
+    public void deleteTask(int id) {
+        try{
+            deleteTaskSql2o(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-    public TaskDto findTaskById(int id){ return findTaskByIdSql2o(id); }
-
-    public void updateTaskData(TaskDto taskDto, int id){
-        Task taskFinded = taskMapper.mapToModel(findTaskByIdSql2o(id));
-        taskFinded.setName(taskDto.getName());
-        taskFinded.setDescription(taskDto.getDescription());
-        taskFinded.setStatus(taskDto.getStatus());
-        taskDao.save(taskFinded);
-    }
-
-    public void deleteTask(int id){
-        Task taskFinded = taskDao.findTaskById(id);
-        taskDao.delete(taskFinded);
     }
 
 
@@ -136,6 +129,53 @@ public class TaskService {
         }
         return null;
     }
+
+    public void updateTaskSql2o (TaskDto taskDto, int id) {
+        ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+        for( int i = 0; i < databaseConnection.sql2o.length; i++){
+            final int db = i;
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try(Connection conn = databaseConnection.sql2o[db].open()){
+                        final String query = "UPDATE task SET name=:taskName, description=:taskDescription, status=:taskStatus  WHERE id = :taskId";
+                        conn.createQuery(query)
+                                .addParameter("taskId", id)
+                                .addParameter("taskName", taskDto.getName())
+                                .addParameter("taskDescription", taskDto.getDescription())
+                                .addParameter("taskStatus", taskDto.getStatus())
+                                .executeAndFetch(Task.class);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+    }
+
+    public void deleteTaskSql2o (int id) {
+        ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+        for( int i = 0; i < databaseConnection.sql2o.length; i++){
+            final int db = i;
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try(Connection conn = databaseConnection.sql2o[db].open()){
+                        final String query = "DELETE FROM task WHERE id = :taskId";
+                        conn.createQuery(query)
+                                .addParameter("taskId", id)
+                                .executeAndFetch(Task.class);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+    }
+
+
 
 
 

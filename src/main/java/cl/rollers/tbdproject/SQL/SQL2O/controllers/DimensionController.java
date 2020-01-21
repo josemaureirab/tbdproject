@@ -51,7 +51,7 @@ public class DimensionController {
     @ResponseBody
     public ResponseEntity updateDimension (@PathVariable("id") Integer id, @RequestBody DimensionDto dimensionDto){
         try{
-            dimensionService.updateDimensionData(dimensionDto, id);
+            dimensionService.updateDimension(dimensionDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }catch (Exception e){
             return ResponseEntity.badRequest().build();

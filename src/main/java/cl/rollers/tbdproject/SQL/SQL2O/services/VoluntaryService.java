@@ -117,7 +117,7 @@ public class VoluntaryService {
                     @Override
                     public void run() {
                         try(Connection conn = databaseConnection.sql2o[db].open()){
-                            final String query = "select * from emergency where id = :voluntaryId";
+                            final String query = "select * from voluntary where id = :voluntaryId";
                             results[db] = conn.createQuery(query)
                                     .addParameter("voluntaryId", id)
                                     .executeAndFetch(Voluntary.class);
@@ -133,7 +133,7 @@ public class VoluntaryService {
             }
             Collections.sort(merged);
             if (merged.size() != 0)
-                return voluntaryMapperMapper.mapToDto(merged.get(0));
+                return voluntaryMapper.mapToDto(merged.get(0));
             else {
                 return null;
             }

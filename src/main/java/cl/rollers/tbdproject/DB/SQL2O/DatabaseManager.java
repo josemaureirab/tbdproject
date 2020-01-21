@@ -53,7 +53,7 @@ public class DatabaseManager implements CommandLineRunner {
       dropTable(dbNumber, "dimension");
       dropTable(dbNumber, "emergency");
       dropTable(dbNumber, "task");
-      dropTable(dbNumber, "voluntary");
+      //dropTable(dbNumber, "voluntary");
       dropTable(dbNumber, "voluntary_dimension");
       dropTable(dbNumber, "voluntary_emergency");
       dropTable(dbNumber, "voluntary_task");
@@ -66,10 +66,10 @@ public class DatabaseManager implements CommandLineRunner {
     String createTable = "create table " + tableName + "( " + values + " )";
     try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
       connection.createQuery(createTable).executeUpdate();
-      if (tableName.equals("voluntary")) {
+      /*if (tableName.equals("voluntary")) {
         String addLocation = "ALTER TABLE voluntary ADD COLUMN location geometry(point)";
         connection.createQuery(addLocation).executeUpdate();
-      }
+      }*/
     }
   }
   
@@ -78,7 +78,7 @@ public class DatabaseManager implements CommandLineRunner {
       createTable(dbNumber, "dimension", "id INT, name VARCHAR(255), score INT, primary key(id)" );
       createTable(dbNumber, "emergency", "id INT, name VARCHAR(255), description TEXT, primary key(id)" );
       createTable(dbNumber, "task", "id INT, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id)" );
-      createTable(dbNumber, "voluntary", "id INT, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
+      //createTable(dbNumber, "voluntary", "id INT, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
       createTable(dbNumber, "voluntary_dimension", "id INT, voluntary_id INT, dimension_id INT, primary key(id)" );
       createTable(dbNumber, "voluntary_emergency", "id INT, voluntary_id INT, emergency_id INT, primary key(id)" );
       createTable(dbNumber, "voluntary_task", "id INT, voluntary_id INT, task_id INT, primary key(id)" );
@@ -94,6 +94,20 @@ public class DatabaseManager implements CommandLineRunner {
         .addParameter("name", "Emergency " + dataNumber)
         .addParameter("description", "Descripción " + dataNumber)
         .executeUpdate();
+  }
+
+  /* Currently in disuse, using JPA */
+  public void seedVoluntaries (Connection connection, int dataNumber) {
+    connection.createQuery(
+            "insert into voluntary(id, firstName, lastName, mail, gender, rut, age) values (:id, :firstName, :lastName, :mail, :gender, :rut, :age)")
+            .addParameter("id", + dataNumber)
+            .addParameter("firstName", "firstName " + dataNumber)
+            .addParameter("lastName", "lastName " + dataNumber)
+            .addParameter("mail", "mail" + dataNumber)
+            .addParameter("gender", "gender" + dataNumber)
+            .addParameter("rut", "rut" + dataNumber)
+            .addParameter("age", 0)
+            .executeUpdate();
   }
 
   public void seedTasks (Connection connection, int dataNumber) {

@@ -37,4 +37,8 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.hibernate', name: 'hibernate-spatial', version: '5.1.0.Final'
+    compile group: 'com.bedatadriven', name: 'jackson-datatype-jts', version: '2.4'
+    compile group: 'org.sql2o.extensions', name: 'sql2o-postgres', version: '1.6.0-RC1'
+    compile group: 'de.grundid.opendatalab', name: 'geojson-jackson', version: '1.8.1'
 }

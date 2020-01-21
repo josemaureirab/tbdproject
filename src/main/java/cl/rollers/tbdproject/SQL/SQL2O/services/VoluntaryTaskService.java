@@ -1,12 +1,12 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.SQL.SQL2O.dao.TaskDao;
-import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDao;
+import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryTaskDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.VoluntaryTaskDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.VoluntaryTaskMapper;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Task;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Voluntary;
+import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

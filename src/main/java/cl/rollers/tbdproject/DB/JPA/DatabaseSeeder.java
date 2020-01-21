@@ -2,6 +2,7 @@ package cl.rollers.tbdproject.DB.JPA;
 
 import cl.rollers.tbdproject.SQL.JPA.dao.*;
 import cl.rollers.tbdproject.SQL.JPA.models.*;
+import com.vividsolutions.jts.geom.Point;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,8 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
+
+import static cl.rollers.tbdproject.SQL.SQL2O.features.WktHelper.wktToGeometry;
 
 @Component
 @Slf4j
@@ -19,9 +23,27 @@ public class DatabaseSeeder implements CommandLineRunner {
     
     @Autowired
     UserDao users;
+
+    @Autowired
+    private VoluntaryDao voluntaryDao;
     
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    /*
+    public void seedVoluntaries() throws ParseException {
+        voluntaryDao.deleteAll();
+        for (int i = 0; i < 101; i++) {
+            Voluntary voluntary = new Voluntary();
+            voluntary.setFirstName("Voluntario");
+            voluntary.setLastName("Número " + i);
+            voluntary.setMail("voluntario@gmail.com");
+            voluntary.setGender("E");
+            voluntary.setRut("rut");
+            voluntary.setAge(i);
+            voluntaryDao.save(voluntary);
+        }
+    }*/
     
     /*@Autowired
     private DimensionDao dimensionDao;
@@ -34,9 +56,6 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired
     private TaskDao taskDao;
-
-    @Autowired
-    private VoluntaryDao voluntaryDao;
 
     @Autowired
     private VoluntaryDimensionDao voluntaryDimensionDao;
@@ -76,18 +95,6 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
     }
 
-    public void seedVoluntaries(){
-        voluntaryDao.deleteAll();
-        for (int i = 0; i < 10; i++) {
-            Voluntary voluntary = new Voluntary();
-            voluntary.setName("voluntary "+i);
-            voluntary.setLastName("descripción "+i);
-            voluntary.setAge(i);
-            voluntary.setRut("rut");
-            voluntaryDao.save(voluntary);
-        }
-    }
-
     public void seedVoluntaryDimensions(){
         voluntaryDimensionDao.deleteAll();
         for (int i = 0; i < 10; i++) {
@@ -116,7 +123,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         seedVoluntaryDimensions();
         seedVoluntaryEmergencies();*/
         List<User> userList = users.findAll();
-        if(userList.size() > 0){
+        if (userList.size() > 0){
             return;
         }
         else {
@@ -132,6 +139,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
                 .build()
             );
+            //seedVoluntaries();
         }
     }
 }

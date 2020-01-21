@@ -1,4 +1,3 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.dao;
 
 
@@ -11,4 +10,3 @@ public interface VoluntaryDao extends JpaRepository<Voluntary, Integer> {
   ArrayList<Voluntary> findAll();
   Voluntary findVoluntaryById(Integer id);
 }
-*/

@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
-import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDao;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Voluntary;
+import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
+import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryExcel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -64,12 +64,12 @@ public class FileService {
     private Voluntary makeProductHelper(VoluntaryExcel voluntaryExcel){
         Voluntary voluntary = new Voluntary();
         voluntary.setId(voluntaryExcel.getId());
-        voluntary.setName(voluntaryExcel.getName());
+        voluntary.setFirstName(voluntaryExcel.getName());
         voluntary.setLastName(voluntaryExcel.getLastName());
         voluntary.setMail(voluntaryExcel.getMail());
         voluntary.setGender(voluntaryExcel.getGender());
-        voluntary.setLatitude(voluntaryExcel.getLatitude());
-        voluntary.setLongitude(voluntaryExcel.getLongitude());
+        /*voluntary.setLatitude(voluntaryExcel.getLatitude());
+        voluntary.setLongitude(voluntaryExcel.getLongitude());*/
         return voluntary;
     }
 

@@ -12,12 +12,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.Optional;
 
 @SpringBootApplication
 public class TbdprojectApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TbdprojectApplication.class, args);
     }

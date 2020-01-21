@@ -1,16 +1,23 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.vividsolutions.jts.geom.Geometry;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import javax.persistence.*;
 import java.awt.*;
+import com.vividsolutions.jts.geom.Point;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "voluntary")
-public class Voluntary {
+public class Voluntary implements Comparable<Voluntary> {
+
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VOLUNTARY_SEQ")
@@ -18,11 +25,11 @@ public class Voluntary {
     private Integer id;
 
     @NonNull
-    @Column(name = "name")
+    @Column(name = "firstname")
     private String name;
 
     @NonNull
-    @Column(name = "last_Name")
+    @Column(name = "lastname")
     private String lastName;
 
     @NonNull
@@ -40,14 +47,19 @@ public class Voluntary {
     @NonNull
     @Column(name = "age")
     private Integer age;
-
+    */
+/*
     @Column(name = "latitude")
     private Float latitude;
 
     @Column(name = "longitude")
     private Float longitude;
+*//*
 
-    @NonNull
-    @Column(columnDefinition = "Geometry", name = "location")
+
+    @Column(name = "location")
     private Point location;
-}
+
+    @Override
+    public int compareTo(Voluntary voluntary){ return this.getId().compareTo(voluntary.getId());}
+}*/

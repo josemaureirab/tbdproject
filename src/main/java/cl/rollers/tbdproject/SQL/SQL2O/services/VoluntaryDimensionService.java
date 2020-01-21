@@ -1,12 +1,12 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.SQL.SQL2O.dao.DimensionDao;
-import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDao;
+import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDimensionDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.VoluntaryDimensionDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.VoluntaryDimensionMapper;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Dimension;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Voluntary;
+import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryDimension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

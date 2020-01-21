@@ -1,21 +1,24 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.controllers;
 
+import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
+import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryService;
+import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
+import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.sql2o.Sql2o;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/voluntaries")
 public class VoluntaryController {
-
     private Sql2o sql2o[];
     public VoluntaryController(Sql2o[] sql2o) {
         this.sql2o = sql2o;
@@ -24,48 +27,32 @@ public class VoluntaryController {
     @Autowired
     private VoluntaryService voluntaryService;
 
+    @Autowired
+    private VoluntaryDao voluntaryDao;
+
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<VoluntaryDto>> getAllVoluntaries(){
-        try{
-            return ResponseEntity.ok(voluntaryService.getAllVoluntaries());
-
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().build();
-
-        }
+    public FeatureCollection getAllVoluntaries(){
+        FeatureCollection featureCollection = new FeatureCollection();
+        return voluntaryService.getAllVoluntaries();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Object> findVoluntaryById (@PathVariable("id") Integer id){
-        try{
-            return ResponseEntity.ok(voluntaryService.findVoluntaryById(id));
-        }
-        catch(Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+    public FeatureCollection findVoluntaryById (@PathVariable("id") Integer id){
+        return voluntaryService.findVoluntaryById(id);
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create (@RequestBody VoluntaryDto voluntaryDto){
-
-        try{
-            return ResponseEntity.ok(voluntaryService.createVoluntary(voluntaryDto));
-        }
-
-        catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+    public FeatureCollection create (@RequestBody FeatureCollection featureCollection){
+        return voluntaryService.createVoluntary(featureCollection);
     }
 
     @PutMapping("/edit/{id}")
     @ResponseBody
     public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody VoluntaryDto voluntaryDto){
-
         try{
             voluntaryService.updateVoluntaryData(voluntaryDto, id);
             return ResponseEntity.ok(HttpStatus.OK);
@@ -91,4 +78,3 @@ public class VoluntaryController {
     }
 
 }
-*/

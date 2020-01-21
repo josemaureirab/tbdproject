@@ -1,5 +1,7 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
+import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.VoluntaryMapper;
@@ -13,7 +15,6 @@ import org.sql2o.Connection;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,23 +29,21 @@ public class VoluntaryService {
     @Autowired
     private VoluntaryDao voluntaryDao;
 
+    @Autowired
+    DatabaseConnection databaseConnection;
+
     public VoluntaryDto createVoluntary(VoluntaryDto voluntaryDto){
         return voluntaryMapper.mapToDto(voluntaryDao.save(voluntaryMapper.mapToModel(voluntaryDto)));
     }
 
     public List<VoluntaryDto> getAllVoluntaries(){
-        List<Voluntary> voluntaryList = voluntaryDao.findAll();
+        List<Voluntary> voluntaryList = findAll();
         return voluntaryMapper.mapToDtoArrayList(voluntaryList);
     }
 
     /*
     public VoluntaryDto findVoluntaryById(Integer id){
-        if(voluntaryDao.findById(id).isPresent()){
-            return voluntaryMapper.mapToDto(voluntaryDao.findById(id).get());
-        }
-        else{
-            return null;
-        }
+        return findVoluntaryByIdSql2o(id);
 
     }
 
@@ -60,8 +59,10 @@ public class VoluntaryService {
         voluntaryFinded.setMail(voluntaryDto.getMail());
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
-        voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
-        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
+        */
+/*voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
+        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());*//*
+
         voluntaryDao.save(voluntaryFinded);
     }
 
@@ -70,15 +71,13 @@ public class VoluntaryService {
         voluntaryDao.delete(voluntaryFinded);
     }
 
+    */
+/* SQL2O *//*
 
-    /*
-    SQL2O
-     */
-
-    public List<Voluntary> findAll (){
-        try{
+    private List<Voluntary> findAll () {
+        try {
             ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
-            List<Voluntary> [] results = new ArrayList[databaseConection.sql2o.lenght];
+            List<Voluntary> [] results = new ArrayList[databaseConnection.sql2o.length];
             for( int i = 0; i < databaseConnection.sql2o.length; i++){
                 final int db = i;
                 results[i] = new ArrayList<Voluntary>();
@@ -143,6 +142,4 @@ public class VoluntaryService {
         return null;
     }
 
-}
-
-
+ }*/

@@ -13,6 +13,7 @@ import org.sql2o.Sql2o;
 
 import java.util.List;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")

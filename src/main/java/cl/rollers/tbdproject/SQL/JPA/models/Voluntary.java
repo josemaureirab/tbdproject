@@ -1,18 +1,25 @@
-/*
 package cl.rollers.tbdproject.SQL.JPA.models;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.awt.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "voluntary")
 public class Voluntary {
+
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VOLUNTARY_SEQ")
@@ -21,7 +28,7 @@ public class Voluntary {
 
     @NonNull
     @Column(name = "name")
-    private String name;
+    private String firstName;
 
     @NonNull
     @Column(name = "last_Name")
@@ -43,13 +50,6 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "latitude")
-    private Float latitude;
-
-    @Column(name = "longitude")
-    private Float longitude;
-
-    @NonNull
-    @Column(columnDefinition = "Geometry", name = "location")
-    private Point location;
-}*/
+    @Column( columnDefinition = "Geometry", name = "location", nullable = true)
+    private Geometry location;
+}

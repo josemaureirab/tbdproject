@@ -1,3 +1,4 @@
+/*
 package cl.rollers.tbdproject.SQL.SQL2O.mappers;
 
 import cl.rollers.tbdproject.SQL.SQL2O.dto.VoluntaryDto;
@@ -19,8 +20,11 @@ public class VoluntaryMapper {
         voluntary.setGender(voluntaryDto.getGender());
         voluntary.setRut(voluntaryDto.getRut());
         voluntary.setAge(voluntaryDto.getAge());
-        voluntary.setLatitude(voluntaryDto.getLatitude());
-        voluntary.setLongitude(voluntaryDto.getLongitude());
+        */
+/*voluntary.setLatitude(voluntaryDto.getLatitude());
+        voluntary.setLongitude(voluntaryDto.getLongitude());*//*
+
+        voluntary.setLocation(voluntaryDto.getLocation());
         return voluntary;
     }
 
@@ -33,8 +37,11 @@ public class VoluntaryMapper {
         voluntaryDto.setGender(voluntary.getGender());
         voluntaryDto.setRut(voluntary.getRut());
         voluntaryDto.setAge(voluntary.getAge());
-        voluntaryDto.setLatitude(voluntary.getLatitude());
-        voluntaryDto.setLongitude(voluntary.getLongitude());
+        */
+/*voluntaryDto.setLatitude(voluntary.getLatitude());
+        voluntaryDto.setLongitude(voluntary.getLongitude());*//*
+
+        voluntaryDto.setLocation(voluntary.getLocation());
         return voluntaryDto;
     }
 
@@ -51,3 +58,4 @@ public class VoluntaryMapper {
     }
 
 }
+*/

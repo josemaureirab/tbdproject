@@ -2,7 +2,7 @@
 package cl.rollers.tbdproject.SQL.JPA.controllers;
 
 import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDimensionDto;
-import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryDimensionService;
+import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryDimensionService.java;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/voluntaryDimensions")
 public class VoluntaryDimensionController {
     @Autowired
-    private VoluntaryDimensionService voluntaryDimensionService;
+    private VoluntaryDimensionService.java voluntaryDimensionService;
 
     @GetMapping("/")
     @ResponseBody

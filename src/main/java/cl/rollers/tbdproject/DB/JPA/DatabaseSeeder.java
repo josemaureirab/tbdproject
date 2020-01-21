@@ -2,19 +2,14 @@ package cl.rollers.tbdproject.DB.JPA;
 
 import cl.rollers.tbdproject.SQL.JPA.dao.*;
 import cl.rollers.tbdproject.SQL.JPA.models.*;
-import com.vividsolutions.jts.geom.Point;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
-
-import static cl.rollers.tbdproject.SQL.SQL2O.features.WktHelper.wktToGeometry;
 
 @Component
 @Slf4j

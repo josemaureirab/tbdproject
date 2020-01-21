@@ -41,4 +41,5 @@ dependencies {
     compile group: 'com.bedatadriven', name: 'jackson-datatype-jts', version: '2.4'
     compile group: 'org.sql2o.extensions', name: 'sql2o-postgres', version: '1.6.0-RC1'
     compile group: 'de.grundid.opendatalab', name: 'geojson-jackson', version: '1.8.1'
+    compile group: 'com.vividsolutions', name: 'jts', version: '1.13'
 }

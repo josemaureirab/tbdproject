@@ -1,11 +1,6 @@
 package cl.rollers.tbdproject.SQL.SQL2O.features;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jdk.nashorn.internal.codegen.ObjectClassGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name = "dimension")
-public class Dimension {
+public class Dimension implements Comparable<Dimension>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
     @SequenceGenerator(name = "ROLE_SEQ", sequenceName = "SEQ_ROLE", allocationSize = 1)
@@ -22,4 +22,10 @@ public class Dimension {
     @NonNull
     @Column(name = "score")
     private Integer score;
+
+    @Override
+    public int compareTo(Dimension dimension) {
+        return this.getId().compareTo(dimension.getId());
+    }
+
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name= "task")
-public class Task {
+public class Task implements Comparable<Task>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_SEQ")
     @SequenceGenerator(name = "TASK_SEQ", sequenceName = "SEQ_TASK", allocationSize = 1)
@@ -33,4 +33,8 @@ public class Task {
     @Column(name = "emergency_id")
     private Integer emergency_id;
 
+    @Override
+    public int compareTo(Task task) {
+        return this.getId().compareTo(task.getId());
+    }
 }

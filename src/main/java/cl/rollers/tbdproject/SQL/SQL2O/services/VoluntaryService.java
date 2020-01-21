@@ -49,7 +49,7 @@ public class VoluntaryService {
 
      */
 
-    public VoluntaryDto findVoluntaryById(int id){ return findVoluntaryByIdSql2o(id); }
+    /*public VoluntaryDto findVoluntaryById(int id){ return findVoluntaryByIdSql2o(id); }
 
     public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
         Voluntary voluntaryFinded = voluntaryMapper.mapToModel(findVoluntaryByIdSql2o(id);
@@ -60,7 +60,7 @@ public class VoluntaryService {
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
         */
-/*voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
+/*      voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
         voluntaryFinded.setLongitude(voluntaryDto.getLongitude());*//*
 
         voluntaryDao.save(voluntaryFinded);

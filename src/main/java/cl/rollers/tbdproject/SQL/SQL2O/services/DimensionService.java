@@ -1,11 +1,10 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
+import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.DimensionDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.DimensionDto;
-import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.DimensionMapper;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Dimension;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.sql2o.Connection;
@@ -19,6 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class DimensionService {
+
+    @Autowired
+    DatabaseConnection databaseConnection;
+
     @Autowired
     private DimensionDao dimensionDao;
 
@@ -35,16 +38,13 @@ public class DimensionService {
         return dimensionMapper.mapToDto(dimensionDao.save(dimensionMapper.mapToModel(dimensionDto)));
     }
 
-    /*
-
-    public DimensionDto findDimensionById(int id){
+   /* public DimensionDto findDimensionById(int id){
         if(dimensionDao.findById(id).isPresent()){
             return dimensionMapper.mapToDto(dimensionDao.findDimensionById(id));
         }else{
             return null;
         }
-    }
-    */
+    }*/
 
     public DimensionDto findDimensionById(int id){ return findDimensionByIdSql2o(id); }
 

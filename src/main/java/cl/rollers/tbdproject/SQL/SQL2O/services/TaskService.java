@@ -1,11 +1,10 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 
+import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.TaskDao;
-import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.TaskDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.TaskMapper;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class TaskService {
+
+    @Autowired
+    DatabaseConnection databaseConnection;
 
     @Autowired
     private TaskDao taskDao;

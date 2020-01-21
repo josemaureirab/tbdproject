@@ -4,9 +4,11 @@ import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.DimensionDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.DimensionDto;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
+import cl.rollers.tbdproject.SQL.SQL2O.dto.TaskDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.DimensionMapper;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Dimension;
 import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
+import cl.rollers.tbdproject.SQL.SQL2O.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.sql2o.Connection;
@@ -37,16 +39,9 @@ public class DimensionService {
     }
 
     public DimensionDto createDimension(DimensionDto dimensionDto){
-        return dimensionMapper.mapToDto(dimensionDao.save(dimensionMapper.mapToModel(dimensionDto)));
+        return createDimensionSql2o(dimensionMapper.mapToModel(dimensionDto));
     }
 
-   /* public DimensionDto findDimensionById(int id){
-        if(dimensionDao.findById(id).isPresent()){
-            return dimensionMapper.mapToDto(dimensionDao.findDimensionById(id));
-        }else{
-            return null;
-        }
-    }*/
 
     public DimensionDto findDimensionById(int id){ return findDimensionByIdSql2o(id); }
 
@@ -137,6 +132,24 @@ public class DimensionService {
         }
         return null;
     }
+
+    public DimensionDto createDimensionSql2o (Dimension dimension) {
+        List<Dimension> dimensions = findAll();
+        int newId = dimensions.get(dimensions.size()-1).getId() + 1;
+        int db = newId % databaseConnection.sql2o.length;
+        try(Connection conn = databaseConnection.sql2o[db].open()){
+            conn.createQuery(
+                    "INSERT INTO dimension(id, name, score) VALUES (:id, :name, :score)")
+                    .addParameter("id", newId)
+                    .addParameter("name", dimension.getName())
+                    .addParameter("score", dimension.getScore())
+                    .executeAndFetch(Dimension.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return findDimensionByIdSql2o(newId);
+    }
+
     public void updateDimensionSql2o (DimensionDto dimensionDto, int id) {
         ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
         for( int i = 0; i < databaseConnection.sql2o.length; i++){

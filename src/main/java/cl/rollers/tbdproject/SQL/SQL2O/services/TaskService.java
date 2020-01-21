@@ -38,8 +38,8 @@ public class TaskService {
     }
 
     public TaskDto createTask(TaskDto taskDto){
-        return taskMapper.mapToDto(taskDao.save(taskMapper.mapToModel(taskDto)));
-     }
+        return createTaskSql2o(taskMapper.mapToModel(taskDto));
+    }
 
      public TaskDto findTaskById(int id){ return findTaskByIdSql2o(id); }
 
@@ -128,6 +128,25 @@ public class TaskService {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public TaskDto createTaskSql2o (Task task) {
+        List<Task> tasks = findAll();
+        int newId = tasks.get(tasks.size()-1).getId() + 1;
+        int db = newId % databaseConnection.sql2o.length;
+        try(Connection conn = databaseConnection.sql2o[db].open()){
+            conn.createQuery(
+                    "INSERT INTO task(id, name, description, status) VALUES (:id, :name, :description, :status)")
+                    .addParameter("id", newId)
+                    .addParameter("name", task.getName())
+                    .addParameter("description", task.getDescription())
+                    .addParameter("status", task.getStatus())
+                    .executeAndFetch(Task.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return findTaskByIdSql2o(newId);
     }
 
     public void updateTaskSql2o (TaskDto taskDto, int id) {

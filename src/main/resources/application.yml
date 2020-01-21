@@ -10,6 +10,8 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+        dialect: "org.hibernate.spatial.dialect.postgis.PostgisDialect"
     hibernate:
       ddl-auto: create
-      dialect: "org.hibernate.spatial.dialect.postgis.PostgisDialect"
+    database-platform: "org.hibernate.spatial.dialect.postgis.PostgisDialect"
+

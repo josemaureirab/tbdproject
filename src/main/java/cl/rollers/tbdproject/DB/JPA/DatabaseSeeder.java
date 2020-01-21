@@ -30,21 +30,20 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    /*
     public void seedVoluntaries() throws ParseException {
         voluntaryDao.deleteAll();
         for (int i = 0; i < 101; i++) {
             Voluntary voluntary = new Voluntary();
-            Point point = (Point) wktToGeometry("POINT (-72.928177 -41.474096)");
             voluntary.setFirstName("Voluntario");
             voluntary.setLastName("Número " + i);
             voluntary.setMail("voluntario@gmail.com");
             voluntary.setGender("E");
             voluntary.setRut("rut");
             voluntary.setAge(i);
-            voluntary.setLocation(point);
             voluntaryDao.save(voluntary);
         }
-    }
+    }*/
     
     /*@Autowired
     private DimensionDao dimensionDao;
@@ -140,7 +139,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
                 .build()
             );
-            seedVoluntaries();
+            //seedVoluntaries();
         }
     }
 }

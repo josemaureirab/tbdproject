@@ -4,6 +4,7 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 
 import java.util.Map;
 public class Feature {
@@ -11,12 +12,13 @@ public class Feature {
     private final String type = "Feature";
 
     @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Geometry geometry;
-    private Map<String, Object> propierties;
+    private Map<String, Object> properties;
 
     public Feature(Geometry geometry, Map<String, Object> properties) {
         this.geometry = geometry;
-        this.propierties = properties;
+        this.properties = properties;
     }
 
     public Geometry getGeometry() {
@@ -28,15 +30,17 @@ public class Feature {
     }
 
     public Map<String, Object> getData() {
-        return propierties;
+        return properties;
     }
 
     public String getType() {
         return type;
     }
 
-    public void getPropierties(Map<String, Object> propierties) {
-        this.propierties = propierties;
+    public void setPropierties(Map<String, Object> propierties) {
+        this.properties = propierties;
     }
+
+    public Map<String, Object> getPropierties(){ return properties;}
 
 }

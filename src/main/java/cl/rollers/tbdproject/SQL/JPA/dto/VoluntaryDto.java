@@ -1,6 +1,8 @@
 
 package cl.rollers.tbdproject.SQL.JPA.dto;
 
+import com.vividsolutions.jts.geom.Geometry;
+
 import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 
@@ -13,5 +15,5 @@ public class VoluntaryDto {
     private String gender;
     private String rut;
     private Integer age;
-    private Point location;
+    private Geometry location;
 }

@@ -69,8 +69,11 @@ public class EmergencyService {
 	}
 
 	public void deleteEmergency(int id){
-		Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
-		emergencyDao.delete(emergencyFinded);
+		try {
+			deleteEmergencySql2o(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public TaskDto appendTask(Integer emergencyId, Integer taskId){
@@ -203,6 +206,27 @@ public class EmergencyService {
 								.executeAndFetch(Emergency.class);
 					} catch (Exception e) {
 					System.out.println(e);
+					}
+				}
+			});
+		}
+		executor.shutdown();
+	}
+
+	public void deleteEmergencySql2o (int id) {
+		ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+		for( int i = 0; i < databaseConnection.sql2o.length; i++){
+			final int db = i;
+			executor.execute(new Runnable() {
+				@Override
+				public void run() {
+					try(Connection conn = databaseConnection.sql2o[db].open()){
+						final String query = "DELETE FROM emergency WHERE id = :emergencyId";
+						conn.createQuery(query)
+								.addParameter("emergencyId", id)
+								.executeAndFetch(Emergency.class);
+					} catch (Exception e) {
+						System.out.println(e);
 					}
 				}
 			});

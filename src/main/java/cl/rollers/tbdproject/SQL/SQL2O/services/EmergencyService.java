@@ -27,162 +27,186 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class EmergencyService {
 
-    @Autowired
-    DatabaseConnection databaseConnection;
+	@Autowired
+	DatabaseConnection databaseConnection;
 
-    @Autowired
-    private EmergencyDao emergencyDao;
+	@Autowired
+	private EmergencyDao emergencyDao;
 
-    @Autowired
-    private TaskDao taskDao;
+	@Autowired
+	private TaskDao taskDao;
 
-    @Autowired
-    private VoluntaryDao voluntaryDao;
+	@Autowired
+	private VoluntaryDao voluntaryDao;
 
-    @Autowired
-    private VoluntaryEmergencyDao voluntaryEmergencyDao;
+	@Autowired
+	private VoluntaryEmergencyDao voluntaryEmergencyDao;
 
-    @Autowired
-    private EmergencyMapper emergencyMapper;
+	@Autowired
+	private EmergencyMapper emergencyMapper;
 
-    @Autowired
-    private TaskMapper taskMapper;
+	@Autowired
+	private TaskMapper taskMapper;
 
 
-    public List<EmergencyDto> getAllEmergencies(){
-        List<Emergency> emergencies = findAll();
-        return emergencyMapper.mapToDtoArrayList(emergencies);
-    }
+	public List<EmergencyDto> getAllEmergencies(){
+		List<Emergency> emergencies = findAll();
+		return emergencyMapper.mapToDtoArrayList(emergencies);
+	}
 
-    public EmergencyDto createEmergency(EmergencyDto emergencyDto){
-        return emergencyMapper.mapToDto(emergencyDao.save(emergencyMapper.mapToModel(emergencyDto)));
-    }
+	public EmergencyDto createEmergency(EmergencyDto emergencyDto){
+		return emergencyMapper.mapToDto(emergencyDao.save(emergencyMapper.mapToModel(emergencyDto)));
+	}
 
-    public EmergencyDto findEmergencyById(int id){ return findEmergencyByIdSql2o(id); }
+	public EmergencyDto findEmergencyById(int id){ return findEmergencyByIdSql2o(id); }
 
-    public void updateEmergency(EmergencyDto emergencyDto, int id){
-        Emergency emergencyFinded = emergencyMapper.mapToModel(findEmergencyByIdSql2o(id));
-        emergencyFinded.setName(emergencyDto.getName());
-        emergencyFinded.setDescription(emergencyDto.getDescription());
-        emergencyDao.save(emergencyFinded);
-    }
+	public void updateEmergency(EmergencyDto emergencyDto, int id) {
+		try {
+			updateEmergencySql2o(emergencyDto, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void deleteEmergency(int id){
-        Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
-        emergencyDao.delete(emergencyFinded);
-    }
+	public void deleteEmergency(int id){
+		Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
+		emergencyDao.delete(emergencyFinded);
+	}
 
-    public TaskDto appendTask(Integer emergencyId, Integer taskId){
-        Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
-        Task task = taskDao.findTaskById(taskId);
-        task.setEmergency_id(emergency.getId());
-        return taskMapper.mapToDto(taskDao.save(task));
-    }
+	public TaskDto appendTask(Integer emergencyId, Integer taskId){
+		Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
+		Task task = taskDao.findTaskById(taskId);
+		task.setEmergency_id(emergency.getId());
+		return taskMapper.mapToDto(taskDao.save(task));
+	}
 
-    private Task findTaskInEmergency(List<Task> taskList, Task task){
-        for (Task taskInEmergency: taskList) {
-            if(taskInEmergency.equals(task)){
-                return task;
-            }
-        }
-        return null;
-    }
+	private Task findTaskInEmergency(List<Task> taskList, Task task){
+		for (Task taskInEmergency: taskList) {
+			if(taskInEmergency.equals(task)){
+				return task;
+			}
+		}
+		return null;
+	}
 
-    public EmergencyDto appendVoluntary(Integer emergencyId, Integer voluntaryId){
-        Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
-        Voluntary voluntary = voluntaryDao.findVoluntaryById(voluntaryId);
-        try{
-            VoluntaryEmergency voluntaryEmergency = voluntaryEmergencyDao.findVoluntaryEmergencyByEmergencyAndVoluntary(emergency.getId(), voluntary.getId());
-            if(voluntaryEmergency == null) {
-                voluntaryEmergency = new VoluntaryEmergency();
-                voluntaryEmergency.setEmergency(emergency.getId());
-                voluntaryEmergency.setVoluntary(voluntary.getId());
-                emergencyDao.save(emergency);
-                return emergencyMapper.mapToDto(emergency);
-            }
-            else {
-                return emergencyMapper.mapToDto(emergency);
-            }
-        }catch (Exception e){
-            return null;
-        }
-    }
+	public EmergencyDto appendVoluntary(Integer emergencyId, Integer voluntaryId){
+		Emergency emergency = emergencyDao.findEmergencyById(emergencyId);
+		Voluntary voluntary = voluntaryDao.findVoluntaryById(voluntaryId);
+		try{
+			VoluntaryEmergency voluntaryEmergency = voluntaryEmergencyDao.findVoluntaryEmergencyByEmergencyAndVoluntary(emergency.getId(), voluntary.getId());
+			if(voluntaryEmergency == null) {
+				voluntaryEmergency = new VoluntaryEmergency();
+				voluntaryEmergency.setEmergency(emergency.getId());
+				voluntaryEmergency.setVoluntary(voluntary.getId());
+				emergencyDao.save(emergency);
+				return emergencyMapper.mapToDto(emergency);
+			}
+			else {
+				return emergencyMapper.mapToDto(emergency);
+			}
+		}catch (Exception e){
+			return null;
+		}
+	}
 
-    private Voluntary findVoluntaryInEmergency(List<VoluntaryEmergency> voluntaryEmergencyList, Voluntary voluntary){
-        for (VoluntaryEmergency voluntaryInEmergency: voluntaryEmergencyList) {
-            if(voluntaryInEmergency.getVoluntary().equals(voluntary.getId())){
-                return voluntary;
-            }
-        }
-        return null;
-    }
+	private Voluntary findVoluntaryInEmergency(List<VoluntaryEmergency> voluntaryEmergencyList, Voluntary voluntary){
+		for (VoluntaryEmergency voluntaryInEmergency: voluntaryEmergencyList) {
+			if(voluntaryInEmergency.getVoluntary().equals(voluntary.getId())){
+				return voluntary;
+			}
+		}
+		return null;
+	}
 
-    /* SQL2O */
-    private List<Emergency> findAll () {
-        try {
-            ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
-            List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
-            for( int i = 0; i < databaseConnection.sql2o.length; i++){
-                final int db = i;
-                results[i] = new ArrayList<Emergency>();
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        try(Connection conn = databaseConnection.sql2o[db].open()){
-                            results[db] = conn.createQuery("select * from emergency")
-                                .executeAndFetch(Emergency.class);
-                        }
-                    }
-                });
-            }
-            executor.shutdown();
-            executor.awaitTermination(24*3600, TimeUnit.SECONDS);
-            List<Emergency> merged = new ArrayList<Emergency>();
-            for( int i = 0; i < databaseConnection.sql2o.length; i++){
-                merged.addAll(results[i]);
-            }
-            Collections.sort(merged);
-            return merged;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+	/* SQL2O */
+	private List<Emergency> findAll () {
+		try {
+			ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+			List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
+			for( int i = 0; i < databaseConnection.sql2o.length; i++){
+				final int db = i;
+				results[i] = new ArrayList<Emergency>();
+				executor.execute(new Runnable() {
+					@Override
+					public void run() {
+						try(Connection conn = databaseConnection.sql2o[db].open()){
+							results[db] = conn.createQuery("select * from emergency")
+									.executeAndFetch(Emergency.class);
+						}
+					}
+				});
+			}
+			executor.shutdown();
+			executor.awaitTermination(24*3600, TimeUnit.SECONDS);
+			List<Emergency> merged = new ArrayList<Emergency>();
+			for( int i = 0; i < databaseConnection.sql2o.length; i++){
+				merged.addAll(results[i]);
+			}
+			Collections.sort(merged);
+			return merged;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    private EmergencyDto findEmergencyByIdSql2o (Integer id) {
-        try {
-            ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
-            List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
-            for( int i = 0; i < databaseConnection.sql2o.length; i++){
-                final int db = i;
-                results[i] = new ArrayList<Emergency>();
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        try(Connection conn = databaseConnection.sql2o[db].open()){
-                            final String query = "select * from emergency where id = :emergencyId";
-                            results[db] = conn.createQuery(query)
-                                    .addParameter("emergencyId", id)
-                                    .executeAndFetch(Emergency.class);
-                        }
-                    }
-                });
-            }
-            executor.shutdown();
-            executor.awaitTermination(24*3600, TimeUnit.SECONDS);
-            List<Emergency> merged = new ArrayList<Emergency>();
-            for( int i = 0; i < databaseConnection.sql2o.length; i++){
-                merged.addAll(results[i]);
-            }
-            Collections.sort(merged);
-            if (merged.size() != 0)
-                return emergencyMapper.mapToDto(merged.get(0));
-            else {
-                return null;
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+	private EmergencyDto findEmergencyByIdSql2o (Integer id) {
+		try {
+			ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+			List<Emergency> [] results = new ArrayList[databaseConnection.sql2o.length];
+			for( int i = 0; i < databaseConnection.sql2o.length; i++){
+				final int db = i;
+				results[i] = new ArrayList<Emergency>();
+				executor.execute(new Runnable() {
+					@Override
+					public void run() {
+						try(Connection conn = databaseConnection.sql2o[db].open()){
+							final String query = "select * from emergency where id = :emergencyId";
+							results[db] = conn.createQuery(query)
+									.addParameter("emergencyId", id)
+									.executeAndFetch(Emergency.class);
+						}
+					}
+				});
+			}
+			executor.shutdown();
+			executor.awaitTermination(24*3600, TimeUnit.SECONDS);
+			List<Emergency> merged = new ArrayList<Emergency>();
+			for( int i = 0; i < databaseConnection.sql2o.length; i++){
+				merged.addAll(results[i]);
+			}
+			Collections.sort(merged);
+			if (merged.size() != 0)
+				return emergencyMapper.mapToDto(merged.get(0));
+			else {
+				return null;
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void updateEmergencySql2o (EmergencyDto emergencyDto, int id) {
+		ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
+		for( int i = 0; i < databaseConnection.sql2o.length; i++){
+			final int db = i;
+			executor.execute(new Runnable() {
+				@Override
+				public void run() {
+					try(Connection conn = databaseConnection.sql2o[db].open()){
+						final String query = "UPDATE emergency SET name=:emergencyName, description=:emergencyDescription  WHERE id = :emergencyId";
+						conn.createQuery(query)
+								.addParameter("emergencyId", id)
+								.addParameter("emergencyName", emergencyDto.getName())
+								.addParameter("emergencyDescription", emergencyDto.getDescription())
+								.executeAndFetch(Emergency.class);
+					} catch (Exception e) {
+					System.out.println(e);
+					}
+				}
+			});
+		}
+		executor.shutdown();
+	}
 }

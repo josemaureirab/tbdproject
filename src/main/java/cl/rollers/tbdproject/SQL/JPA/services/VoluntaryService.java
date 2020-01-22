@@ -5,7 +5,7 @@ import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
 import cl.rollers.tbdproject.SQL.JPA.mappers.VoluntaryMapper;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
-import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
+//import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,12 @@ public class VoluntaryService {
     @Autowired
     private VoluntaryDao voluntaryDao;
 
-    public FeatureCollection createVoluntary(FeatureCollection featureCollection){
+    public Feature createVoluntary(Feature feature){
         ArrayList<Object> data = new ArrayList<>();
+        System.out.println(feature.getType());
+        /*
         //System.out.println(feature.getProperties());
-
+        System.out.println(featureCollection.getFeatures().get(0).getGeometry());
         List<Feature> feature = featureCollection.getFeatures();
         feature.get(0).setGeometry(featureCollection.getFeatures().get(0).getGeometry());
         System.out.println(":D");
@@ -42,48 +44,30 @@ public class VoluntaryService {
         voluntary.setAge(Integer.parseInt(data.get(5).toString()));
         voluntary.setLastName(data.get(6).toString());
         voluntary.setLocation(feature.get(0).getGeometry());
-        voluntaryDao.save(voluntary);
-        return featureCollection;
+        voluntaryDao.save(voluntary);*/
+        return feature;
     }
 
-    public FeatureCollection getAllVoluntaries(){
+    public ArrayList<Feature> getAllVoluntaries(){
         List<Voluntary> voluntaryList = voluntaryDao.findAll();
+        ArrayList<Feature> featureCollection = new ArrayList<>();
         System.out.println(voluntaryList.get(0).getId());
         if(voluntaryList.isEmpty()){
-            return new FeatureCollection();
+            return featureCollection;
         }
-        FeatureCollection featureCollection = new FeatureCollection();
+
         for (Voluntary voluntary : voluntaryList) {
-            HashMap<String, Object> properties = new HashMap<>();
-            properties.put("age", voluntary.getAge());
-            properties.put("name", voluntary.getFirstName());
-            properties.put("lastname", voluntary.getLastName());
-            properties.put("gender", voluntary.getGender());
-            properties.put("id", voluntary.getId());
-            properties.put("mail", voluntary.getMail());
-            properties.put("rut", voluntary.getRut());
-            Feature feature = new Feature(voluntary.getLocation(), properties);
-            featureCollection.addFeature(feature);
+            Feature feature = new Feature(voluntary.getLocation());
+            featureCollection.add(feature);
         }
         return featureCollection;
     }
 
-    public FeatureCollection findVoluntaryById(Integer id){
+    public Feature findVoluntaryById(Integer id){
         if(voluntaryDao.findById(id).isPresent()){
             Voluntary voluntary = voluntaryDao.findById(id).get();
-            FeatureCollection featureCollection = new FeatureCollection();
-
-            HashMap<String, Object> properties = new HashMap<>();
-            properties.put("age", voluntary.getAge());
-            properties.put("name", voluntary.getFirstName());
-            properties.put("lastname", voluntary.getLastName());
-            properties.put("gender", voluntary.getGender());
-            properties.put("id", voluntary.getId());
-            properties.put("mail", voluntary.getMail());
-            properties.put("rut", voluntary.getRut());
-            Feature feature = new Feature(voluntary.getLocation(), properties);
-            featureCollection.addFeature(feature);
-            return featureCollection;
+            Feature feature = new Feature(voluntary.getLocation());
+            return feature;
         }
         else{
             return null;

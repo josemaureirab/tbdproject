@@ -6,6 +6,7 @@ import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryService;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
 import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import org.apache.tomcat.util.json.JSONParser;
@@ -50,8 +51,9 @@ public class VoluntaryController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Feature create (@RequestBody Feature feature){
-        return voluntaryService.createVoluntary(feature);
+    public FeatureCollection create (@RequestBody FeatureCollection featureCollection){
+        //System.out.println(line);
+        return voluntaryService.createVoluntary(featureCollection);
     }
 
     @PutMapping("/edit/{id}")

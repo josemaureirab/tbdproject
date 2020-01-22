@@ -19,10 +19,10 @@ public class VoluntaryService {
     @Autowired
     private VoluntaryDao voluntaryDao;
 
-    public Feature createVoluntary(Feature feature){
+    public FeatureCollection createVoluntary(FeatureCollection featureCollection){
         ArrayList<Object> data = new ArrayList<>();
-        System.out.println(feature.getProperties());
-        /*
+        //System.out.println(feature.getProperties());
+
         List<Feature> feature = featureCollection.getFeatures();
         feature.get(0).setGeometry(featureCollection.getFeatures().get(0).getGeometry());
         System.out.println(":D");
@@ -42,8 +42,8 @@ public class VoluntaryService {
         voluntary.setAge(Integer.parseInt(data.get(5).toString()));
         voluntary.setLastName(data.get(6).toString());
         voluntary.setLocation(feature.get(0).getGeometry());
-        voluntaryDao.save(voluntary);*/
-        return feature;
+        voluntaryDao.save(voluntary);
+        return featureCollection;
     }
 
     public FeatureCollection getAllVoluntaries(){

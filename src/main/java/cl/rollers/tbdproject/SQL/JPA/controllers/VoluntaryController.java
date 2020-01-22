@@ -5,7 +5,7 @@ import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryService;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
-import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
+//import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.sql2o.Sql2o;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,23 +39,22 @@ public class VoluntaryController {
 
     @GetMapping("/")
     @ResponseBody
-    public FeatureCollection getAllVoluntaries(){
-        FeatureCollection featureCollection = new FeatureCollection();
+    public ArrayList<Feature> getAllVoluntaries(){
         return voluntaryService.getAllVoluntaries();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public FeatureCollection findVoluntaryById (@PathVariable("id") Integer id){
+    public Feature findVoluntaryById (@PathVariable("id") Integer id){
         return voluntaryService.findVoluntaryById(id);
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public FeatureCollection create (@RequestBody FeatureCollection featureCollection){
+    public Feature create (@RequestBody Feature feature){
         //System.out.println(line);
-        return voluntaryService.createVoluntary(featureCollection);
+        return voluntaryService.createVoluntary(feature);
     }
 
     @PutMapping("/edit/{id}")

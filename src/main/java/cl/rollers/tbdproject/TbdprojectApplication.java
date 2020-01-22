@@ -2,6 +2,7 @@ package cl.rollers.tbdproject;
 
 import cl.rollers.tbdproject.SQL.JPA.models.User;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -34,6 +35,10 @@ public class TbdprojectApplication {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    @Bean
+    public JtsModule jtsModule(){
+        return new JtsModule();
+    }
 }
 @Configuration
 @EnableJpaAuditing

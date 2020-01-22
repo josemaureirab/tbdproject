@@ -12,13 +12,17 @@ public class Feature {
     private final String type = "Feature";
 
     @JsonSerialize(using = GeometrySerializer.class)
-    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Geometry geometry;
+
     private Map<String, Object> properties;
 
     public Feature(Geometry geometry, Map<String, Object> properties) {
         this.geometry = geometry;
         this.properties = properties;
+    }
+
+    public Feature() {
+
     }
 
     public Geometry getGeometry() {
@@ -37,10 +41,10 @@ public class Feature {
         return type;
     }
 
-    public void setPropierties(Map<String, Object> propierties) {
-        this.properties = propierties;
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
-    public Map<String, Object> getPropierties(){ return properties;}
+    public Map<String, Object> getProperties(){ return properties;}
 
 }

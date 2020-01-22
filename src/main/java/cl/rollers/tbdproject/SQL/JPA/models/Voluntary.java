@@ -44,6 +44,8 @@ public class Voluntary {
     @Column(name = "age")
     private Integer age;
 
-    @Column( columnDefinition = "Geometry", name = "location", nullable = true)
+    @Column( columnDefinition = "geometry", name = "location", nullable = true)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
+    @JsonSerialize(using = GeometrySerializer.class)
     private Geometry location;
 }

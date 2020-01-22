@@ -9,10 +9,7 @@ import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class VoluntaryService {
@@ -23,13 +20,29 @@ public class VoluntaryService {
     private VoluntaryDao voluntaryDao;
 
     public FeatureCollection createVoluntary(FeatureCollection featureCollection){
+        ArrayList<Object> data = new ArrayList<>();
+        //System.out.println(feature.getProperties());
+
         List<Feature> feature = featureCollection.getFeatures();
-        Map<String, Object> propierties = feature.get(0).getPropierties();
-        Set<Map.Entry<String, Object>> entrySet = propierties.entrySet();
+        feature.get(0).setGeometry(featureCollection.getFeatures().get(0).getGeometry());
+        System.out.println(":D");
+        System.out.println(feature.get(0).getProperties());
+        Map<String, Object> properties = feature.get(0).getProperties();
+        Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
         for(Map.Entry<String, Object> entry : entrySet){
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
+            data.add(entry.getValue());
         }
+        System.out.println(feature.get(0).getGeometry());
+        Voluntary voluntary = new Voluntary();
+        voluntary.setRut(data.get(0).toString());
+        voluntary.setGender(data.get(1).toString());
+        voluntary.setMail(data.get(2).toString());
+        voluntary.setFirstName(data.get(3).toString());
+        voluntary.setId(Integer.parseInt(data.get(4).toString()));
+        voluntary.setAge(Integer.parseInt(data.get(5).toString()));
+        voluntary.setLastName(data.get(6).toString());
+        voluntary.setLocation(feature.get(0).getGeometry());
+        voluntaryDao.save(voluntary);
         return featureCollection;
     }
 
@@ -41,15 +54,15 @@ public class VoluntaryService {
         }
         FeatureCollection featureCollection = new FeatureCollection();
         for (Voluntary voluntary : voluntaryList) {
-            HashMap<String, Object> propierties = new HashMap<>();
-            propierties.put("age", voluntary.getAge());
-            propierties.put("name", voluntary.getFirstName());
-            propierties.put("lastname", voluntary.getLastName());
-            propierties.put("gender", voluntary.getGender());
-            propierties.put("id", voluntary.getId());
-            propierties.put("mail", voluntary.getMail());
-            propierties.put("rut", voluntary.getRut());
-            Feature feature = new Feature(voluntary.getLocation(), propierties);
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("age", voluntary.getAge());
+            properties.put("name", voluntary.getFirstName());
+            properties.put("lastname", voluntary.getLastName());
+            properties.put("gender", voluntary.getGender());
+            properties.put("id", voluntary.getId());
+            properties.put("mail", voluntary.getMail());
+            properties.put("rut", voluntary.getRut());
+            Feature feature = new Feature(voluntary.getLocation(), properties);
             featureCollection.addFeature(feature);
         }
         return featureCollection;

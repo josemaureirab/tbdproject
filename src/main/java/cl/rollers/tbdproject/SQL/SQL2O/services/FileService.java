@@ -6,6 +6,7 @@ import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryService;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryExcel;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -69,24 +70,21 @@ public class FileService {
 
     public void saveVoluntary(VoluntaryExcel voluntaryExcel){
         Voluntary voluntary = this.makeProductHelper(voluntaryExcel);
-        /*{
-            "type": "Feature",
-                "geometry": {
-            "type": "Point",
-                    "coordinates": [
-            70.0,
-                    70.0
-            ]
-        }
-        }
-        Feature feature = new Feature();
-        Point point = new Point();*/
         Feature feature = new Feature();
         String point = "POINT (" + voluntary.getLatitude() + " " + voluntary.getLongitude() + ")";
         Geometry geometry = wktToGeometry(point);
         feature.setGeometry(geometry.getCentroid());
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("rut", voluntary.getRut());
+        properties.put("firstname", voluntary.getFirstName());
+        properties.put("gender", voluntary.getGender());
+        properties.put("mail", voluntary.getMail());
+        properties.put("latitude", voluntary.getLatitude());
+        properties.put("age", voluntary.getAge());
+        properties.put("lastname", voluntary.getLastName());
+        properties.put("longitude", voluntary.getLongitude());
+        feature.setProperties(properties);
         voluntaryService.createVoluntary(feature);
-        //voluntaryDao.save(voluntary);
     }
 
     private Voluntary makeProductHelper(VoluntaryExcel voluntaryExcel){

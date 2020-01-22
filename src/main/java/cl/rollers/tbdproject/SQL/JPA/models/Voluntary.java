@@ -41,19 +41,15 @@ public class Voluntary {
     @Column(name = "gender")
     private String gender;
 
-    @NonNull
     @Column(name = "rut")
     private String rut;
-
-    @NonNull
+    
     @Column(name = "age")
     private Integer age;
 
-    @NonNull
     @Column(name = "latitude")
     private String latitude;
 
-    @NonNull
     @Column(name = "longitude")
     private String longitude;
 

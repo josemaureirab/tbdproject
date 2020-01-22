@@ -28,17 +28,25 @@ public class VoluntaryService {
         ArrayList<Object> data = new ArrayList<>();
         Voluntary voluntary = new Voluntary();
         Map<String, Object> properties = feature.getProperties();
+        System.out.println(feature.getProperties().toString());
         Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
         for(Map.Entry<String, Object> entry : entrySet){
             data.add(entry.getValue());
         }
-        voluntary.setRut(data.get(0).toString());
-        voluntary.setGender(data.get(1).toString());
-        voluntary.setMail(data.get(2).toString());
-        voluntary.setFirstName(data.get(3).toString());
-        voluntary.setAge(Integer.parseInt(data.get(4).toString()));
-        voluntary.setLastName(data.get(5).toString());
+        System.out.println("data");
+        System.out.println(data.toString());
+        voluntary.setRut(data.get(1).toString());
+        voluntary.setFirstName(data.get(1).toString());
+        voluntary.setGender(data.get(2).toString());
+        voluntary.setMail(data.get(3).toString());
+        voluntary.setLatitude(data.get(4).toString());
+        Float age = Float.parseFloat(data.get(4).toString());
+        voluntary.setAge(age.intValue());
+        voluntary.setLastName(data.get(6).toString());
+        voluntary.setLongitude(data.get(7).toString());
         voluntary.setLocation((Point) feature.getGeometry());
+        //voluntary.setLongitude(feature.getGeometry().);
+        //voluntary.setLatitude();
         voluntaryDao.save(voluntary);
         return feature;
     }

@@ -23,16 +23,16 @@ public class VoluntaryService {
         ArrayList<Object> data = new ArrayList<>();
         //System.out.println(feature.getProperties());
 
-        List<Feature> feature = featureCollection.getFeatures();
-        feature.get(0).setGeometry(featureCollection.getFeatures().get(0).getGeometry());
+        Feature feature = featureCollection.getFeatures().get(0);
+        feature.setGeometry(feature.getGeometry());
         System.out.println(":D");
-        System.out.println(feature.get(0).getProperties());
-        Map<String, Object> properties = feature.get(0).getProperties();
+        System.out.println(feature.getProperties());
+        Map<String, Object> properties = feature.getProperties();
         Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
         for(Map.Entry<String, Object> entry : entrySet){
             data.add(entry.getValue());
         }
-        System.out.println(feature.get(0).getGeometry());
+        System.out.println(feature.getGeometry());
         Voluntary voluntary = new Voluntary();
         voluntary.setRut(data.get(0).toString());
         voluntary.setGender(data.get(1).toString());
@@ -41,7 +41,7 @@ public class VoluntaryService {
         voluntary.setId(Integer.parseInt(data.get(4).toString()));
         voluntary.setAge(Integer.parseInt(data.get(5).toString()));
         voluntary.setLastName(data.get(6).toString());
-        voluntary.setLocation(feature.get(0).getGeometry());
+        voluntary.setLocation(feature.getGeometry());
         voluntaryDao.save(voluntary);
         return featureCollection;
     }

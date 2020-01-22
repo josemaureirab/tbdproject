@@ -15,11 +15,11 @@ public class Feature {
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Point geometry;
 
+    private Map<String, Object> properties;
 
-
-    public Feature(Point geometry) {
+    public Feature(Point geometry, Map<String, Object> properties) {
         this.geometry = geometry;
-
+        this.properties = properties;
     }
 
     public Feature() {
@@ -34,8 +34,16 @@ public class Feature {
         this.geometry = geometry;
     }
 
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
 

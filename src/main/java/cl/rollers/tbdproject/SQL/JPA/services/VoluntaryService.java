@@ -30,6 +30,17 @@ public class VoluntaryService {
         ArrayList<Object> data = new ArrayList<>();
         System.out.println(feature.getType());
         Voluntary voluntary = new Voluntary();
+        Map<String, Object> properties = feature.getProperties();
+        Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
+        for(Map.Entry<String, Object> entry : entrySet){
+            data.add(entry.getValue());
+        }
+        voluntary.setRut(data.get(0).toString());
+        voluntary.setGender(data.get(1).toString());
+        voluntary.setMail(data.get(2).toString());
+        voluntary.setFirstName(data.get(3).toString());
+        voluntary.setAge(Integer.parseInt(data.get(4).toString()));
+        voluntary.setLastName(data.get(5).toString());
         voluntary.setLocation((Point) feature.getGeometry());
         voluntaryDao.save(voluntary);
         return feature;
@@ -38,13 +49,20 @@ public class VoluntaryService {
     public ArrayList<Feature> getAllVoluntaries(){
         List<Voluntary> voluntaryList = voluntaryDao.findAll();
         ArrayList<Feature> featureCollection = new ArrayList<>();
-        System.out.println(voluntaryList.get(0).getId());
         if(voluntaryList.isEmpty()){
             return featureCollection;
         }
 
         for (Voluntary voluntary : voluntaryList) {
-            Feature feature = new Feature(voluntary.getLocation());
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("age", voluntary.getAge());
+            properties.put("name", voluntary.getFirstName());
+            properties.put("lastname", voluntary.getLastName());
+            properties.put("gender", voluntary.getGender());
+            properties.put("id", voluntary.getId());
+            properties.put("mail", voluntary.getMail());
+            properties.put("rut", voluntary.getRut());
+            Feature feature = new Feature(voluntary.getLocation(), properties);
             featureCollection.add(feature);
         }
         return featureCollection;
@@ -53,7 +71,15 @@ public class VoluntaryService {
     public Feature findVoluntaryById(Integer id){
         if(voluntaryDao.findById(id).isPresent()){
             Voluntary voluntary = voluntaryDao.findById(id).get();
-            Feature feature = new Feature(voluntary.getLocation());
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("age", voluntary.getAge());
+            properties.put("name", voluntary.getFirstName());
+            properties.put("lastname", voluntary.getLastName());
+            properties.put("gender", voluntary.getGender());
+            properties.put("id", voluntary.getId());
+            properties.put("mail", voluntary.getMail());
+            properties.put("rut", voluntary.getRut());
+            Feature feature = new Feature(voluntary.getLocation(), properties);
             return feature;
         }
         else{

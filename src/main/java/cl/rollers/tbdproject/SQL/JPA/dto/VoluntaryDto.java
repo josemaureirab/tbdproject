@@ -19,5 +19,5 @@ public class VoluntaryDto {
     private String gender;
     private String rut;
     private Integer age;
-    private Geometry location;
+    private Point location;
 }

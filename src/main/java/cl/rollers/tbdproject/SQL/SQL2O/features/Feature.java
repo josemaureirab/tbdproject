@@ -13,10 +13,10 @@ public class Feature {
     private final String type = "Feature";
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
-    private Geometry geometry;
+    private Point geometry;
 
 
-    public Feature(Geometry geometry) {
+    public Feature(Point geometry) {
         this.geometry = geometry;
 
     }
@@ -29,7 +29,7 @@ public class Feature {
         return geometry;
     }
 
-    public void setGeometry(Geometry geometry) {
+    public void setGeometry(Point geometry) {
         this.geometry = geometry;
     }
 

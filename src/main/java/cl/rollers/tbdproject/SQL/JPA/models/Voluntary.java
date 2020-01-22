@@ -5,6 +5,7 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -51,5 +52,5 @@ public class Voluntary {
     @Column( name = "location", nullable = true)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     @JsonSerialize(using = GeometrySerializer.class)
-    private Geometry location;
+    private Point location;
 }

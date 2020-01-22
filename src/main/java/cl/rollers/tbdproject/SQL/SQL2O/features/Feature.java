@@ -16,6 +16,7 @@ public class Feature {
     private Point geometry;
 
 
+
     public Feature(Point geometry) {
         this.geometry = geometry;
 

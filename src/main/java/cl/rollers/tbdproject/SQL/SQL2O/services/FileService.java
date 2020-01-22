@@ -2,7 +2,10 @@ package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
+import cl.rollers.tbdproject.SQL.JPA.services.VoluntaryService;
+import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryExcel;
+import com.vividsolutions.jts.geom.Geometry;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -13,16 +16,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
+
+import java.awt.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
+
+import static cl.rollers.tbdproject.SQL.SQL2O.features.WktHelper.wktToGeometry;
 
 @Service
 public class FileService {
 
     @Autowired
     private VoluntaryDao voluntaryDao;
+
+    @Autowired
+    private VoluntaryService voluntaryService;
 
     public static List<VoluntaryExcel> uploadXLSXFile(InputStream file) throws IOException {
         //InputStream ExcelFileToRead = new FileInputStream("src/main/resources/static/keywords.xlsx");
@@ -58,7 +69,24 @@ public class FileService {
 
     public void saveVoluntary(VoluntaryExcel voluntaryExcel){
         Voluntary voluntary = this.makeProductHelper(voluntaryExcel);
-        voluntaryDao.save(voluntary);
+        /*{
+            "type": "Feature",
+                "geometry": {
+            "type": "Point",
+                    "coordinates": [
+            70.0,
+                    70.0
+            ]
+        }
+        }
+        Feature feature = new Feature();
+        Point point = new Point();*/
+        Feature feature = new Feature();
+        String point = "POINT (" + voluntary.getLatitude() + " " + voluntary.getLongitude() + ")";
+        Geometry geometry = wktToGeometry(point);
+        feature.setGeometry(geometry.getCentroid());
+        voluntaryService.createVoluntary(feature);
+        //voluntaryDao.save(voluntary);
     }
 
     private Voluntary makeProductHelper(VoluntaryExcel voluntaryExcel){
@@ -68,8 +96,8 @@ public class FileService {
         voluntary.setLastName(voluntaryExcel.getLastName());
         voluntary.setMail(voluntaryExcel.getMail());
         voluntary.setGender(voluntaryExcel.getGender());
-        /*voluntary.setLatitude(voluntaryExcel.getLatitude());
-        voluntary.setLongitude(voluntaryExcel.getLongitude());*/
+        voluntary.setLatitude(voluntaryExcel.getLatitude().toString());
+        voluntary.setLongitude(voluntaryExcel.getLongitude().toString());
         return voluntary;
     }
 

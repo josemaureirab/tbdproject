@@ -19,5 +19,7 @@ public class VoluntaryDto {
     private String gender;
     private String rut;
     private Integer age;
+    private String latitude;
+    private String longitude;
     private Point location;
 }

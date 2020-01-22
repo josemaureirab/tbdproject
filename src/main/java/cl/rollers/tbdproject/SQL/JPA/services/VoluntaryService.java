@@ -6,11 +6,9 @@ import cl.rollers.tbdproject.SQL.JPA.dto.VoluntaryDto;
 import cl.rollers.tbdproject.SQL.JPA.mappers.VoluntaryMapper;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
-//import cl.rollers.tbdproject.SQL.SQL2O.features.FeatureCollection;
 import com.vividsolutions.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.sql2o.Connection;
 
 import java.util.*;
 
@@ -28,7 +26,6 @@ public class VoluntaryService {
 
     public Feature createVoluntary(Feature feature){
         ArrayList<Object> data = new ArrayList<>();
-        System.out.println(feature.getType());
         Voluntary voluntary = new Voluntary();
         Map<String, Object> properties = feature.getProperties();
         Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
@@ -97,6 +94,8 @@ public class VoluntaryService {
         voluntaryFinded.setGender(voluntaryDto.getGender());
         voluntaryFinded.setAge(voluntaryDto.getAge());
         voluntaryFinded.setLocation(voluntaryDto.getLocation());
+        voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
+        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
         voluntaryDao.save(voluntaryFinded);
     }
 

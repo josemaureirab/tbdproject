@@ -1,14 +1,16 @@
-/*
+
 package cl.rollers.tbdproject.SQL.JPA.controllers;
 
 import cl.rollers.tbdproject.SQL.JPA.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.JPA.services.EmergencyService;
+import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -20,44 +22,29 @@ public class EmergencyController {
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<EmergencyDto>> getAllEmergencies(){
-        try{
-            return ResponseEntity.ok(emergencyService.getAllEmergencies());
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+    public ArrayList<Feature> getAllEmergencies(){
+        return emergencyService.getAllEmergencies();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<EmergencyDto> findEmergencyById (@PathVariable("id") Integer id){
-        try{
-            return ResponseEntity.ok(emergencyService.findEmergencyById(id));
-        }
-        catch(Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+    public Feature findEmergencyById (@PathVariable("id") Integer id){
+        return emergencyService.findEmergencyById(id);
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create (@RequestBody EmergencyDto emergencyDto){
-        try{
-            return ResponseEntity.ok(emergencyService.createEmergency(emergencyDto));
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+    public Feature create (@RequestBody Feature feature){
+        return emergencyService.createEmergency(feature);
     }
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody EmergencyDto emergencyDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody Feature feature){
 
         try{
-            emergencyService.updateEmergency(emergencyDto, id);
+            emergencyService.updateEmergency(feature, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 
@@ -103,4 +90,4 @@ public class EmergencyController {
         }
     }
 }
-*/
+

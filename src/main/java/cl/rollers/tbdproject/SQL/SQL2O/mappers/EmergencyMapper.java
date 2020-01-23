@@ -1,7 +1,9 @@
-package cl.rollers.tbdproject.SQL.SQL2O.mappers;
+/*package cl.rollers.tbdproject.SQL.SQL2O.mappers;
 
-import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
+//import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
+//import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
+import cl.rollers.tbdproject.SQL.JPA.dto.EmergencyDto;
+import cl.rollers.tbdproject.SQL.JPA.models.Emergency;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -35,4 +37,4 @@ public class EmergencyMapper {
         }
         return emergencyDtoList;
     }
-}
+}*/

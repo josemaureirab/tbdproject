@@ -1,4 +1,4 @@
-package cl.rollers.tbdproject.SQL.SQL2O.services;
+/*package cl.rollers.tbdproject.SQL.SQL2O.services;
 
 import cl.rollers.tbdproject.DB.SQL2O.DatabaseConnection;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.EmergencyDao;
@@ -122,6 +122,7 @@ public class EmergencyService {
 	}
 
 	/* SQL2O */
+/*
 	private List<Emergency> findAll () {
 		try {
 			ExecutorService executor = Executors.newFixedThreadPool(databaseConnection.sql2o.length);
@@ -250,4 +251,4 @@ public class EmergencyService {
 		}
 		executor.shutdown();
 	}
-}
+}*/

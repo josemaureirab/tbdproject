@@ -1,7 +1,7 @@
 package cl.rollers.tbdproject.SQL.SQL2O.dto;
 
 
-import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
+//import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import lombok.Data;
 
 @Data

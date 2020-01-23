@@ -51,7 +51,7 @@ public class DatabaseManager implements CommandLineRunner {
   public void dropAllTables () {
     for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
       dropTable(dbNumber, "dimension");
-      dropTable(dbNumber, "emergency");
+      //dropTable(dbNumber, "emergency");
       dropTable(dbNumber, "task");
       //dropTable(dbNumber, "voluntary");
       dropTable(dbNumber, "voluntary_dimension");
@@ -76,7 +76,7 @@ public class DatabaseManager implements CommandLineRunner {
   public  void createAllTables () {
     for (int dbNumber = 0; dbNumber < databaseConnection.sql2o.length; dbNumber++) {
       createTable(dbNumber, "dimension", "id INT, name VARCHAR(255), score INT, primary key(id)" );
-      createTable(dbNumber, "emergency", "id INT, name VARCHAR(255), description TEXT, primary key(id)" );
+     // createTable(dbNumber, "emergency", "id INT, name VARCHAR(255), description TEXT, primary key(id)" );
       createTable(dbNumber, "task", "id INT, name VARCHAR(255), description TEXT,  status BOOLEAN, emergency_id INT, primary key(id)" );
       //createTable(dbNumber, "voluntary", "id INT, firstName VARCHAR(255), lastName VARCHAR(255), mail VARCHAR(255), gender VARCHAR(255), rut VARCHAR(255), age INT, primary key(id)" );
       createTable(dbNumber, "voluntary_dimension", "id INT, voluntary_id INT, dimension_id INT, primary key(id)" );
@@ -189,7 +189,7 @@ public class DatabaseManager implements CommandLineRunner {
       dataNumber -= 1;
       int dbNumber = dataNumber % databaseConnection.sql2o.length;
       try(Connection connection = databaseConnection.sql2o[dbNumber].open()){
-        seedEmergencies(connection, dataId);
+        //seedEmergencies(connection, dataId);
         seedTasks(connection, dataId);
       }
       dataId += 1;

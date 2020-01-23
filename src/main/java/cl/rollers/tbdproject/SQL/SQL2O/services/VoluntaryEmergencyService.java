@@ -1,11 +1,13 @@
 package cl.rollers.tbdproject.SQL.SQL2O.services;
 
-import cl.rollers.tbdproject.SQL.SQL2O.dao.EmergencyDao;
+//import cl.rollers.tbdproject.SQL.SQL2O.dao.EmergencyDao;
+import cl.rollers.tbdproject.SQL.JPA.dao.EmergencyDao;
 import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
+import cl.rollers.tbdproject.SQL.JPA.models.Emergency;
 import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryEmergencyDao;
 import cl.rollers.tbdproject.SQL.SQL2O.dto.VoluntaryEmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.mappers.VoluntaryEmergencyMapper;
-import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
+//import cl.rollers.tbdproject.SQL.SQL2O.models.Emergency;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
 import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryEmergency;
 import org.springframework.beans.factory.annotation.Autowired;

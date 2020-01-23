@@ -1,4 +1,4 @@
-package cl.rollers.tbdproject.SQL.SQL2O.models;
+/*package cl.rollers.tbdproject.SQL.SQL2O.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,4 +28,4 @@ public class Emergency implements Comparable<Emergency>{
     public int compareTo(Emergency emergency) {
         return this.getId().compareTo(emergency.getId());
     }
-}
+}*/

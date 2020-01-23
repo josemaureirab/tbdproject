@@ -1,4 +1,4 @@
-/*
+
 package cl.rollers.tbdproject.SQL.JPA.mappers;
 
 import cl.rollers.tbdproject.SQL.JPA.dto.EmergencyDto;
@@ -36,4 +36,4 @@ public class EmergencyMapper {
         }
         return emergencyDtoList;
     }
-}*/
+}

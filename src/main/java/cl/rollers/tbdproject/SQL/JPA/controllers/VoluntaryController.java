@@ -59,9 +59,9 @@ public class VoluntaryController {
 
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody VoluntaryDto voluntaryDto){
+    public ResponseEntity update (@PathVariable("id") Integer id, @RequestBody Feature feature){
         try{
-            voluntaryService.updateVoluntaryData(voluntaryDto, id);
+            voluntaryService.updateVoluntaryData(feature, id);
             return ResponseEntity.ok(HttpStatus.OK);
         }
 

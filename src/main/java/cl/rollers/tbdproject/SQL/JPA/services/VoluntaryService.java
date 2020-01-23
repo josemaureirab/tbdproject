@@ -35,12 +35,12 @@ public class VoluntaryService {
         }
         System.out.println("data");
         System.out.println(data.toString());
-        voluntary.setRut(data.get(1).toString());
+        voluntary.setRut(data.get(0).toString());
         voluntary.setFirstName(data.get(1).toString());
         voluntary.setGender(data.get(2).toString());
         voluntary.setMail(data.get(3).toString());
         voluntary.setLatitude(data.get(4).toString());
-        Float age = Float.parseFloat(data.get(4).toString());
+        Float age = Float.parseFloat(data.get(5).toString());
         voluntary.setAge(age.intValue());
         voluntary.setLastName(data.get(6).toString());
         voluntary.setLongitude(data.get(7).toString());
@@ -93,17 +93,27 @@ public class VoluntaryService {
 
     }
 
-    public void updateVoluntaryData(VoluntaryDto voluntaryDto, Integer id){
+    public void updateVoluntaryData(Feature feature, Integer id){
         Voluntary voluntaryFinded = voluntaryDao.findById(id).get();
-        voluntaryFinded.setFirstName(voluntaryDto.getFirstName());
-        voluntaryFinded.setLastName(voluntaryDto.getLastName());
-        voluntaryFinded.setRut(voluntaryDto.getLastName());
-        voluntaryFinded.setMail(voluntaryDto.getMail());
-        voluntaryFinded.setGender(voluntaryDto.getGender());
-        voluntaryFinded.setAge(voluntaryDto.getAge());
-        voluntaryFinded.setLocation(voluntaryDto.getLocation());
-        voluntaryFinded.setLatitude(voluntaryDto.getLatitude());
-        voluntaryFinded.setLongitude(voluntaryDto.getLongitude());
+        ArrayList<Object> data = new ArrayList<>();
+        Map<String, Object> properties = feature.getProperties();
+        System.out.println(feature.getProperties().toString());
+        Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
+        for(Map.Entry<String, Object> entry : entrySet){
+            data.add(entry.getValue());
+        }
+        System.out.println("data");
+        System.out.println(data.toString());
+        voluntaryFinded.setRut(data.get(0).toString());
+        voluntaryFinded.setFirstName(data.get(1).toString());
+        voluntaryFinded.setGender(data.get(2).toString());
+        voluntaryFinded.setMail(data.get(3).toString());
+        voluntaryFinded.setLatitude(data.get(4).toString());
+        Float age = Float.parseFloat(data.get(5).toString());
+        voluntaryFinded.setAge(age.intValue());
+        voluntaryFinded.setLastName(data.get(6).toString());
+        voluntaryFinded.setLongitude(data.get(7).toString());
+        voluntaryFinded.setLocation((Point) feature.getGeometry());
         voluntaryDao.save(voluntaryFinded);
     }
 

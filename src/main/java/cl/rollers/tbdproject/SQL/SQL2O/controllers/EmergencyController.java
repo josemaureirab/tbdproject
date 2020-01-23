@@ -1,4 +1,4 @@
-package cl.rollers.tbdproject.SQL.SQL2O.controllers;
+/*package cl.rollers.tbdproject.SQL.SQL2O.controllers;
 
 import cl.rollers.tbdproject.SQL.SQL2O.dto.EmergencyDto;
 import cl.rollers.tbdproject.SQL.SQL2O.services.EmergencyService;
@@ -107,3 +107,4 @@ public class EmergencyController {
         }
     }
 }
+*/

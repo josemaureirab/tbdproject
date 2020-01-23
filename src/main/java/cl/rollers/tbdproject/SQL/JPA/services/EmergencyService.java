@@ -1,23 +1,31 @@
-/*
+
 package cl.rollers.tbdproject.SQL.JPA.services;
 
 import cl.rollers.tbdproject.SQL.JPA.dao.EmergencyDao;
-import cl.rollers.tbdproject.SQL.JPA.dao.TaskDao;
+//import cl.rollers.tbdproject.SQL.JPA.dao.TaskDao;
 import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryDao;
-import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryEmergencyDao;
+//import cl.rollers.tbdproject.SQL.JPA.dao.VoluntaryEmergencyDao;
 import cl.rollers.tbdproject.SQL.JPA.dto.EmergencyDto;
-import cl.rollers.tbdproject.SQL.JPA.dto.TaskDto;
+//import cl.rollers.tbdproject.SQL.JPA.dto.TaskDto;
 import cl.rollers.tbdproject.SQL.JPA.mappers.EmergencyMapper;
-import cl.rollers.tbdproject.SQL.JPA.mappers.TaskMapper;
+//import cl.rollers.tbdproject.SQL.JPA.mappers.TaskMapper;
 import cl.rollers.tbdproject.SQL.JPA.models.Emergency;
-import cl.rollers.tbdproject.SQL.JPA.models.Task;
+//import cl.rollers.tbdproject.SQL.JPA.models.Task;
 import cl.rollers.tbdproject.SQL.JPA.models.Voluntary;
-import cl.rollers.tbdproject.SQL.JPA.models.VoluntaryEmergency;
+//import cl.rollers.tbdproject.SQL.JPA.models.VoluntaryEmergency;
+import cl.rollers.tbdproject.SQL.SQL2O.dao.TaskDao;
+import cl.rollers.tbdproject.SQL.SQL2O.dao.VoluntaryEmergencyDao;
+import cl.rollers.tbdproject.SQL.SQL2O.dto.TaskDto;
+import cl.rollers.tbdproject.SQL.SQL2O.features.Feature;
+import cl.rollers.tbdproject.SQL.SQL2O.mappers.TaskMapper;
+import cl.rollers.tbdproject.SQL.SQL2O.models.Task;
+import cl.rollers.tbdproject.SQL.SQL2O.models.VoluntaryEmergency;
+import com.vividsolutions.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Service
 public class EmergencyService {
@@ -41,28 +49,69 @@ public class EmergencyService {
     private TaskMapper taskMapper;
 
 
-    public List<EmergencyDto> getAllEmergencies(){
+    public ArrayList<Feature> getAllEmergencies(){
         ArrayList<Emergency> emergencies = emergencyDao.findAll();
-        return emergencyMapper.mapToDtoArrayList(emergencies);
+        ArrayList<Feature> featureCollection = new ArrayList<>();
+        if(emergencies.isEmpty()){
+            return featureCollection;
+        }
+
+        for (Emergency emergency : emergencies) {
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("name", emergency.getName());
+            properties.put("description", emergency.getDescription());
+            Feature feature = new Feature(emergency.getLocation(), properties);
+            featureCollection.add(feature);
+        }
+        return featureCollection;
     }
 
-    public EmergencyDto createEmergency(EmergencyDto emergencyDto){
-        return emergencyMapper.mapToDto(emergencyDao.save(emergencyMapper.mapToModel(emergencyDto)));
+    public Feature createEmergency(Feature feature){
+        ArrayList<Object> data = new ArrayList<>();
+        Emergency emergency = new Emergency();
+        Map<String, Object> properties = feature.getProperties();
+        System.out.println(feature.getProperties().toString());
+        Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
+        for(Map.Entry<String, Object> entry : entrySet){
+            data.add(entry.getValue());
+        }
+        System.out.println("data");
+        System.out.println(data.toString());
+        emergency.setName(data.get(0).toString());
+        emergency.setDescription(data.get(1).toString());
+        emergency.setLocation((Point) feature.getGeometry());
+        emergencyDao.save(emergency);
+        return feature;
     }
 
-    public EmergencyDto findEmergencyById(int id){
+    public Feature findEmergencyById(int id){
         if(emergencyDao.findById(id).isPresent()){
-            return emergencyMapper.mapToDto(emergencyDao.findEmergencyById(id));
+            Emergency emergency = emergencyDao.findById(id).get();
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("name", emergency.getName());
+            properties.put("description", emergency.getDescription());
+            Feature feature = new Feature(emergency.getLocation(), properties);
+            return feature;
         }
         else{
             return null;
         }
     }
 
-    public void updateEmergency(EmergencyDto emergencyDto, int id){
+    public void updateEmergency(Feature feature, int id){
         Emergency emergencyFinded = emergencyDao.findEmergencyById(id);
-        emergencyFinded.setName(emergencyDto.getName());
-        emergencyFinded.setDescription(emergencyDto.getDescription());
+        ArrayList<Object> data = new ArrayList<>();
+        Map<String, Object> properties = feature.getProperties();
+        System.out.println(feature.getProperties().toString());
+        Set<Map.Entry<String, Object>> entrySet = properties.entrySet();
+        for(Map.Entry<String, Object> entry : entrySet){
+            data.add(entry.getValue());
+        }
+        System.out.println("data");
+        System.out.println(data.toString());
+        emergencyFinded.setName(data.get(0).toString());
+        emergencyFinded.setDescription(data.get(1).toString());
+        emergencyFinded.setLocation((Point) feature.getGeometry());
         emergencyDao.save(emergencyFinded);
     }
 
@@ -116,4 +165,4 @@ public class EmergencyService {
         return null;
     }
 }
-*/
+

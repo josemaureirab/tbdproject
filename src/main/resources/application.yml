@@ -5,7 +5,7 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/tbd
     username: postgres
-    password: secret
+    password: pitufo
   jpa:
     properties:
       hibernate:
